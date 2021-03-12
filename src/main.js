@@ -4,6 +4,7 @@ import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 import VueRouter from 'vue-router';
 import router from "./router";
+import VueApexCharts from 'vue-apexcharts'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 Vue.component('date-picker', VuePersianDatetimePicker);
 import slVueTree from 'sl-vue-tree';
@@ -22,6 +23,7 @@ Vue.use(VueStore);
 Vue.use(elements);
 Vue.use(VueNestable)
 Vue.use(VuePersianDatetimePicker);
+Vue.use(VueApexCharts);
 
 Vue.component('sl-vue-tree', slVueTree);
 

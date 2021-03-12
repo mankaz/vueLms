@@ -60,11 +60,9 @@
 
         <div class="columns is-variable">
 
-          <div class="column is-12-desktop is-12-tablet">
-            <div class="box">
-              <tabs></tabs>
-
-            </div>
+          <div class="column is-10">
+<!--              <tabs></tabs>-->
+              <Menu> </Menu>
           </div>
         </div>
       </div>
@@ -78,6 +76,7 @@
   import collapse from "../collapse";
   import textDate from "../textDate";
   import tabs from "../tabs";
+  import Menu from "../dashbord/master/Menu.vue"
 
   export default {
   data(){
@@ -88,7 +87,7 @@
     }
 
   },
-    components : {collapse,titleText,textDate,tabs},
+    components : {Menu,collapse,titleText,textDate,tabs},
 
   }
 </script>

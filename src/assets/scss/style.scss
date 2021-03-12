@@ -221,7 +221,8 @@ body {
   }
 
   a.is-active {
-    background-color: $purple !important;
+    background: $is-active-menu !important;
+    border-radius: 4px;
     color: $white !important;
   }
 }
@@ -548,8 +549,8 @@ ul {
     direction: rtl;
     color: $primary-text;
     font-family: $font_IranSAns;
-    font-size: $size-6;
-    font-weight: $weight-semibold;
+    font-size: $size-5;
+    font-weight: $weight-bold;
     transition: all .2s ease-in-out;
 
     &:hover,
@@ -640,5 +641,113 @@ ul {
         }
       }
     }
+  }
+}
+.vpd-content {
+  font-family: $font_IranSAns;
+  font-size: $size-7;
+}
+.vpd-date {
+  font-size: $size-6 !important;
+}
+.vpd-header {
+  border-radius: 5px;
+}
+.buttons {
+  .is-success {
+    font-family: $font_IranSAns;
+    font-size: $size-7 !important;
+    font-weight: $weight-bold !important;
+    background-color:$menu-btn-color !important;
+    border-radius: 20px;
+  }
+}
+.dashboard-menu {
+
+}
+.card-content{
+  height: 150px;
+  p{
+    font-size:  16px !important;
+    font-family: $font_IranSAns;
+  }
+
+ }
+
+.card-list {
+  width: 100%;
+}
+.card-info{
+  background: linear-gradient(45deg, #4099ff, #73b4ff);
+}
+.card-warning {
+  background: linear-gradient(45deg, #ffb64d, #ffcb80);
+}
+.card-danger{
+background: linear-gradient(45deg, #ff5370, #ff869a);
+}
+.card-success {
+  background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+}
+.info-box{
+  min-height: 100px;
+  width: 100%;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.custom-card {
+  border-radius: 8px;
+  color: white;
+  padding: 10px;
+
+  .zmdi {
+    color: white;
+    font-size: 28px;
+    opacity: 0.3;
+    position: relative;
+    left: 30%;
+    top: 13px;
+    background: rgba(0, 0, 0, 0.2);;
+    border-radius: 100px;
+    padding: 30px;
+  }
+
+  .stat {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 8px;
+    margin-top: 8px;
+    padding: 10px 10px 0;
+    text-transform: uppercase;
+  }
+
+  .title {
+    color: #fff;
+    display: inline-block;
+    padding: 10px 10px 0;
+    text-transform: uppercase;
+    font-family: $font_IranSAns;
+  }
+
+  .value {
+
+    font-family: $font_IranSAns;
+    padding: 0 10px;
+  }
+
+  &.blue {
+    background-color: #2298F1;
+  }
+
+  &.green {
+    background-color: #66B92E;
+  }
+
+  &.orange {
+    background-color: #DA932C;
+  }
+
+  &.red {
+    background-color: #D65B4A;
   }
 }

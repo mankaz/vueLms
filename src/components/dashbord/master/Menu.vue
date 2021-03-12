@@ -1,86 +1,114 @@
 <template>
+    <div class="column is-12-desktop">
+      <section class="section">
 
-  <div class="is-variable is-0">
-    <div class="column  is-10-desktop is-9-tablet  is-12-mobile">
-      <div class="p-1">
-        <div  class="box">
-          <section>
-            <b-field grouped group-multiline>
-              <button class="button field is-danger" @click="checkedRows = []"
-                      :disabled="!checkedRows.length">
-                <b-icon icon="close"></b-icon>
-                <span>Clear checked</span>
-              </button>
-            </b-field>
+<!--          <div class="column is-two-fifths">-->
+<!--            <div class="box">-->
+<!--            <datePicker :show="false" :inline="true" auto-submit popover></datePicker>-->
+<!--            </div>-->
+<!--          </div>-->
+            <div class="columns is-centered">
+              <div class="column">
+                <CardComponent class="card-success info-box">
+                  <slot><div class="title is-size-7">کل دانشجویان</div></slot>
+                  <slot>
+                    <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                  </slot>
+                  <slot> <div class="value is-size-5">300 </div></slot>
+                  <slot><div class="stat"><b>13</b>% increase</div></slot>
+                </CardComponent>
+              </div>
+              <div class="column">
+                <CardComponent  class="card-warning info-box">
+                  <slot><div class="title is-size-7">دانشجویان اخیر</div></slot>
+                  <slot>
+                    <b-icon icon="account-clock" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                  </slot>
+                  <slot> <div class="value is-size-5">300 </div></slot>
+                  <slot><div class="stat"><b>13</b>% increase</div></slot>
+                </CardComponent>
+              </div>
+              <div class="column">
+                <CardComponent class="card-info info-box">
+                  <slot><div class="title is-size-7">کل دانشجویان</div></slot>
+                  <slot>
+                    <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                  </slot>
+                  <slot> <div class="value is-size-5">300 </div></slot>
+                  <slot><div class="stat"><b>13</b>% increase</div></slot>
+                </CardComponent>
+              </div>
+              <div class="column">
+                <CardComponent class="card-danger info-box">
+                  <slot><div class="title is-size-7">کل دانشجویان</div></slot>
+                  <slot>
+                    <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                  </slot>
+                  <slot> <div class="value is-size-5">300 </div></slot>
+                  <slot><div class="stat"><b>13</b>% increase</div></slot>
+                </CardComponent>
+              </div>
+            </div>
+        <div class="columns">
+          <div class="column">
+            <div class="box">
+              <VueApexCharts type="bar" height="350" :options="chartOptions" :series="series"></VueApexCharts>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <VueApexCharts type="area" height="350" :options="chartOptions" :series="series"></VueApexCharts>
+            </div>
+          </div>
 
-            <b-tabs>
-              <b-tab-item label="Table">
-                <b-table
-                    :data="data"
-                    :columns="columns"
-                    :checked-rows.sync="checkedRows"
-                    :is-row-checkable="(row) => row.id !== 3 && row.id !== 4"
-                    checkable
-                    :checkbox-position="checkboxPosition">
 
-                  <template slot="bottom-left">
-                    <b>Total checked</b>: {{ checkedRows.length }}
-                  </template>
-                </b-table>
-              </b-tab-item>
-
-              <b-tab-item label="Checked rows">
-                <pre>{{ checkedRows }}</pre>
-              </b-tab-item>
-            </b-tabs>
-          </section>
         </div>
+      </section>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
+// import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+import CardComponent from "./CardComponent";
+import VueApexCharts from 'vue-apexcharts'
 export default {
   data() {
-    const data = [
-      { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-      { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-      { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-      { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
-      { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-    ]
+
 
     return {
-      data,
-      checkboxPosition: 'right',
-      checkedRows: [data[0], data[3]],
-      columns: [
-        {
-          field: 'id',
-          label: 'ID',
-          width: '40',
-          numeric: true
+      series: [{
+        name: 'series1',
+        data: [31, 40, 28, 51, 42, 109, 100]
+      }, {
+        name: 'series2',
+        data: [11, 32, 45, 32, 34, 52, 41]
+      }],
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: 'area'
         },
-        {
-          field: 'first_name',
-          label: 'First Name',
+        dataLabels: {
+          enabled: false
         },
-        {
-          field: 'last_name',
-          label: 'Last Name',
+        stroke: {
+          curve: 'smooth'
         },
-        {
-          field: 'date',
-          label: 'Date',
-          centered: true
+        xaxis: {
+          type: 'datetime',
+          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
         },
-        {
-          field: 'gender',
-          label: 'Gender',
-        }
-      ]
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+        },
+      },
+
     }
+  },
+  components: {
+    VueApexCharts,CardComponent
   }
 }
 </script>
