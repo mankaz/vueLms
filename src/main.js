@@ -12,13 +12,14 @@ import 'sl-vue-tree/dist/sl-vue-tree-dark.css';
 import draggable from 'vuedraggable'
 import VueStore from '@websanova/vue-store';
 import elements from 'elements';
-import VueNestable from 'vue-nestable'
+import VueNestable from 'vue-nestable';
 
-
+import vueResource from 'vue-resource'
 
 Vue.use(Buefy);
 Vue.use(VueRouter);
 Vue.use(draggable);
+Vue.use(vueResource);
 Vue.use(VueStore);
 Vue.use(elements);
 Vue.use(VueNestable)

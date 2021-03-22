@@ -34,7 +34,25 @@ body {
 .input {
   font-family: $font_yekan !important;
 }
-
+.box {
+  .table{
+    direction: rtl;
+    font-family: $font_IranSAns !important;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .table td {
+    text-align: center !important;
+  }
+  .table th {
+    text-align: center !important;
+  }
+  .th-wrap {
+    justify-content: center !important;
+    font-size: $size-7;
+    font-weight: 400;
+  }
+}
 .menu-container {
   position: fixed;
   direction: rtl;
@@ -196,6 +214,7 @@ body {
 .menu-list {
   li {
     list-style: none;
+    margin-bottom:10px !important;
 
     ul {
       margin-top: 0 !important;
@@ -206,6 +225,8 @@ body {
 
     a {
       text-decoration: none !important;
+      font-family:$font_IranSAns;
+      text-align: right;
 
       span.menu-label {
         letter-spacing: 0;
@@ -221,6 +242,8 @@ body {
   }
 
   a.is-active {
+    font-family: $font_IranSAns;
+    font-size: $size-7;
     background: $is-active-menu !important;
     border-radius: 4px;
     color: $white !important;
@@ -380,6 +403,9 @@ ul {
       @include drop-shadow();
     }
   }
+
+
+
 
   .menu {
     .menu-item {
@@ -662,8 +688,16 @@ ul {
     border-radius: 20px;
   }
 }
-.dashboard-menu {
-
+.button {
+  font-family: $font_IranSAns;
+}
+.pagination{
+  font-family: $font_IranSAns;
+}
+.services-btn {
+  text-align: center !important;
+  margin-bottom: 30px;
+  font-size: $size-5 !important;
 }
 .card-content{
   height: 150px;
