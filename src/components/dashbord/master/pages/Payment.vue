@@ -10,7 +10,7 @@
 
           <div class="column is-12-desktop is-12-tablet is-10-mobile">
             <div class="box">
-              <ServicesComp></ServicesComp>
+              <PaymentComp></PaymentComp>
 
             </div>
           </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import ServicesComp from "../services/ServicesComp";
+import PaymentComp from "../payment/PaymentComp";
 export default {
   data(){
     return{
@@ -32,7 +32,7 @@ export default {
     }
 
   },
-  components : {ServicesComp},
+  components : {PaymentComp},
 
 }
 </script>

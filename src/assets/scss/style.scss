@@ -35,6 +35,9 @@ body {
   font-family: $font_yekan !important;
 }
 .box {
+  .input {
+    font-family: $font_IranSAns !important;
+  }
   .table{
     direction: rtl;
     font-family: $font_IranSAns !important;
@@ -351,6 +354,17 @@ ul {
   padding: 0;
   list-style: none;
 }
+  .is-floating-label{
+    direction: rtl;
+    font-family: $font_IranSAns;
+    .label {
+      right: 1em !important;
+      left: auto !important;
+      text-align: right;
+    }
+
+  }
+
 
 
 .site-wrapper {

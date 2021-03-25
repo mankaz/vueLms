@@ -49,6 +49,9 @@
                 <b-menu-item icon="history" tag="router-link" :to="{ path: '/session' }" exact  label="نشست ها"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
+                <b-menu-item icon="currency-usd" tag="router-link" :to="{ path: '/payment' }" exact  label="افزایش اعتبار"></b-menu-item>
+              </b-menu-list>
+              <b-menu-list>
                 <b-menu-item icon="lan-connect" tag="router-link" :to="{ path: '/Connections' }" exact  label="اتصال ها"></b-menu-item>
               </b-menu-list>
               <b-menu-list>

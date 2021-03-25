@@ -2,7 +2,6 @@
   <div class="card-list">
         <div class="custom-card">
           <slot></slot>
-
         </div>
   </div>
 </template>

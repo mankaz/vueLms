@@ -3216,6 +3216,9 @@ body {
   font-family: "Yekan" !important;
 }
 
+.box .input {
+  font-family: IRANSans !important;
+}
 .box .table {
   direction: rtl;
   font-family: IRANSans !important;
@@ -3458,6 +3461,16 @@ ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.is-floating-label {
+  direction: rtl;
+  font-family: IRANSans;
+}
+.is-floating-label .label {
+  right: 1em !important;
+  left: auto !important;
+  text-align: right;
 }
 
 .site-wrapper {

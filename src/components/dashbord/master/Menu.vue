@@ -10,7 +10,7 @@
             <div class="columns is-centered">
               <div class="column">
                 <CardComponent class="card-success info-box">
-                  <slot><div class="title is-size-7">کل دانشجویان</div></slot>
+                  <slot><div class="title is-size-7">وبینارهای شما</div></slot>
                   <slot>
                     <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
                   </slot>
@@ -20,7 +20,7 @@
               </div>
               <div class="column">
                 <CardComponent  class="card-warning info-box">
-                  <slot><div class="title is-size-7">دانشجویان اخیر</div></slot>
+                  <slot><div class="title is-size-7">شرکت کنندگان</div></slot>
                   <slot>
                     <b-icon icon="account-clock" class="zmdi zmdi-upload" size="is-medium"></b-icon>
                   </slot>

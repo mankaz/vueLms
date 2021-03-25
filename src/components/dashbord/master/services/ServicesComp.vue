@@ -141,7 +141,7 @@
 </template>
 
 <script>
-const data = require('../../../sample.json')
+const data = require('../../../../sample.json')
 
 export default {
   data() {
