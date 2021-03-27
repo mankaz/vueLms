@@ -17,6 +17,10 @@ let routes = [
     component : require('./components/dashbord/master/pages/Rooms.vue').default
   },
   {
+    path : '/Ticketing',
+    component : require('./components/dashbord/master/pages/Ticketing.vue').default
+  },
+  {
     path: '/about',
     component: require('./components/pages/About.vue').default
   },

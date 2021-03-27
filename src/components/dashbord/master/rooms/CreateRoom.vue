@@ -1,22 +1,26 @@
 <template>
   <section>
     <div class="block is-flex is-justify-content-center">
-      <div class="column  is-6-desktop">
-        <b-field label="مبلغ شارژ(تومان)" :label-position="labelPosition">
-          <b-input size="is-large"></b-input>
+      <div class="column">
+        <b-field label="عنوان اتاق" :label-position="labelPosition">
+          <b-input size="is-medium" v-model="message"></b-input>
         </b-field>
-        <div class="columns">
-          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="src/assets/img/zarinpal.png"></div>
-          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="src/assets/img/aap.png"></div>
-        </div>
-        <div class="columns">
-          <div class="column is-flex is-justify-content-center"><b-radio v-model="radio" name="name" native-value="Flint"></b-radio></div>
-          <div class="column is-flex is-justify-content-center"><b-radio v-model="radio" name="name" native-value="aap"></b-radio></div>
-        </div>
-        <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">پرداخت</button></div>
+
+        <b-field>
+
+          <p class="control">
+            <span id="testing-code2" class="button is-static urlCopy">http://conf.ir/{{message}}</span>
+          </p>
+          <p class="control">
+            <b-button icon-right="link"  class="button is-success" @click="copyUrl"></b-button>
+          </p>
+        </b-field>
+
+        <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">ایجاد اتاق</button></div>
 
 
       </div>
+
 
     </div>
   </section>
@@ -26,8 +30,44 @@
 export default {
   data() {
     return {
-
+      labelPosition: 'on-border',
+      message : ''
     }
-  }
+  },
+  methods: {
+    copyUrl () {
+
+      let copyText = document.getElementById("testing-code2");
+      let textArea = document.createElement("textarea");
+      textArea.value = copyText.textContent;
+      document.body.appendChild(textArea);
+      textArea.select();
+      let successful = document.execCommand("Copy");
+      textArea.remove();
+
+        let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
+        this.$buefy.toast.open({
+          message: 'لینک ' + msg,
+          type: 'is-success'
+        })
+
+
+
+      // let textCopy = document.querySelector('#testing-code')
+      // textCopy.setAttribute('type', 'text')
+      // textCopy.select()
+      //
+      // try {
+      //   let successful = document.execCommand('copy');
+      //   let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
+      //   this.$buefy.toast.open({
+      //     message: 'لینک ' + msg,
+      //     type: 'is-success'
+      //   })
+      // } catch (err) {
+      //   alert('unable to copy');
+      // }
+    },
+  },
 }
 </script>

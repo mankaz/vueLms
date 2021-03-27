@@ -3473,6 +3473,14 @@ ul {
   text-align: right;
 }
 
+.select select {
+  font-family: IRANSans;
+}
+
+.urlCopy {
+  width: 28em !important;
+}
+
 .site-wrapper {
   display: flex;
   width: 100%;

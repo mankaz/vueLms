@@ -362,9 +362,14 @@ ul {
       left: auto !important;
       text-align: right;
     }
-
   }
 
+.select select {
+  font-family: $font_IranSAns;
+}
+.urlCopy{
+    width: 28em !important;
+  }
 
 
 .site-wrapper {
