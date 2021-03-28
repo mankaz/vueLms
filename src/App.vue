@@ -17,64 +17,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-    <!--    <div class="is-variable is-0">-->
 
-<!--      <div class="level-right">-->
-
-<!--        &lt;!&ndash; Sidebar &ndash;&gt;-->
-<!--        <div class="sidebar">-->
-<!--          <header>-->
-<!--            <a href="">-->
-<!--              <span class="fa fa-heart"></span>-->
-<!--            </a>-->
-<!--          </header>-->
-<!--          <nav class="menu">-->
-<!--            <ulsidebar :menuitem="menuitem"></ulsidebar>-->
-<!--            <ul>-->
-<!--              <li><a href="" class="active menu-item">-->
-<!--                <span class="menu-icon far fa-calendar"></span>-->
-<!--                <span class="menu-label"> Schedule </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="menu-item">-->
-<!--                  <span class="menu-icon fa fa-dumbbell"></span>-->
-<!--                  <span class="menu-label"> Workouts </span>-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li><a href="" class="menu-item">-->
-<!--                <span class="menu-icon fas fa-bolt"></span>-->
-<!--                <span class="menu-label"> Excercises </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--              <li><a href="" class="menu-item">-->
-<!--                <span class="menu-icon fa fa-utensils"></span>-->
-<!--                <span class="menu-label"> Meals </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--              <li><a href="" class="menu-item">-->
-<!--                <span class="menu-icon far fa-dot-circle"></span>-->
-<!--                <span class="menu-label"> Programs </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--              <li><a href="" class="menu-item">-->
-<!--                <span class="menu-icon far fa-comment-alt"></span>-->
-<!--                <span class="menu-label"> Messages </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--              <li><a href="" class="menu-item">-->
-<!--                <span class="menu-icon far fa-user"></span>-->
-<!--                <span class="menu-label"> Profile </span>-->
-<!--              </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </nav>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-      <navbar></navbar>
-      <sideBar></sideBar>
     <router-view></router-view>
   </div>
 

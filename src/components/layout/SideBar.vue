@@ -31,7 +31,7 @@
           <b-menu class="is-custom-mobile">
             <b-menu-list label="Menu">
               <b-menu-list>
-                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/' }" exact  label="میز کار"></b-menu-item>
+                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="میز کار"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
                 <b-menu-item icon="cog-outline" tag="router-link" :to="{ path: '/services' }" exact  label="سرویس ها"></b-menu-item>

@@ -34,6 +34,29 @@ body {
 .input {
   font-family: $font_yekan !important;
 }
+.auth-img {
+  background-image: url(../../assets/img/login.png);
+  background-size: cover;
+}
+.login-box-padding {
+  padding: 0 !important;
+}
+.login-border-rad {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.login-height {
+  height: 400px;
+}
+.login-mobileNumber{
+  margin-top: 30px;
+}
+.column {
+  .code-input{
+    display: inline-flex;
+  }
+}
+
 .box {
   .input {
     font-family: $font_IranSAns !important;
@@ -765,6 +788,7 @@ background: linear-gradient(45deg, #ff5370, #ff869a);
     border-radius: 100px;
     padding: 30px;
   }
+
 
   .stat {
     border-top: 1px solid rgba(255, 255, 255, 0.3);
