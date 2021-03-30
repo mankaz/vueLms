@@ -6,7 +6,9 @@
           <div class="column container is-two-thirds is-max-desktop">
             <div  class="box login-box-padding">
               <div class="columns login-height">
-                <div class="column login-border-rad auth-img is-flex is-justify-content-center"></div>
+                <div class="column login-border-rad auth-img is-flex  is-justify-content-center">
+                  <p class="is-family-iranSans has-text-white is-flex is-align-items-center">به سامانه آموزش مجازی خوش آمدید</p>
+                </div>
                 <div class="column is-flex is-justify-content-center">
                   <div class="column">
                     <div class="column is-flex is-justify-content-flex-end">
