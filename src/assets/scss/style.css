@@ -3657,6 +3657,21 @@ body {
   padding-right: 0.75rem;
 }
 
+.navbar-brand {
+  padding: 10px;
+}
+.navbar-brand .nav-btn-space {
+  margin-left: 10px !important;
+}
+.navbar-brand .button {
+  font-size: 15px;
+}
+.navbar-brand .button span {
+  direction: rtl !important;
+}
+.navbar-brand .button span .unit {
+  font-size: 10px;
+}
 .py-1,
 .p-1 {
   padding-top: 0.75rem;

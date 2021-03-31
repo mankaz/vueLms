@@ -6,7 +6,9 @@
           <div class="column container is-two-thirds is-max-desktop">
             <div class="box login-box-padding">
               <div class="columns login-height">
-                <div class="column login-border-rad auth-img is-flex is-justify-content-center"></div>
+                <div class="column login-border-rad auth-img is-flex  is-justify-content-center">
+                  <p class="is-family-iranSans has-text-white is-flex is-align-items-center">به سامانه آموزش مجازی خوش آمدید</p>
+                </div>
                 <div class="column is-flex is-justify-content-center">
                   <div class="column">
                     <div class="column is-flex is-justify-content-flex-end">
@@ -38,10 +40,7 @@
 
                       </div>
                     </div>
-                      <div class="columns">
-                        <div class="column is-flex is-justify-content-center"><progress v-if="!visibleGetCode" class="progress progress-height is-warning" value="100" max="100">100%</progress></div>
-                        <div class="column is-flex is-justify-content-center">  <router-link class="is-family-iranSans" size="is-small" v-if="visibleGetCode" to="/login">دریافت مجدد کد</router-link><label v-if="!visibleGetCode" class="label is-family-iranSans is-size-7">مهلت ورود کد تأیید <span id="timer"></span> </label></div>
-                      </div>
+                    <LoginRequestCode></LoginRequestCode>
                     <div class="field">
                       <div class="column is-flex is-justify-content-center">
                         <button class="button  is-success is-rounded " tag="router-link" @click="getCode()">تأیید و ادامه</button>
@@ -59,15 +58,20 @@
 </template>
 
 <script>
-
+import LoginRequestCode from "../login/LoginRequestCode";
 export default {
   data() {
     return {
       labelPosition: 'on-border',
-      visibleGetCode: false
+      visibleGetCode: false,
+      countDown : null,
+      seconds : 5,
+      myTimer : null,
+
     }
   },
   name: "login",
+
   methods: {
     onKeyup(event) {
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
@@ -86,37 +90,48 @@ export default {
           }).join('');
       alert(names);
       this.$router.push('/dashboard')
-    }
+    },
+
+
   },
+  components : {
+    LoginRequestCode
+  },
+
   mounted() {
-    let progress = document.querySelector('progress')
-    let $vm = this;
-    let seconds = 60,
-        myTimer = document.getElementById("timer"),
-        countDown = setInterval(secondsInterval, 1000);
 
-    function secondsInterval() {
-      "use strict";
-      let minutes = Math.floor(seconds / 60),
-          remSeconds = seconds % 60;
 
-      if (remSeconds < 10) {
 
-        remSeconds = "0" + remSeconds;
-      }
+    // let progress = document.querySelector('progress')
+    // let $vm = this;
+    // let seconds = 5, myTimer = document.getElementById("timer"), countDown = setInterval(secondsInterval, 1000);
+    //
+    // function secondsInterval() {
+    //   'use strict';
+    //   let minutes = Math.floor(seconds / 60),
+    //       remSeconds = seconds % 60;
+    //
+    //   if (remSeconds < 10) {
+    //
+    //     remSeconds = "0" + remSeconds;
+    //   }
+    //
+    //   myTimer.innerHTML = minutes + ":" + remSeconds;
+    //
+    //   if (seconds > 0) {
+    //     seconds = seconds - 1;
+    //     progress.value = Math.floor(seconds * 1.71)
+    //   } else {
+    //     $vm.visibleGetCode = true
+    //     clearInterval(countDown);
+    //   }
+    //
+    // }
 
-      myTimer.innerHTML = minutes + ":" + remSeconds;
+  },
+  beforeDestroy () {
+    clearInterval(this.countDown);
+  },
 
-      if (seconds > 0) {
-        seconds = seconds - 1;
-        progress.value = Math.floor(seconds * 1.71)
-      } else {
-        $vm.visibleGetCode = true
-        clearInterval(countDown);
-      }
-
-    }
-
-  }
 };
 </script>

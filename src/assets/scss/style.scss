@@ -15,7 +15,26 @@ body {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
+.navbar-brand {
+  padding: 10px;
+  .nav-btn-space{
+    margin-left: 10px !important;
+  }
+.button {
+  font-size: 15px;
+  span {
+    direction: rtl !important;
+    .unit {
+      font-size: 10px;
+    }
+  }
 
+}
+
+  .button {
+
+  }
+}
 .py-1,
 .p-1 {
   padding-top: 0.75rem;

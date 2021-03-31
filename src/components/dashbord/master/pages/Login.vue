@@ -22,8 +22,8 @@
                     </div>
                     <div class="field login-mobileNumber">
                       <div class="control has-icons-left">
-                        <b-field label="شماره همراه" :label-position="labelPosition">
-                          <b-input size="is-normal"></b-input>
+                        <b-field  label="شماره همراه" :label-position="labelPosition">
+                          <b-input icon-right="cellphone" size="is-normal"></b-input>
                         </b-field>
                       </div>
                     </div>
