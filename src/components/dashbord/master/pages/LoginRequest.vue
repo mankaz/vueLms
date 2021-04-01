@@ -35,6 +35,7 @@
                             <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
                             <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
                             <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
+                            <input class="input verificationCode" type="hidden" maxlength="1" @keyup="onKeyup">
                           </div>
                         </div>
 
@@ -43,7 +44,7 @@
                     <LoginRequestCode></LoginRequestCode>
                     <div class="field">
                       <div class="column is-flex is-justify-content-center">
-                        <button class="button  is-success is-rounded " tag="router-link" @click="getCode()">تأیید و ادامه</button>
+                        <button ref="submit" class="button  is-success is-rounded " tag="router-link" >تأیید و ادامه</button>
                       </div>
                     </div>
                   </div>
@@ -65,8 +66,9 @@ export default {
       labelPosition: 'on-border',
       visibleGetCode: false,
       countDown : null,
-      seconds : 5,
+      seconds : 10,
       myTimer : null,
+      submit : this.$refs.sub
 
     }
   },
@@ -74,13 +76,18 @@ export default {
 
   methods: {
     onKeyup(event) {
+
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
       // console.log(event.keyCode)
       if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {
         const next = event.target.nextElementSibling
         if (next === null) return
         event.target.nextElementSibling.focus()
+        // if(event.target.value){
+        //   this.$refs.submit.click()
+        // }
       }
+      this.getCode()
       return
     },
     getCode: function () {
@@ -88,9 +95,16 @@ export default {
           names = [].map.call(inputs, function (input) {
             return input.value;
           }).join('');
-      alert(names);
-      this.$router.push('/dashboard')
+      if(names.length >= 4){
+        console.log(names)
+       // alert(names)
+       //this.$refs.submit.click()
+       //  alert(names);
+        this.$router.push('/dashboard')
+      }
+
     },
+
 
 
   },
@@ -99,9 +113,7 @@ export default {
   },
 
   mounted() {
-
-
-
+this.getCode()
     // let progress = document.querySelector('progress')
     // let $vm = this;
     // let seconds = 5, myTimer = document.getElementById("timer"), countDown = setInterval(secondsInterval, 1000);
