@@ -72,10 +72,6 @@
 <script>
 
 
-  import titleText from "../titleText";
-  import collapse from "../collapse";
-  import textDate from "../textDate";
-  import tabs from "../tabs";
   import Menu from "../dashbord/master/Menu.vue"
 
   export default {
@@ -86,7 +82,7 @@
     }
 
   },
-    components : {Menu,collapse,titleText,textDate,tabs},
+    components : {Menu},
 
   }
 </script>
