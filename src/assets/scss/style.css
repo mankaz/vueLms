@@ -3672,6 +3672,7 @@ body {
 .navbar-brand .button span .unit {
   font-size: 10px;
 }
+
 .py-1,
 .p-1 {
   padding-top: 0.75rem;
@@ -3698,6 +3699,10 @@ body {
   background-image: linear-gradient(to top, #7c59b7 0%, #ae7dff 100%);
 }
 
+.courses-img {
+  background-size: cover;
+}
+
 .login-box-padding {
   padding: 0 !important;
 }
@@ -3719,6 +3724,9 @@ body {
   display: inline-flex;
 }
 
+.box .notification {
+  background-color: transparent !important;
+}
 .box .input {
   font-family: IRANSans !important;
 }
@@ -3738,6 +3746,10 @@ body {
   justify-content: center !important;
   font-size: 1rem;
   font-weight: 400;
+}
+
+.toast {
+  font-family: IRANSans !important;
 }
 
 .menu-container {

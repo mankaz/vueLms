@@ -3,19 +3,19 @@
 
 
       <div class="control services-btn is-justify-content-center">
-        <b-button type="is-info"
+        <b-button type="is-info" rounded
                   icon-right="plus-thick">
           سرویس جدید
         </b-button>
-        <b-button type="is-danger"
+        <b-button type="is-danger" rounded
                   icon-right="arrow-up-bold">
           ارتقاء سرویس
         </b-button>
-        <b-button type="is-success"
+        <b-button type="is-success" rounded
                   icon-right="battery-charging-90">
           شارژ اضافه
         </b-button>
-        <b-button type="is-warning"
+        <b-button type="is-warning" rounded
                   icon-right="history">
           تمدید سرویس
         </b-button>
@@ -30,7 +30,6 @@
         :opened-detailed="defaultOpenedDetails"
         detailed
         detail-key="id"
-        @details-open="(row) => $buefy.toast.open(`Expanded ${row.user.first_name}`)"
         :show-detail-icon="showDetailIcon"
         aria-next-label="Next page"
         aria-previous-label="Previous page"

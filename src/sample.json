@@ -5,7 +5,8 @@
       "room_name": "آموزش php",
       "service_name": "سرویس رایگان",
       "situation": "فعال",
-      "user_count": "20"
+      "user_count": "20",
+      "courses_img" : "test.png"
     },
     "start_date": "2016/10/15 13:43:27",
     "end_date": "2016/10/15 13:43:27"

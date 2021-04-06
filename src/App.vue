@@ -26,41 +26,9 @@
 <script>
   import './assets/scss/style.css'
   import './assets/scss/custom.css'
-  import ContentView from "./components/layout/Content.vue";
-  import SideBar from "./components/layout/SideBar.vue";
-  import Navbar from "./components/layout/Navbar.vue";
-
-
 
   export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-      alert :{
-      title:'',
-        message:'',
-        show:'false',
-        type: ''
-    },
-
-    };
-  },
-  methods: {
-    addtodo(){
-      this.alert = {
-        title : 'اطلاعات',
-        message : 'ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص',
-        type: 'is-info',
-        show: 'true'
-      };
-    },
-  },
-  mounted(){
-    this.addtodo()
-  },
-  components : {SideBar,ContentView,Navbar},
-
+  name: 'App',
 }
 
 </script>

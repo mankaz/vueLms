@@ -36,6 +36,10 @@ let routes = [
         component : require('./components/layout/Content.vue').default
       },
       {
+        path : '/courses',
+        component : require('./components/dashbord/master/pages/Courses.vue').default
+      },
+      {
         path : '/services',
         component : require('./components/dashbord/master/pages/Services.vue').default
       },
@@ -59,7 +63,7 @@ let routes = [
 export default new VueRouter({
   linkActiveClass: ['is-active'],
 
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

@@ -23,12 +23,13 @@
                     <div class="field login-mobileNumber">
                       <div class="control has-icons-left">
                         <b-field  label="شماره همراه" :label-position="labelPosition">
-                          <b-input icon-right="cellphone" size="is-normal"></b-input>
+                          <input @keyup="onKeyup" class="input" id="mobile" maxlength="11" icon-right="cellphone" size="is-normal">
                         </b-field>
                       </div>
                     </div>
                     <div class="field">
-                      <div class="column is-flex is-justify-content-center"> <b-button class="is-rounded is-success"  tag="router-link" :to="{ path: '/loginrequest' }" exact >تأیید و ادامه</b-button>
+                      <div  class="column is-flex is-justify-content-center">
+                        <b-button class="is-rounded is-success" @click="submitForm" >تأیید و ادامه</b-button>
                       </div>
                     </div>
                   </div>
@@ -47,8 +48,32 @@ export default {
   data(){
     return {
       labelPosition: 'on-border',
+      mobileNumber:null
     }
 
+  },
+  methods:{
+    onKeyup(event) {
+      event.target.value = event.target.value.replace(/[^0-9]/g, '')
+    },
+    submitForm () {
+      let mobile = document.getElementById('mobile')
+      if (mobile.value === '' || !(/^(\+98|0)?9\d{9}/g.test(mobile.value)) ) {
+        this.$buefy.toast.open({
+          message: 'شماره موبایل را وارد نمایید',
+          type: 'is-warning',
+          position: 'is-bottom',
+        })
+      } else {
+        this.$router.push('/loginRequest')
+      }
+    },
+  },
+  created() {
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+      history.pushState(null, null, document.URL);
+    });
   },
   name: "login"
 };

@@ -30,10 +30,6 @@ body {
   }
 
 }
-
-  .button {
-
-  }
 }
 .py-1,
 .p-1 {
@@ -61,6 +57,9 @@ body {
   //background-size: cover;
   background-image: linear-gradient(to top, #7c59b7 0%, #ae7dff 100%)
 }
+.courses-img {
+  background-size: cover;
+}
 .login-box-padding {
   padding: 0 !important;
 }
@@ -81,6 +80,9 @@ body {
 }
 
 .box {
+  .notification{
+    background-color: transparent !important;
+  }
   .input {
     font-family: $font_IranSAns !important;
   }
@@ -101,6 +103,9 @@ body {
     font-size: $size-7;
     font-weight: 400;
   }
+}
+.toast {
+  font-family: $font_IranSAns !important;
 }
 .menu-container {
   position: fixed;

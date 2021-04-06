@@ -6,7 +6,6 @@
   </div>
 </template>
 <script>
-import ContentView from "../../components/layout/Content.vue";
 import SideBar from "../../components/layout/SideBar.vue";
 import Navbar from "../../components/layout/Navbar.vue";
 export default {
@@ -15,7 +14,7 @@ return{
 
 }
   },
-  components : {SideBar,ContentView,Navbar},
+  components : {SideBar,Navbar},
   name: "AppLayout"
 };
 </script>
