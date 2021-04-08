@@ -26,6 +26,7 @@
 <script>
   import './assets/scss/style.css'
   import './assets/scss/custom.css'
+  // import './assets/scss/custom.css'
 
   export default {
   name: 'App',

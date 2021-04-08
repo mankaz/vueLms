@@ -6,8 +6,8 @@
       <b-input size="is-large"></b-input>
     </b-field>
         <div class="columns">
-          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="../../../../assets/img/zarinpal.png"></div>
-          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="../../../../assets/img/aap.png"></div>
+          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="../../../../../public/img/zarinpal.png"></div>
+          <div class="column is-flex is-justify-content-center"><img class="image is-96x96" src="../../../../../public/img/aap.png"></div>
         </div>
         <div class="columns">
           <div class="column is-flex is-justify-content-center"><b-radio v-model="radio" name="name" native-value="Flint"></b-radio></div>

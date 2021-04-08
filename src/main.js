@@ -10,6 +10,7 @@ Vue.component('date-picker', VuePersianDatetimePicker);
 import VueStore from '@websanova/vue-store';
 import vueResource from 'vue-resource'
 
+
 Vue.use(Buefy);
 Vue.use(VueRouter);
 Vue.use(vueResource);

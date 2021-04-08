@@ -1800,6 +1800,66 @@ th:not([align]) {
   padding-right: 0.75em;
 }
 
+.media {
+  align-items: flex-start;
+  display: flex;
+  text-align: inherit;
+}
+.media .content:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+.media .media {
+  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  display: flex;
+  padding-top: 0.75rem;
+}
+.media .media .content:not(:last-child),
+.media .media .control:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.media .media .media {
+  padding-top: 0.5rem;
+}
+.media .media .media + .media {
+  margin-top: 0.5rem;
+}
+.media + .media {
+  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+.media.is-large + .media {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.media-left,
+.media-right {
+  flex-basis: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.media-left {
+  margin-left: 1rem;
+}
+
+.media-right {
+  margin-right: 1rem;
+}
+
+.media-content {
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  text-align: inherit;
+}
+
+@media screen and (max-width: 768px) {
+  .media-content {
+    overflow-x: auto;
+  }
+}
 .label {
   color: #363636;
   display: block;
@@ -3696,7 +3756,7 @@ body {
 }
 
 .auth-img {
-  background-image: linear-gradient(to top, #7c59b7 0%, #ae7dff 100%);
+  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
 }
 
 .courses-img {
@@ -3724,6 +3784,21 @@ body {
   display: inline-flex;
 }
 
+.file-label {
+  font-family: IRANSans !important;
+}
+
+.box .media-content {
+  text-align: right !important;
+  padding-right: 15px;
+  padding-bottom: 50px;
+}
+.box .user-count {
+  margin-right: 40px;
+}
+.box .description-detail {
+  padding-right: 20px;
+}
 .box .notification {
   background-color: transparent !important;
 }
@@ -3735,6 +3810,11 @@ body {
   font-family: IRANSans !important;
   margin-left: auto;
   margin-right: auto;
+}
+.box .table .media-content p {
+  text-align: justify !important;
+  padding-right: 20px;
+  line-height: 1.8;
 }
 .box .table td {
   text-align: center !important;
@@ -3926,7 +4006,7 @@ body {
 .menu-list a.is-active {
   font-family: IRANSans;
   font-size: 1rem;
-  background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7)) !important;
+  background: #4e91e6 !important;
   border-radius: 4px;
   color: white !important;
 }

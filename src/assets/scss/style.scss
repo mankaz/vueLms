@@ -55,7 +55,7 @@ body {
 .auth-img {
   //background-image: url(../../assets/img/login.png);
   //background-size: cover;
-  background-image: linear-gradient(to top, #7c59b7 0%, #ae7dff 100%)
+  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
 }
 .courses-img {
   background-size: cover;
@@ -78,8 +78,21 @@ body {
     display: inline-flex;
   }
 }
-
+.file-label{
+  font-family: $font_IranSAns !important;
+}
 .box {
+  .media-content{
+    text-align: right !important;
+    padding-right: 15px;
+    padding-bottom: 50px;
+  }
+  .user-count {
+    margin-right: 40px;
+  }
+  .description-detail{
+    padding-right: 20px;
+  }
   .notification{
     background-color: transparent !important;
   }
@@ -87,6 +100,13 @@ body {
     font-family: $font_IranSAns !important;
   }
   .table{
+    .media-content {
+      p{
+        text-align: justify !important;
+        padding-right: 20px;
+        line-height: 1.8 ;
+      }
+    }
     direction: rtl;
     font-family: $font_IranSAns !important;
     margin-left:auto;

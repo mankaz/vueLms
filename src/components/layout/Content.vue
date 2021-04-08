@@ -72,7 +72,6 @@
 <script>
 
 
-
   import Menu from "../dashbord/master/Menu.vue"
 
   export default {

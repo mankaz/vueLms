@@ -40,6 +40,10 @@ let routes = [
         component : require('./components/dashbord/master/pages/Courses.vue').default
       },
       {
+        path : '/AddCourses',
+        component : require('./components/dashbord/master/courses/AddCourses.vue').default
+      },
+      {
         path : '/services',
         component : require('./components/dashbord/master/pages/Services.vue').default
       },

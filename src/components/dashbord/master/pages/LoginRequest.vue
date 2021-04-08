@@ -14,7 +14,7 @@
                   <b-notification ref="element" :closable="false">
                   <div class="column">
                     <div class="column is-flex is-justify-content-flex-end">
-                      <img class="image is-48x48" src="../../../../assets/img/logo.png">
+                      <img class="image is-48x48" src="../../../../../public/img/logo.png">
                     </div>
                     <div class="field  is-family-iranSans is-flex is-justify-content-flex-end">
                       <label class="label is-size-5">تایید</label>

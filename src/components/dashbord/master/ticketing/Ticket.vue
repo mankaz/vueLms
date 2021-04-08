@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="block is-flex is-justify-content-center">
-      <upload/>
+      <upload><slot> <p>برای بارگذاری کلیک کنید / حداکثر حجم فایل 5 مگابایت</p></slot></upload>
       <div class="column  is-6-desktop">
         <b-field label="عنوان تیکت" :label-position="labelPosition">
           <b-input size="is-medium"></b-input>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import upload from "./upload";
+import upload from "../extension/upload";
 export default {
   data() {
     return {
