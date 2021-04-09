@@ -6,7 +6,9 @@
       "service_name": "سرویس رایگان",
       "situation": "فعال",
       "user_count": "20",
-      "courses_img" : "logo.png"
+      "courses_img" : "logo.png",
+      "class_name" : "آموزش ریاضی",
+      "removed" : "حذف"
     },
     "start_date": "2016/10/15 13:43:27",
     "end_date": "2016/10/15 13:43:27",
@@ -20,7 +22,8 @@
       "service_name": "سرویس رایگان",
       "situation": "فعال",
       "user_count": "20",
-      "courses_img" : "test.png"
+      "courses_img" : "test.png",
+      "class_name" : "تست"
     },
     "start_date": "2016/10/15 13:43:27",
     "end_date": "2016/10/15 13:43:27",

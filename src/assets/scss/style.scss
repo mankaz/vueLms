@@ -81,6 +81,34 @@ body {
 .file-label{
   font-family: $font_IranSAns !important;
 }
+.modal-card-body{
+  .media-content{
+    text-align: right !important;
+    font-family: $font_IranSAns;
+  }
+}
+.form-control{
+  width: 100% !important;
+  font-family: $font_IranSAns;
+}
+.vpd-icon-btn{
+  display: none !important;
+
+}
+.modal-card-foot{
+  .button{
+    font-weight: 200 !important;
+    font-size: 15px !important;
+  }
+}
+.modal-card-head {
+  direction: rtl !important;
+  font-family: $font_IranSAns;
+  p{
+    font-size: 15px !important;
+    font-weight: 400 !important;
+  }
+}
 .box {
   .media-content{
     text-align: right !important;
@@ -142,7 +170,6 @@ body {
 .menu-container.active {
   transform: translateX(0%);
 }
-
 .icon {
   height: 30px;
   width: 30px;
@@ -151,7 +178,10 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.action-btn{
+  margin-left: 1rem;
+  direction: ltr !important;
+}
 .toggler {
   margin-left: 0;
   cursor: pointer;

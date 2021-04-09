@@ -52,8 +52,12 @@ let routes = [
         component : require('./components/dashbord/master/pages/Payment.vue').default
       },
       {
-        path : '/Rooms',
-        component : require('./components/dashbord/master/pages/Rooms.vue').default
+        path : '/Class',
+        component : require('./components/dashbord/master/pages/Class.vue').default
+      },
+      {
+        path : '/AddClass',
+        component : require('./components/dashbord/master/class/AddClass.vue').default
       },
       {
         path : '/Ticketing',

@@ -43,7 +43,7 @@
 
                       </div>
                     </div>
-                    <LoginRequestCode></LoginRequestCode>
+                    <LoginRequestCode v-show="!visibleGetCode"></LoginRequestCode>
                     <div class="field">
                       <div class="column is-flex is-justify-content-center">
                         <b-button id="sub" class="button  is-success is-rounded "  @click="submitForm">تأیید و ادامه</b-button>
@@ -86,9 +86,9 @@ export default {
         if (next === null) return
         event.target.nextElementSibling.focus()
       }
-      this.getCode()
+      this.getVerifyCodeFields()
     },
-    getCode: function () {
+    getVerifyCodeFields: function () {
 
       let inputs = document.getElementsByClassName('verificationCode')
           this.fields = [].map.call(inputs, function (input) {
@@ -100,9 +100,10 @@ export default {
 
     },
     open() {
+      this.visibleGetCode = true
       const vm=this
       const loadingComponent = this.$buefy.loading.open({
-        container: this.isFullPage ? null : this.$refs.element.$el
+        container: this.isFullPage ? null : this.$refs.element.$el,
       })
       setTimeout(function()
       {
@@ -110,7 +111,6 @@ export default {
         // this.sub.click()
         vm.$router.push('/dashboard')
       }, 3000);
-
     },
     submitForm () {
       if (this.fields.length < 4) {

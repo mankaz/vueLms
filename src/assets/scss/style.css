@@ -3788,6 +3788,34 @@ body {
   font-family: IRANSans !important;
 }
 
+.modal-card-body .media-content {
+  text-align: right !important;
+  font-family: IRANSans;
+}
+
+.form-control {
+  width: 100% !important;
+  font-family: IRANSans;
+}
+
+.vpd-icon-btn {
+  display: none !important;
+}
+
+.modal-card-foot .button {
+  font-weight: 200 !important;
+  font-size: 15px !important;
+}
+
+.modal-card-head {
+  direction: rtl !important;
+  font-family: IRANSans;
+}
+.modal-card-head p {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+
 .box .media-content {
   text-align: right !important;
   padding-right: 15px;
@@ -3855,6 +3883,11 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.action-btn {
+  margin-left: 1rem;
+  direction: ltr !important;
 }
 
 .toggler {

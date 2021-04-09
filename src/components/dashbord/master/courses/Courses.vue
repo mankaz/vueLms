@@ -1,88 +1,64 @@
 <template>
   <section>
-
     <div class="control services-btn is-flex is-justify-content-left">
       <b-button tag="router-link" :to="{ path: '/AddCourses' }" exact type="is-info" rounded
                 icon-right="plus-thick">
         ایجاد دوره جدید
       </b-button>
     </div>
-
     <b-table
         :data="data"
-        ref="table"
-        paginated
-        per-page="5"
-        :opened-detailed="defaultOpenedDetails"
-        detailed
-        detail-key="id"
-        :show-detail-icon="showDetailIcon"
+        :paginated="isPaginated"
+        :per-page="perPage"
+        :current-page.sync="currentPage"
+        :pagination-simple="isPaginationSimple"
+        :pagination-position="paginationPosition"
+        :default-sort-direction="defaultSortDirection"
+        :pagination-rounded="isPaginationRounded"
+        :sort-icon="sortIcon"
+        :sort-icon-size="sortIconSize"
         aria-next-label="Next page"
         aria-previous-label="Previous page"
         aria-page-label="Page"
         aria-current-label="Current page">
 
-      <b-table-column field="id" label="ردیف" width="40" numeric v-slot="props">
+      <b-table-column field="id" label="ردیف" width="40" sortable numeric v-slot="props">
         {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="user.first_name" label="عنوان دوره" sortable v-slot="props">
-        <template v-if="showDetailIcon">
-          {{ props.row.user.courses_name }}
-        </template>
-        <template v-else>
-          <a @click="props.toggleDetails(props.row)">
-            {{ props.row.user.first_name }}
-          </a>
-        </template>
+      <b-table-column field="user.first_name" label="عنوان کلاس" sortable v-slot="props">
+        {{ props.row.user.class_name }}
       </b-table-column>
 
-      <b-table-column field="date" label="زمان شروع" sortable centered v-slot="props">
-                <span class="tag is-success">
-                   {{ props.row.start_date }}
-                </span>
+      <b-table-column field="user.last_name" label="سرویس" sortable v-slot="props">
+        {{ props.row.user.service_name }}
       </b-table-column>
 
-      <b-table-column label="Gender" v-slot="props">
-                <span>
-                    <b-icon pack="fas"
-                            :icon="props.row.gender === 'Male' ? 'mars' : 'venus'">
-                    </b-icon>
-                    {{ props.row.gender }}
-                </span>
+      <b-table-column field="date" label="عملیات" sortable centered>
+        <b-tooltip label="مشاهده"
+                   position="is-top">
+          <b-button
+              rounded
+              class="is-light nav-btn-space action-btn"
+              type="is-link"
+              icon-right="play-circle-outline"/>
+        </b-tooltip>
+
+        <b-tooltip label="حذف"
+                   position="is-top">
+          <b-button
+              rounded
+              class="is-light nav-btn-space"
+              type="is-danger"
+              icon-right="delete"
+              @click="confirmCustom"
+          />
+        </b-tooltip>
+
       </b-table-column>
 
-      <template #detail="props" >
-        <article class="media">
 
-          <div class="card">
-            <div class="card-image">
-              <figure>
-                <p class="image is-4by3  is-flex  is-justify-content-center is-align-items-center is-128x128">
-                  <img class="image is-flex is-align-items-center courses-img is-128x128" :src="`img/${props.row.user.courses_img}`" >
-                </p>
-              </figure>
-            </div>
-          </div>
-          <div class="media-content">
-            <small class="description-detail">توضیحات دوره:</small>
-              <p>{{ props.row.description }}</p>
-            <br>
-            <div class="description-detail">
-            <small>کلاس های برگزار شده در این دوره:</small>
-            <span class="tag is-info">
-               {{ props.row.class_count }} کلاس
-            </span>
-            <small class=" user-count">تعداد شرکت کنندگان:</small>
-            <span class="tag is-info">
-               {{ props.row.user.user_count }} نفر
-            </span>
-            </div>
-          </div>
-        </article>
-      </template>
     </b-table>
-
   </section>
 </template>
 
@@ -92,49 +68,30 @@ const data = require('../../../../sample.json')
 export default {
   data() {
     return {
-      publicPath: process.env.BASE_URL,
       data,
-      defaultOpenedDetails: [1],
-      showDetailIcon: true
+      isPaginated: true,
+      isPaginationSimple: false,
+      isPaginationRounded: false,
+      paginationPosition: 'bottom',
+      defaultSortDirection: 'desc',
+      sortIcon: 'arrow-up',
+      sortIconSize: 'is-small',
+      currentPage: 1,
+      perPage: 5
     }
   },
-  methods: {
-    getImgUrl(i) {
-      if (i >= 1) {
-        return data[i]['user']['courses_img'];
-      }
-    },
-    onError(e) {
-      let defaultURL = data;
-      if (e.target.src !== defaultURL) {
-        e.target.src = defaultURL;
-      }
+  methods : {
+    confirmCustom() {
+      this.$buefy.dialog.confirm({
+        title: 'حذف کلاس',
+        message: `آیا از حذف این کلاس اطمینان دارید؟`,
+        cancelText: 'انصرف',
+        confirmText: 'بله',
+        type: 'is-danger',
+        onConfirm: () => this.$buefy.toast.open('حذف با موفقیت انجام شد')
+      })
+
     }
-
-    // getImageUrl(){
-    //   for(let i = 0 ; i<Object.keys(data).length; i++ ) {
-    //     console.log(data[i]['user']['courses_img'])
-    //     if (data[i]){
-    //      return  require (`@/assets/img/${data[i]['user']['courses_img']}` + '.png')
-    //     }
-    //
-    //   }
-
-
-    // Object.keys(data).forEach(function(key) {
-    //   console.log(data[key]['user']['courses_img'])
-    //   return require (`@/assets/img/${data[key]['user']['courses_img']}` + '.png')
-    // })
-
-
-  },
-
-  computed: {
-    // transitionName() {
-    //   if (this.useTransition) {
-    //     return 'fade'
-    //   }
-    // }
   }
 }
 </script>

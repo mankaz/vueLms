@@ -2,8 +2,8 @@
     <div class="column is-12-desktop">
       <section class="section">
 
-<!--          <div class="column is-two-fifths">-->
-<!--            <div class="box">-->
+<!--          <div courses="column is-two-fifths">-->
+<!--            <div courses="box">-->
 <!--            <datePicker :show="false" :inline="true" auto-submit popover></datePicker>-->
 <!--            </div>-->
 <!--          </div>-->

@@ -22,13 +22,13 @@
                 <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="میز کار"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
-                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/courses' }" exact  label="دوره ها"></b-menu-item>
+                <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact  label="دوره های من"></b-menu-item>
+              </b-menu-list>
+              <b-menu-list>
+                <b-menu-item icon="google-classroom" tag="router-link" :to="{ path: '/class' }" exact  label="کلاس های من"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
                 <b-menu-item icon="cog-outline" tag="router-link" :to="{ path: '/services' }" exact  label="سرویس ها"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="door" tag="router-link" :to="{ path: '/rooms' }" exact  label="اتاق ها"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
                 <b-menu-item icon="currency-usd" tag="router-link" :to="{ path: '/payment' }" exact  label="افزایش اعتبار"></b-menu-item>
