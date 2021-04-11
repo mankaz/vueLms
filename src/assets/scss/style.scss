@@ -91,6 +91,9 @@ body {
   width: 100% !important;
   font-family: $font_IranSAns;
 }
+.rowid{
+  background-color: red;
+}
 .vpd-icon-btn{
   display: none !important;
 
@@ -108,6 +111,16 @@ body {
     font-size: 15px !important;
     font-weight: 400 !important;
   }
+}
+.control-label{
+  padding-right: 5px;
+}
+.repeat-code{
+  a{
+    text-decoration: none !important;
+    color: $is-active-menu !important;
+  }
+
 }
 .box {
   .media-content{

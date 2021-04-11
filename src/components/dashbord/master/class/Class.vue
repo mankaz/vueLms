@@ -8,7 +8,11 @@
       </b-button>
     </div>
 
+    <span >
+<!-- v-for="(row, index) in data" :key="row"-->
+    </span>
     <b-table
+
         :data="data"
         ref="table"
         paginated
@@ -22,7 +26,7 @@
         aria-page-label="Page"
         aria-current-label="Current page">
 
-      <b-table-column field="id" label="ردیف" width="40" numeric v-slot="props">
+      <b-table-column  field="id" label="ردیف" width="40" numeric v-slot="props">
         {{ props.row.id }}
       </b-table-column>
 
@@ -87,7 +91,7 @@
                         class="nav-btn-space action-btn"
                         type="is-danger"
                         icon-right="delete"
-                        @click="confirmCustom"
+                        @click="deleteRow()"
                     />
                 </div>
               </div>
@@ -101,6 +105,7 @@
 </template>
 
 <script>
+
 const data = require('../../../../sample.json')
 
 export default {
@@ -109,29 +114,36 @@ export default {
       publicPath: process.env.BASE_URL,
       data,
       defaultOpenedDetails: [1],
-      showDetailIcon: true
+      showDetailIcon: true,
+
     }
   },
   methods: {
-    confirmCustom() {
+    deleteRow() {
+      let $vm = this;
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
         message: `آیا از حذف این کلاس اطمینان دارید؟`,
         cancelText: 'انصرف',
         confirmText: 'بله',
         type: 'is-danger',
-        onConfirm: () => this.$buefy.toast.open('حذف با موفقیت انجام شد')
+        onConfirm:function ()
+      {
+        for(let a=0; a<$vm.data.length ; a ++) {
+          console.log(a)
+          $vm.data.splice(a, 1);
+        }
+        this.$buefy.toast.open({
+          message: 'کلاس مورد نظر با موفقیت حذف شد',
+          type: 'is-warning',
+          position: 'is-bottom',
+        })
+      }
       })
 
     }
   },
-
   computed: {
-    // transitionName() {
-    //   if (this.useTransition) {
-    //     return 'fade'
-    //   }
-    // }
   }
 }
 </script>

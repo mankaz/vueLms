@@ -131,7 +131,7 @@ export default {
     });
   },
   mounted() {
-this.getCode()
+// this.getCode()
 
   },
   beforeDestroy () {

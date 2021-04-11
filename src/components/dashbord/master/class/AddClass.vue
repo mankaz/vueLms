@@ -35,7 +35,28 @@
                   </b-field>
                 </div>
               </div>
-              <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">ایجاد دوره</button></div>
+              <div class="columns">
+                <div class="column  is-flex is-align-items-center is-justify-content-center"><upload><slot> <span class="file-label">انتخاب تصویر کلاس</span></slot></upload>
+
+                </div>
+                <div class="column">
+                  <b-field  label="توضحیات دوره" :label-position="labelPosition">
+                    <b-input maxlength="400" type="textarea"></b-input>
+                  </b-field>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column">
+                </div>
+                <div class="column is-flex is-align-items-center is-justify-content-center">
+                  <b-field>
+                    <b-checkbox :value="true" class="is-family-iranSans">
+                قابلیت ضبظ
+                    </b-checkbox>
+                  </b-field>
+                </div>
+              </div>
+              <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">ایجاد کلاس</button></div>
             </div>
             </div>
           </div>
@@ -45,6 +66,8 @@
 </template>
 
 <script>
+import upload from "../extension/upload";
+
 export default {
   data() {
     return {
@@ -52,7 +75,7 @@ export default {
     }
   },
   components : {
-
+    upload
   }
 }
 </script>

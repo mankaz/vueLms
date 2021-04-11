@@ -3798,6 +3798,10 @@ body {
   font-family: IRANSans;
 }
 
+.rowid {
+  background-color: red;
+}
+
 .vpd-icon-btn {
   display: none !important;
 }
@@ -3814,6 +3818,15 @@ body {
 .modal-card-head p {
   font-size: 15px !important;
   font-weight: 400 !important;
+}
+
+.control-label {
+  padding-right: 5px;
+}
+
+.repeat-code a {
+  text-decoration: none !important;
+  color: #4e91e6 !important;
 }
 
 .box .media-content {

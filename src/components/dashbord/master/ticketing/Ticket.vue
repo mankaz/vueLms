@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="block is-flex is-justify-content-center">
-      <upload><slot> <p>برای بارگذاری کلیک کنید / حداکثر حجم فایل 5 مگابایت</p></slot></upload>
+    <div class="block   is-align-items-center is-flex is-justify-content-center">
+      <upload><slot> <p>بارگذاری تصویر/حداکثر 5 مگابایت</p></slot></upload>
       <div class="column  is-6-desktop">
         <b-field label="عنوان تیکت" :label-position="labelPosition">
           <b-input size="is-medium"></b-input>
@@ -10,7 +10,7 @@
           <div class="column">
             <b-field  :label-position="labelPosition"
                 label="انتخاب دپارتمان">
-              <b-select size="is-medium" placeholder="یک عنوان انتخاب نمایید" expanded>
+              <b-select  placeholder="یک عنوان انتخاب نمایید" expanded>
                 <option value="پشتیبانی فنی">پشتیبانی فنی</option>
                 <option value="واحد مالی">واحد مالی</option>
                 <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
