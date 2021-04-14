@@ -3824,6 +3824,10 @@ body {
   padding-right: 5px;
 }
 
+.dropdown-content {
+  position: fixed;
+}
+
 .repeat-code a {
   text-decoration: none !important;
   color: #4e91e6 !important;

@@ -9,7 +9,8 @@ import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 
 Vue.component('date-picker', VuePersianDatetimePicker);
 import VueStore from '@websanova/vue-store';
-import vueResource from 'vue-resource'
+import vueResource from 'vue-resource';
+import {guest} from "@/plugin/axios";
 
 Vue.use(VueRouter)
 Vue.use(
@@ -27,5 +28,6 @@ Vue.use(
 new Vue({
     el: '#app',
     render: h => h(App),
-    router
+    router,
+    guest
 })
