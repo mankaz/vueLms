@@ -32,26 +32,26 @@
 
               <div class="columns">
                 <div class="column">
-                  <b-field v-model="classStartDate" label="زمان پایان" :label-position="labelPosition">
-                    <date-picker class="input" type="datetime" compact-time auto-submit/>
+                  <b-field  label="زمان پایان" :label-position="labelPosition">
+                    <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>
                   </b-field>
                 </div>
                 <div class="column">
-                  <b-field v-model="classEndDate" label="زمان شروع" :label-position="labelPosition">
-                    <date-picker class="input" type="datetime" compact-time auto-submit/>
+                  <b-field  label="زمان شروع" :label-position="labelPosition">
+                    <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>
                   </b-field>
                 </div>
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <upload>
+                  <upload v-model="classImage">
                     <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>
                   </upload>
 
                 </div>
                 <div class="column">
                   <b-field  label="توضحیات دوره" :label-position="labelPosition">
-                    <b-input maxlength="400" type="textarea"></b-input>
+                    <b-input v-model="classDescription" maxlength="400" type="textarea"></b-input>
                   </b-field>
                 </div>
               </div>
@@ -80,6 +80,7 @@
 import upload from "../extension/upload";
 import axios from "axios";
 
+
 export default {
   data() {
     return {
@@ -101,32 +102,16 @@ export default {
       form.append("classEndDate", this.classEndDate);
       form.append("classDescription", this.classDescription);
       form.append("classImage", this.classImage);
-      //
-      // this.$guest
-      //     .post("/a",form)
-      //     .then(()=> {
-      //       console.log(form.getAll('data'))
-      //     })
-      //     .catch(err=> {
-      //       console.log(err)
-      //     })
-      //
 
-
-
-      console.log(form)
       const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-      axios.post("http://localhost/bbb/public/BBBController/createMeeting/0/a",form, {headers, })
+      axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0",form, {headers, })
           .then((res)=> {
-             console.log(res)
+            console.log(this.classStartDate)
+            console.log(res)
           })
           .catch(err=> {
             console.log(err)
           })
-
-      // axios.post('https://google.com', this.name, {headers: {
-      //     // 'Content-type': 'application/x-www-form-urlencoded',
-      //   }}).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
     }
   },
   components : {
