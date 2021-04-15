@@ -1,12 +1,21 @@
 <template>
   <section>
+<div class="columns">
+  <div class="column control services-btn is-flex is-justify-content-left">
+    <b-button tag="router-link" :to="{ path: '/AddClass' }" exact type="is-info" rounded
+              icon-right="plus-thick">
+      ایجاد کلاس جدید
+    </b-button>
+  </div>
+  <div class="is-flex is-justify-content-flex-end">
+    <div class="media-content">
+      <small class="is-family-iranSans is-size-5 dir-ltr">کلاس ها</small>
+      <p class="is-family-iranSans is-size-7">:جزئیات کلاس های ایجاد شده شما در این صفحه لیست شده اند</p>
+      <br>
+  </div>
+  </div>
+</div>
 
-    <div class="control services-btn is-flex is-justify-content-left">
-      <b-button tag="router-link" :to="{ path: '/AddClass' }" exact type="is-info" rounded
-                icon-right="plus-thick">
-        ایجاد کلاس جدید
-      </b-button>
-    </div>
 
     <span >
 <!-- v-for="(row, index) in data" :key="row"-->

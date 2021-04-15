@@ -1,12 +1,16 @@
 <template>
     <div class="column is-12-desktop">
-      <section class="section">
 
-<!--          <div courses="column is-two-fifths">-->
-<!--            <div courses="box">-->
-<!--            <datePicker :show="false" :inline="true" auto-submit popover></datePicker>-->
-<!--            </div>-->
-<!--          </div>-->
+      <section class="section">
+        <div class="columns">
+          <div class="column control services-btn is-flex is-justify-content-left">
+          </div>
+          <div class="is-flex is-justify-content-flex-end">
+            <div class="media-content">
+              <small class="is-family-iranSans is-size-5">پیشخوان</small>
+            </div>
+          </div>
+        </div>
             <div class="columns is-centered">
               <div class="column">
                 <CardComponent class="card-success info-box">

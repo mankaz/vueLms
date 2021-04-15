@@ -9,9 +9,10 @@
         <div class="columns is-variable">
 
           <div class="column is-12-desktop is-12-tablet is-10-mobile">
+            <div class="column">
             <div class="box">
               <Courses></Courses>
-
+            </div>
             </div>
           </div>
         </div>

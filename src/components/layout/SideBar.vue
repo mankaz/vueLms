@@ -11,45 +11,48 @@
       :mobile="mobile"
     >
       <div class="p-1">
-        <img
-          src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-          alt="Lightweight UI components for Vue.js based on Bulma"
-        />
+        <img class="logo"  :src="`img/logo.png`" />
         <b-menu>
           <b-menu class="is-custom-mobile">
-            <b-menu-list label="Menu">
+            <b-menu-list>
               <b-menu-list>
-                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="میز کار"></b-menu-item>
+                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="پیشخوان"></b-menu-item>
               </b-menu-list>
-              <b-menu>
-                <b-menu-list>
-                  <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/courses' }" exact >
-                    <template #label>
-                      دوره های من
-                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">
-                        <template #trigger>
-                          <b-icon icon="dots-vertical"></b-icon>
-                        </template>
-                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddCourses'}" exact>دوره جدید</router-link></b-dropdown-item>
-                      </b-dropdown>
-                    </template>
-                  </b-menu-item>
-                </b-menu-list>
+              <b-menu-list>
+                <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact   label="دوره ها"></b-menu-item>
+              </b-menu-list>
+              <b-menu-list>
+                <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact  label="کلاس ها"></b-menu-item>
+              </b-menu-list>
+<!--              <b-menu>-->
+<!--                <b-menu-list>-->
+<!--                  <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact >-->
+<!--                    <template #label>-->
+<!--                      دوره ها-->
+<!--                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">-->
+<!--                        <template #trigger>-->
+<!--                          <b-icon icon="dots-vertical"></b-icon>-->
+<!--                        </template>-->
+<!--                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddCourses'}" exact>دوره جدید</router-link></b-dropdown-item>-->
+<!--                      </b-dropdown>-->
+<!--                    </template>-->
+<!--                  </b-menu-item>-->
+<!--                </b-menu-list>-->
 
-                <b-menu-list>
-                  <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact >
-                    <template #label>
-                      کلاس های من
-                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">
-                        <template #trigger>
-                          <b-icon icon="dots-vertical"></b-icon>
-                        </template>
-                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddClass'}" exact>کلاس جدید</router-link></b-dropdown-item>
-                      </b-dropdown>
-                    </template>
-                  </b-menu-item>
-                </b-menu-list>
-              </b-menu>
+<!--                <b-menu-list>-->
+<!--                  <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact >-->
+<!--                    <template #label>-->
+<!--                      کلاس ها-->
+<!--                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">-->
+<!--                        <template #trigger>-->
+<!--                          <b-icon icon="dots-vertical"></b-icon>-->
+<!--                        </template>-->
+<!--                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddClass'}" exact>کلاس جدید</router-link></b-dropdown-item>-->
+<!--                      </b-dropdown>-->
+<!--                    </template>-->
+<!--                  </b-menu-item>-->
+<!--                </b-menu-list>-->
+<!--              </b-menu>-->
               <b-menu-list>
                 <b-menu-item icon="cog-outline" tag="router-link" :to="{ path: '/services' }" exact  label="سرویس ها"></b-menu-item>
               </b-menu-list>

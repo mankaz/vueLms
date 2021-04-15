@@ -3,6 +3,12 @@
     <div class="column is-10-desktop is-10-tablet is-8-mobile">
 
         <div class="box">
+          <div class="is-flex is-justify-content-flex-end">
+            <div class="media-content">
+              <small class="is-family-iranSans is-size-5 dir-ltr">ایجاد دوره</small>
+
+            </div>
+          </div>
           <div class="block is-flex is-justify-content-center">
             <div class="column  is-8-desktop">
               <b-field label="عنوان دوره" :label-position="labelPosition">

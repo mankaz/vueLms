@@ -36,7 +36,10 @@ body {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-
+.logo{
+  width: 50%;
+  margin: 10px 0 30px 0;
+}
 .card-collapse {
   border-radius: 2px !important;
 }
@@ -74,6 +77,10 @@ body {
   margin-top: 30px;
 }
 .column {
+  h1.devider{
+    border-bottom: 1px solid #c7c7c7 !important;
+    margin-bottom: 20px;
+  }
   .code-input{
     display: inline-flex;
   }
@@ -355,6 +362,11 @@ body {
     }
   }
 
+
+
+
+
+
   .is-active {
     span.menu-label {
       color: $white !important;
@@ -365,8 +377,9 @@ body {
     font-family: $font_IranSAns;
     font-size: $size-7;
     background: $is-active-menu !important;
-    border-radius: 4px;
     color: $white !important;
+    border-radius: 10px 0 10px 10px;
+
   }
 }
 

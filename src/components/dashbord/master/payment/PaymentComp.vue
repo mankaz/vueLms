@@ -1,5 +1,11 @@
 <template>
   <section>
+    <div class="is-flex is-justify-content-flex-end">
+      <div class="media-content">
+        <small class="is-family-iranSans is-size-5 dir-ltr">افزایش اعتبار</small>
+        <br>
+      </div>
+    </div>
     <div class="block is-flex is-justify-content-center">
       <div class="column  is-6-desktop">
     <b-field label="مبلغ شارژ(تومان)" :label-position="labelPosition">

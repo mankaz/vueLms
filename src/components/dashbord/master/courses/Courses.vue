@@ -1,11 +1,21 @@
 <template>
   <section>
-    <div class="control services-btn is-flex is-justify-content-left">
-      <b-button tag="router-link" :to="{ path: '/AddCourses' }" exact type="is-info" rounded
-                icon-right="plus-thick">
-        ایجاد دوره جدید
-      </b-button>
+    <div class="columns">
+      <div class="column control services-btn is-flex is-justify-content-left">
+        <b-button tag="router-link" :to="{ path: '/AddCourses' }" exact type="is-info" rounded
+                  icon-right="plus-thick">
+          ایجاد دوره جدید
+        </b-button>
+      </div>
+      <div class="is-flex is-justify-content-flex-end">
+        <div class="media-content">
+          <small class="is-family-iranSans is-size-5 dir-ltr">دوره ها</small>
+          <p class="is-family-iranSans is-size-7">:جزئیات دوره های ایجاد شده شما در این صفحه لیست شده اند</p>
+          <br>
+        </div>
+      </div>
     </div>
+
     <b-table
         :data="data"
         :paginated="isPaginated"
@@ -26,7 +36,7 @@
         {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="user.first_name" label="عنوان کلاس" sortable v-slot="props">
+      <b-table-column field="user.first_name" label="عنوان دوره" sortable v-slot="props">
         {{ props.row.user.class_name }}
       </b-table-column>
 

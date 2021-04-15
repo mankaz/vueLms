@@ -1,6 +1,12 @@
 <template>
   <section>
-    <div class="block   is-align-items-center is-flex is-justify-content-center">
+    <div class="is-flex is-justify-content-flex-end">
+      <div class="media-content">
+        <small class="is-family-iranSans is-size-5 dir-ltr">پشتیبان</small>
+
+      </div>
+    </div>
+    <div class="block is-align-items-center is-flex is-justify-content-center">
       <upload><slot> <p>بارگذاری تصویر/حداکثر 5 مگابایت</p></slot></upload>
       <div class="column  is-6-desktop">
         <b-field label="عنوان تیکت" :label-position="labelPosition">
