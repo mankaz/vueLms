@@ -12,7 +12,7 @@
 
                 <div class="column is-flex is-justify-content-center">
                   <b-notification ref="element" :closable="false">
-                  <div class="column">
+
                     <div class="column is-flex is-justify-content-flex-end">
                       <img class="image is-48x48" src="../../../../../public/img/logo.png">
                     </div>
@@ -49,7 +49,7 @@
                         <b-button id="sub" class="button  is-success is-rounded "  @click="submitForm">تأیید و ادامه</b-button>
                       </div>
                     </div>
-                  </div>
+
                   </b-notification>
                 </div>
 
@@ -72,8 +72,7 @@ export default {
       countDown : null,
       seconds : 10,
       myTimer : null,
-      fields :  null
-
+      fields :  ''
     }
   },
   name: "login",
@@ -116,8 +115,8 @@ export default {
       if (this.fields.length < 4) {
         this.$buefy.toast.open({
           message: 'ورود کد تأیید الزامی است',
-          type: 'is-danger',
-          position: 'is-bottom',
+          type: 'is-warning',
+          position: 'is-top',
         })
       } else {
         this.$router.push('/dashboard')

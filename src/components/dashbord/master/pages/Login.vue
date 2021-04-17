@@ -62,7 +62,7 @@ export default {
         this.$buefy.toast.open({
           message: 'شماره موبایل را وارد نمایید',
           type: 'is-warning',
-          position: 'is-bottom',
+          position: 'is-top',
         })
       } else {
         this.$router.push('/loginRequest')

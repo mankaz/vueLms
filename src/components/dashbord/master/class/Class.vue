@@ -39,6 +39,17 @@
         {{ props.row.id }}
       </b-table-column>
 
+      <b-table-column field="user.first_name" label="دوره" sortable v-slot="props">
+        <template v-if="showDetailIcon">
+          {{ props.row.user.courses_name }}
+        </template>
+        <template v-else>
+          <a @click="props.toggleDetails(props.row)">
+            {{ props.row.user.first_name }}
+          </a>
+        </template>
+      </b-table-column>
+
       <b-table-column field="user.first_name" label="عنوان کلاس" sortable v-slot="props">
         <template v-if="showDetailIcon">
           {{ props.row.user.courses_name }}
@@ -129,6 +140,9 @@ export default {
   },
   methods: {
     deleteRow() {
+      // for(let i=0; i<this.data.length ; i++) {
+      //   alert(this.data[i]['id'])
+      // }
       let $vm = this;
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
@@ -138,8 +152,9 @@ export default {
         type: 'is-danger',
         onConfirm:function ()
       {
-        for(let a=0; a<$vm.data.length ; a ++) {
-          console.log(a)
+
+        for(let a=0; a<$vm.data.length ; a++) {
+          // console.log($vm.data[a]['id'])
           $vm.data.splice(a, 1);
         }
         this.$buefy.toast.open({

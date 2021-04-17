@@ -40,31 +40,33 @@
         {{ props.row.user.class_name }}
       </b-table-column>
 
-      <b-table-column field="user.last_name" label="سرویس" sortable v-slot="props">
+      <b-table-column field="user.last_name" label="جزئیات" sortable v-slot="props">
         {{ props.row.user.service_name }}
       </b-table-column>
 
-      <b-table-column field="date" label="عملیات" sortable centered>
-        <b-tooltip label="مشاهده"
-                   position="is-top">
-          <b-button
-              rounded
-              class="is-light nav-btn-space action-btn"
-              type="is-link"
-              icon-right="play-circle-outline"/>
-        </b-tooltip>
-
-        <b-tooltip label="حذف"
-                   position="is-top">
-          <b-button
-              rounded
-              class="is-light nav-btn-space"
-              type="is-danger"
-              icon-right="delete"
-              @click="confirmCustom"
-          />
-        </b-tooltip>
-
+      <b-table-column field="date" label="عملیات"  centered>
+        <div class="columns is-flex is-justify-content-center">
+          <div class="column is-4 is-flex is-justify-content-flex-start">
+            <b-button
+                rounded
+                size="is-small"
+                label="ویرایش"
+                class="nav-btn-space action-btn"
+                type="is-success"
+                icon-right="play-circle-outline"/>
+          </div>
+          <div class="column is-1 is-flex is-justify-content-flex-end">
+            <b-button
+                rounded
+                size="is-small"
+                label="حذف"
+                class="nav-btn-space action-btn"
+                type="is-danger"
+                icon-right="delete"
+                @click="deleteRow()"
+            />
+          </div>
+        </div>
       </b-table-column>
 
 
@@ -91,14 +93,26 @@ export default {
     }
   },
   methods : {
-    confirmCustom() {
+    deleteRow() {
+      let $vm = this;
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
-        message: `آیا از حذف این کلاس اطمینان دارید؟`,
+        message: `آیا از حذف این دوره اطمینان دارید؟`,
         cancelText: 'انصرف',
         confirmText: 'بله',
         type: 'is-danger',
-        onConfirm: () => this.$buefy.toast.open('حذف با موفقیت انجام شد')
+        onConfirm:function ()
+        {
+          for(let a=0; a<$vm.data.length ; a++) {
+            console.log(a)
+            $vm.data.splice(a, 1);
+          }
+          this.$buefy.toast.open({
+            message: 'دوره مورد نظر با موفقیت حذف شد',
+            type: 'is-success',
+            position: 'is-bottom',
+          })
+        }
       })
 
     }
