@@ -16,11 +16,14 @@
 <!--              <CreateRoom></CreateRoom>-->
 <!--                </div>-->
 <!--              </div>-->
-              <div class="column">
+
                 <div class="box">
-                  <RoomDetail></RoomDetail>
+                  <div class="column">
+                    <Class></Class>
+                  </div>
+
                 </div>
-              </div>
+
 
           </div>
         </div>
@@ -33,7 +36,7 @@
 </template>
 
 <script>
-import RoomDetail from "../class/Class";
+import Class from "../class/Class";
 // import CreateRoom from "../courses/CreateRoom";
 export default {
   data(){
@@ -42,7 +45,7 @@ export default {
     }
 
   },
-  components : {RoomDetail},
+  components : {Class},
 
 }
 </script>

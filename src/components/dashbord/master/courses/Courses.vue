@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-
     <b-table
         :data="data"
         :paginated="isPaginated"
@@ -32,28 +31,32 @@
         aria-page-label="Page"
         aria-current-label="Current page">
 
-      <b-table-column field="id" label="ردیف" width="40" sortable numeric v-slot="props">
+      <b-table-column field="id"  sortable numeric v-slot="props">
         {{ props.row.id }}
       </b-table-column>
 
       <b-table-column field="user.first_name" label="عنوان دوره" sortable v-slot="props">
-        {{ props.row.user.class_name }}
+        {{ props.row.class_name }}
       </b-table-column>
 
       <b-table-column field="user.last_name" label="جزئیات" sortable v-slot="props">
-        {{ props.row.user.service_name }}
+        {{ props.row.service_name }}
       </b-table-column>
 
-      <b-table-column field="date" label="عملیات"  centered>
+      <b-table-column label="عملیات"  centered v-slot="props">
         <div class="columns is-flex is-justify-content-center">
           <div class="column is-4 is-flex is-justify-content-flex-start">
+
             <b-button
+
                 rounded
                 size="is-small"
                 label="ویرایش"
                 class="nav-btn-space action-btn"
                 type="is-success"
-                icon-right="play-circle-outline"/>
+                icon-right="play-circle-outline"
+                @click="editCourse(props.row.id)"
+            />
           </div>
           <div class="column is-1 is-flex is-justify-content-flex-end">
             <b-button
@@ -63,24 +66,27 @@
                 class="nav-btn-space action-btn"
                 type="is-danger"
                 icon-right="delete"
-                @click="deleteRow()"
+                @click="deleteRow(props.row.id)"
             />
           </div>
         </div>
       </b-table-column>
-
-
     </b-table>
+    <pre>{{ selected }}</pre>
   </section>
 </template>
 
 <script>
+
 const data = require('../../../../sample.json')
 
 export default {
   data() {
     return {
+
+      checkboxPosition: 'left',
       data,
+      selected:null,
       isPaginated: true,
       isPaginationSimple: false,
       isPaginationRounded: false,
@@ -93,29 +99,59 @@ export default {
     }
   },
   methods : {
-    deleteRow() {
-      let $vm = this;
-      this.$buefy.dialog.confirm({
-        title: 'حذف کلاس',
-        message: `آیا از حذف این دوره اطمینان دارید؟`,
-        cancelText: 'انصرف',
-        confirmText: 'بله',
-        type: 'is-danger',
-        onConfirm:function ()
-        {
-          for(let a=0; a<$vm.data.length ; a++) {
-            console.log(a)
-            $vm.data.splice(a, 1);
-          }
-          this.$buefy.toast.open({
-            message: 'دوره مورد نظر با موفقیت حذف شد',
-            type: 'is-success',
-            position: 'is-bottom',
-          })
-        }
-      })
+    deleteRow(i) {
+     // let $vm = this;
+      console.log()
 
-    }
+
+
+      // this.data.splice(i, 1);
+
+      console.log(this.data[i]['class_name'])
+      // console.log(this.data)
+      // this.$buefy.dialog.confirm({
+      //   title: 'حذف کلاس',
+      //   message: `آیا از حذف این دوره اطمینان دارید؟`,
+      //   cancelText: 'انصرف',
+      //   confirmText: 'بله',
+      //   type: 'is-danger',
+      //   onConfirm:function ()
+      //   {
+      //     // for(let a=0; a<$vm.data.length ; a++) {
+      //
+      //     //   $vm.data.splice(i, 1);
+      //     // }
+      //     this.$buefy.toast.open({
+      //       message: 'دوره مورد نظر با موفقیت حذف شد',
+      //       type: 'is-success',
+      //       position: 'is-bottom',
+      //     })
+      //   }
+      // })
+
+    },
+    editCourse(i) {
+      // let sortArray = this.data.sort();
+        this.$buefy.dialog.prompt({
+          message: `What's your age?`,
+          inputAttrs: {
+            placeholder: 'Type your age',
+            value: this.data[i]['id']
+          },
+          trapFocus: true,
+          onConfirm:function (value)
+          {
+            this.$buefy.toast.open(`Your age is: ${value}`)
+
+          }
+        })
+    },
   }
 }
 </script>
+<style>
+tr.is-info {
+  background: #167df0;
+  color: #fff;
+}
+</style>
