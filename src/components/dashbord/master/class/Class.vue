@@ -20,13 +20,13 @@
       <div class="column">
       </div>
       <div class="column is-4-desktop is-rtl">
-        <b-field  label="جستجو در عنوان کلاس" :label-position="labelPosition">
+        <b-field label="جستجو در عنوان کلاس" :label-position="labelPosition">
           <b-input v-model="search"></b-input>
         </b-field>
       </div>
     </div>
 
-    <div class="columns is-desktop is-multiline ">
+    <div class="columns is-desktop is-multiline " v-if="posts">
       <div class="column is-one-quarter" v-for="(item,index )  in paginate " :key="index">
 
         <ClassCard>
@@ -47,7 +47,7 @@
 
                   <div class="media-content">
                     <slot>
-                      <p class="title is-4">{{item.user.class_name}}</p>
+                      <p class="title is-4">{{ item.meeting_name }}</p>
                     </slot>
                   </div>
                 </div>
@@ -55,7 +55,7 @@
               <slot>
                 <div class="content">
                   <slot>
-                    <p>{{item.description}} </p>
+                    <p>{{ item.description }} </p>
                   </slot>
                   <slot>
                     <div class="columns start-date">
@@ -63,35 +63,35 @@
                         <slot><small>زمان شروع</small></slot>
                       </div>
                       <div class="column is-7 is-size-7">
-                        <slot><small>{{ item.start_date }}</small></slot>
+                        <slot><small>{{ item.start_time }}</small></slot>
                       </div>
                     </div>
                   </slot>
                   <div class="columns">
-                        <div class="column is-flex ">
-                          <b-button
-                              class="is-light"
-                              type="is-info"
-                              icon-right="square-edit-outline is-light"
-                              @click="editCourse(index)"
-                          />
-                        </div>
-                        <div class="column  is-flex">
-                          <b-button
-                              class="is-light"
-                              type="is-success"
-                              icon-right="play-outline"
-                              @click="deleteRow(index)"
-                          />
-                        </div>
-                        <div class="column  is-flex ">
-                          <b-button
-                              class="is-light"
-                              type="is-danger"
-                              icon-right="delete-outline"
-                              @click="deleteRow(index)"
-                          />
-                        </div>
+                    <div class="column is-flex ">
+                      <b-button
+                          class="is-light"
+                          type="is-info"
+                          icon-right="square-edit-outline is-light"
+                          @click="editCourse(index)"
+                      />
+                    </div>
+                    <div class="column  is-flex">
+                      <b-button
+                          class="is-light"
+                          type="is-success"
+                          icon-right="play-outline"
+                          @click="deleteRow(index)"
+                      />
+                    </div>
+                    <div class="column  is-flex ">
+                      <b-button
+                          class="is-light"
+                          type="is-danger"
+                          icon-right="delete-outline"
+                          @click="deleteRow(index)"
+                      />
+                    </div>
                   </div>
                 </div>
               </slot>
@@ -103,34 +103,61 @@
       </div>
 
     </div>
-<div class="column is-flex is-align-content-center is-justify-content-center">
-  <nav class="pagination" role="navigation" aria-label="pagination">
-  <ul class="pagination-list">
-    <li class="is-flex align-items-center is-justify-content-center is-align-content-center" v-for="pageNumber in totalPages" v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1" :key="pageNumber">
-      <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>
-      <a :key="pageNumber"  @click.prevent="setPage(pageNumber)" :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{ pageNumber }}</a>
-      <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>
-    </li>
-  </ul>
-  </nav>
-</div>
+    <div class="column is-flex is-align-content-center is-justify-content-center">
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"
+              v-for="pageNumber in totalPages"
+              v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1"
+              :key="pageNumber">
+            <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>
+            <a :key="pageNumber" @click.prevent="setPage(pageNumber)"
+               :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{
+                pageNumber
+              }}</a>
+            <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </section>
 
 </template>
 <!-- eslint-disable -->
 <script>
 
-const data = require('../../../../sample.json')
+import axios from "axios";
+
+// const posts = require('../../../../sample.json')
 import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import EditClass from "@/components/dashbord/master/class/EditClass";
 
 export default {
+  // async created() {
+  //   const posts = await axios.get(`http://localhost/bbb/CI/public/BBBController/getMeetings/0`)
+  //   if (posts.data) {
+  //     this.posts = posts.data;
+  //     // console.log( this.posts)
+  //   }
+  // },
+  // async created() {
+  //   alert('Press F12 before continue')
+  //
+  //   await axios
+  //       .get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
+  //       .then((response)=> {
+  //         response.data
+  //         console.log(response)
+  //       })
+  //   alert('Look into devtools console!')
+  // },
+
   data() {
     return {
       labelPosition: 'on-border',
       publicPath: process.env.BASE_URL,
-      data,
       search: '',
+      posts:null,
       currentPage: 1,
       itemsPerPage: 4,
       resultCount: 0,
@@ -147,7 +174,7 @@ export default {
         type: 'is-danger',
         onConfirm: function () {
           console.log(i)
-          $vm.data.splice(i,1);
+          $vm.data.splice(i, 1);
           // console.log($vm.data[i]['id'])
           this.$buefy.toast.open({
             message: 'کلاس مورد نظر با موفقیت حذف شد',
@@ -174,35 +201,56 @@ export default {
       })
     },
 
-      setPage: function(pageNumber) {
-        this.currentPage = pageNumber
+    setPage: function (pageNumber) {
+      this.currentPage = pageNumber
 
     }
   },
+   created() {
+     axios
+        .get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
+        .then((response)=> {
+          this.posts = JSON.parse(JSON.stringify(response.data))
+          console.log(typeof JSON.parse(JSON.stringify(response.data)))
+          console.log(typeof response.data)
+        })
+  },
+
   computed: {
-    totalPages: function() {
+    totalPages: function () {
       return Math.ceil(this.resultCount / this.itemsPerPage)
     },
-    paginate: function() {
 
-      if (!this.data || this.data.length !== this.data.length) {
+    paginate: function () {
+      if (!this.posts || this.posts.length !== this.posts.length) {
         return
       }
-      this.resultCount = this.data.length
+      this.resultCount = this.posts.length
       if (this.currentPage >= this.totalPages) {
         this.currentPage = this.totalPages
       }
       if (this.search !== '') {
-        return this.data.filter((item) => {
-          return item.user.class_name.match(this.search);
+        return this.posts.filter((item) => {
+          let searchResult = item.meeting_name.match(this.search)
+          //console.log(searchResult != null ? searchResult.length : 0)
+          if (searchResult != null)
+            this.resultCount = searchResult.length
+          return searchResult;
         });
       }
+      console.log(this.posts )
       let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-      return this.data.slice(index, index + this.itemsPerPage)
+      return this.posts.slice(index, index + this.itemsPerPage)
     },
   },
+  // try{
+  //   this.data=  await axios.get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
+  //   console.log(data)
+  // }catch(err){
+  //   console.log(err)
+  // }
   components: {
-    ClassCard,EditClass
+    ClassCard, EditClass
   }
 }
 </script>
