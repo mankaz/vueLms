@@ -18,7 +18,7 @@
 
 <script>
 const ModalForm = {
-  props: ['email', 'password'],
+  props: ['email'],
   template: `
     <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
@@ -34,15 +34,6 @@ const ModalForm = {
         </b-input>
       </b-field>
 
-      <b-field label="Password">
-        <b-input
-            type="password"
-            :value="password"
-            password-reveal
-            placeholder="Your password"
-            required>
-        </b-input>
-      </b-field>
 
       <b-checkbox>Remember me</b-checkbox>
     </section>
@@ -65,10 +56,7 @@ export default {
   data() {
     return {
       isComponentModalActive: false,
-      formProps: {
-        email: 'evan@you.com',
-        password: 'testing'
-      }
+      formProps: {}
     }
   }
 }

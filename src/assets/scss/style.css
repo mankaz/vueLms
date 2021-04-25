@@ -4007,6 +4007,10 @@ body {
   font-weight: 400 !important;
 }
 
+.modal-card-body .direction {
+  direction: ltr;
+}
+
 .control-label {
   padding-right: 5px;
 }
@@ -4623,6 +4627,9 @@ ul {
 .card-content {
   width: 90%;
   height: 250px !important;
+}
+.card-content .media {
+  height: 2.6668em;
 }
 .card-content p {
   font-size: 16px !important;

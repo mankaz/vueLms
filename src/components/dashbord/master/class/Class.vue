@@ -69,11 +69,95 @@
                   </slot>
                   <div class="columns">
                     <div class="column is-flex ">
+                      <b-modal v-model="isCardModalActive" full-screen  scroll="keep">
+                        <form method="post" @submit.prevent="editClass()" >
+                        <div class="modal-card dir-ltr" style="width: auto">
+                          <header class="modal-card-head">
+                            <p class="modal-card-title">Login</p>
+                          </header>
+                          <section class="modal-card-body">
+                            <div class="block direction is-flex is-justify-content-center">
+                              <div class="column  is-8-desktop">
+                                <div class="columns">
+                                  <div class="column">
+                                    <b-field  :label-position="labelPosition"
+                                              label="انتخاب دوره">
+                                      <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>
+                                        <option value="پشتیبانی فنی">پشتیبانی فنی</option>
+                                        <option value="واحد مالی">واحد مالی</option>
+                                        <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
+                                      </b-select>
+                                    </b-field>
+                                  </div>
+                                  <div class="column">
+                                    <b-field  label="عنوان کلاس" :label-position="labelPosition">
+                                      <b-input v-model="className"></b-input>
+                                    </b-field>
+                                  </div>
+                                </div>
+
+                                <div class="columns">
+                                  <div class="column">
+                                    <b-field  label="زمان پایان" :label-position="labelPosition">
+                                      <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>
+                                    </b-field>
+                                  </div>
+                                  <div class="column">
+                                    <b-field  label="زمان شروع" :label-position="labelPosition">
+                                      <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>
+                                    </b-field>
+                                  </div>
+                                </div>
+                                <div class="columns">
+                                  <div class="column  is-flex is-align-items-center is-justify-content-center">
+                                    <upload v-model="classImage">
+                                      <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>
+                                    </upload>
+
+                                  </div>
+                                  <div class="column">
+                                    <b-field  label="توضحیات دوره" :label-position="labelPosition">
+                                      <b-input v-model="classDescription" maxlength="400" type="textarea"></b-input>
+                                    </b-field>
+                                  </div>
+                                </div>
+                                <div class="columns">
+                                  <div class="column">
+                                  </div>
+                                  <div class="column is-flex is-align-items-center is-justify-content-center">
+                                    <b-field>
+                                      <b-checkbox :value="true" class="is-family-iranSans">
+                                        قابلیت ضبظ
+                                      </b-checkbox>
+                                    </b-field>
+                                  </div>
+                                </div>
+                                <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">
+                                  <span>ایجاد کلاس</span>
+                                  <span class="icon is-small">
+                 <i class="fas fa-check"></i>
+                 </span>
+                                </button>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                          <footer class="modal-card-foot">
+                            <b-button
+                                label="Close"
+                                @click="isCardModalActive=false" />
+                            <b-button
+                                label="Login"
+                                type="is-primary" />
+                          </footer>
+                        </div>
+                        </form>
+                      </b-modal>
                       <b-button
                           class="is-light"
                           type="is-info"
                           icon-right="square-edit-outline is-light"
-                          @click="editCourse(index)"
+                          @click="isCardModalActive = true"
                       />
                     </div>
                     <div class="column  is-flex">
@@ -95,6 +179,7 @@
                   </div>
                 </div>
               </slot>
+              
             </div>
 
           </slot>
@@ -133,29 +218,17 @@ import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import EditClass from "@/components/dashbord/master/class/EditClass";
 
 export default {
-  // async created() {
-  //   const posts = await axios.get(`http://localhost/bbb/CI/public/BBBController/getMeetings/0`)
-  //   if (posts.data) {
-  //     this.posts = posts.data;
-  //     // console.log( this.posts)
-  //   }
-  // },
-  // async created() {
-  //   alert('Press F12 before continue')
-  //
-  //   await axios
-  //       .get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
-  //       .then((response)=> {
-  //         response.data
-  //         console.log(response)
-  //       })
-  //   alert('Look into devtools console!')
-  // },
-
   data() {
     return {
+      className : '',
+      course : '',
+      classStartDate : '',
+      classEndDate:'',
+      classDescription:'',
+      classImage:'',
       labelPosition: 'on-border',
       publicPath: process.env.BASE_URL,
+      isCardModalActive: false,
       search: '',
       posts:null,
       currentPage: 1,
@@ -164,6 +237,7 @@ export default {
     }
   },
   methods: {
+
     deleteRow(i) {
       let $vm = this;
       this.$buefy.dialog.confirm({
@@ -185,7 +259,7 @@ export default {
 
       })
     },
-    editCourse(i) {
+    editClass(i) {
       this.$buefy.dialog.prompt({
         message: `What's your age?`,
         inputAttrs: {
@@ -200,19 +274,19 @@ export default {
         }
       })
     },
-
     setPage: function (pageNumber) {
       this.currentPage = pageNumber
-
     }
   },
    created() {
      axios
-        .get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
+        .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings/0')
         .then((response)=> {
-          this.posts = JSON.parse(JSON.stringify(response.data))
-          console.log(typeof JSON.parse(JSON.stringify(response.data)))
-          console.log(typeof response.data)
+         this.posts = response.data
+
+          // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
+          // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
+          // console.log(typeof response.data)
         })
   },
 
@@ -232,7 +306,6 @@ export default {
       if (this.search !== '') {
         return this.posts.filter((item) => {
           let searchResult = item.meeting_name.match(this.search)
-          //console.log(searchResult != null ? searchResult.length : 0)
           if (searchResult != null)
             this.resultCount = searchResult.length
           return searchResult;
@@ -243,12 +316,6 @@ export default {
       return this.posts.slice(index, index + this.itemsPerPage)
     },
   },
-  // try{
-  //   this.data=  await axios.get('http://localhost/bbb/CI/public/BBBController/getMeetings/0')
-  //   console.log(data)
-  // }catch(err){
-  //   console.log(err)
-  // }
   components: {
     ClassCard, EditClass
   }
