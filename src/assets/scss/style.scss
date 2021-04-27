@@ -368,7 +368,9 @@ tr.is-selected{
     font-family: $font_IranSAns;
   }
 }
-
+.class-search{
+  margin-bottom: -150px !important;
+}
 .menu-list {
   li {
     list-style: none;
@@ -880,8 +882,8 @@ ul {
   font-size: $size-5 !important;
 }
 .card-content{
-  width: 90%;
-  height:250px !important;
+  width: 95%;
+
   .media {
     height: 2.6668em;
   }

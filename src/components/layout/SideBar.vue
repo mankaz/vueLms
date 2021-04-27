@@ -19,10 +19,10 @@
                 <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="پیشخوان"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
-                <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact   label="دوره ها"></b-menu-item>
+                <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact  label="کلاس ها"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
-                <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact  label="کلاس ها"></b-menu-item>
+                <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact   label="دوره ها"></b-menu-item>
               </b-menu-list>
 <!--              <b-menu>-->
 <!--                <b-menu-list>-->

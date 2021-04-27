@@ -1,6 +1,8 @@
 <!-- eslint-disable -->
 <template>
   <section>
+
+
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
         <b-button tag="router-link" :to="{ path: '/AddClass' }" exact type="is-info" rounded
@@ -15,18 +17,22 @@
           <br>
         </div>
       </div>
+
     </div>
     <div class="columns is-flex  is-justify-content-flex-end ">
       <div class="column">
       </div>
       <div class="column is-4-desktop is-rtl">
-        <b-field label="جستجو در عنوان کلاس" :label-position="labelPosition">
+        <b-field class="class-search" label="جستجو در عنوان کلاس" :label-position="labelPosition">
           <b-input v-model="search"></b-input>
         </b-field>
       </div>
     </div>
+    <b-notification  :closable="false" >
+      <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
+    </b-notification>
+    <div class="columns is-desktop is-multiline ">
 
-    <div class="columns is-desktop is-multiline " v-if="posts">
       <div class="column is-one-quarter" v-for="(item,index )  in paginate " :key="index">
 
         <ClassCard>
@@ -47,20 +53,37 @@
 
                   <div class="media-content">
                     <slot>
-                      <p class="title is-4">{{ item.meeting_name }}</p>
+                      <p class="title is-4" v-if="item.meeting_name.length<20">{{ item.meeting_name }}</p>
+                      <p v-else>{{ item.meeting_name.substring(0,20)+"..." }}</p>
                     </slot>
                   </div>
                 </div>
               </slot>
               <slot>
                 <div class="content">
-                  <slot>
-                    <p>{{ item.description }} </p>
-                  </slot>
+                  <div class="columns">
+                    <div class="column">
+                      <slot><small>عنوان دوره:</small></slot>
+                    </div>
+                  </div>
+                  <div class="columns">
+                      <slot>
+                        <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">
+                          <template #trigger="props">
+                            <a class="is-size-7" aria-controls="contentIdForA11y1">
+                              <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
+                              {{ !props.open ? 'توضیحات' : 'بستن' }}
+                            </a>
+                          </template>
+                          <p v-if="item.description">{{ item.description }} </p>
+                          <p v-else>{{ "بدون توضیح" }} </p>
+                        </b-collapse>
+                      </slot>
+                  </div>
                   <slot>
                     <div class="columns start-date">
                       <div class="column">
-                        <slot><small>زمان شروع</small></slot>
+                        <slot><small>زمان شروع:</small></slot>
                       </div>
                       <div class="column is-7 is-size-7">
                         <slot><small>{{ item.start_time }}</small></slot>
@@ -69,13 +92,15 @@
                   </slot>
                   <div class="columns">
                     <div class="column is-flex ">
-                      <b-modal v-model="isCardModalActive" full-screen  scroll="keep">
+                      <b-modal v-model="isCardModalActive" full-screen :can-cancel="false" scroll="keep">
                         <form method="post" @submit.prevent="editClass()" >
                         <div class="modal-card dir-ltr" style="width: auto">
                           <header class="modal-card-head">
-                            <p class="modal-card-title">Login</p>
+                            <p class="modal-card-title">ویرایش کلاس</p>
                           </header>
+
                           <section class="modal-card-body">
+
                             <div class="block direction is-flex is-justify-content-center">
                               <div class="column  is-8-desktop">
                                 <div class="columns">
@@ -117,7 +142,7 @@
                                   </div>
                                   <div class="column">
                                     <b-field  label="توضحیات دوره" :label-position="labelPosition">
-                                      <b-input v-model="classDescription" maxlength="400" type="textarea"></b-input>
+                                      <b-input  v-model="classDescription" maxlength="400" type="textarea"></b-input>
                                     </b-field>
                                   </div>
                                 </div>
@@ -132,8 +157,8 @@
                                     </b-field>
                                   </div>
                                 </div>
-                                <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">
-                                  <span>ایجاد کلاس</span>
+                                <div class="column is-flex is-justify-content-center"> <button @click="editClass(item.id)" class="button is-success is-rounded ">
+                                  <span>ویرایش  کلاس</span>
                                   <span class="icon is-small">
                  <i class="fas fa-check"></i>
                  </span>
@@ -142,13 +167,12 @@
                               </div>
                             </div>
                           </section>
+
                           <footer class="modal-card-foot">
                             <b-button
-                                label="Close"
+                                label="انصراف"
+                                type="is-warning"
                                 @click="isCardModalActive=false" />
-                            <b-button
-                                label="Login"
-                                type="is-primary" />
                           </footer>
                         </div>
                         </form>
@@ -179,7 +203,7 @@
                   </div>
                 </div>
               </slot>
-              
+
             </div>
 
           </slot>
@@ -188,6 +212,7 @@
       </div>
 
     </div>
+
     <div class="column is-flex is-align-content-center is-justify-content-center">
       <nav class="pagination" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
@@ -215,14 +240,14 @@ import axios from "axios";
 
 // const posts = require('../../../../sample.json')
 import ClassCard from "@/components/dashbord/master/class/ClassCard";
-import EditClass from "@/components/dashbord/master/class/EditClass";
+import upload from "@/components/dashbord/master/extension/upload";
 
 export default {
   data() {
     return {
       className : '',
       course : '',
-      classStartDate : '',
+      classStartDate :'',
       classEndDate:'',
       classDescription:'',
       classImage:'',
@@ -234,6 +259,8 @@ export default {
       currentPage: 1,
       itemsPerPage: 4,
       resultCount: 0,
+      isLoading: false,
+      isFullPage: false
     }
   },
   methods: {
@@ -248,7 +275,7 @@ export default {
         type: 'is-danger',
         onConfirm: function () {
           console.log(i)
-          $vm.data.splice(i, 1);
+          $vm.posts.splice(i, 1);
           // console.log($vm.data[i]['id'])
           this.$buefy.toast.open({
             message: 'کلاس مورد نظر با موفقیت حذف شد',
@@ -260,30 +287,44 @@ export default {
       })
     },
     editClass(i) {
-      this.$buefy.dialog.prompt({
-        message: `What's your age?`,
-        inputAttrs: {
-          placeholder: 'Type your age',
-          value: this.data[i]['id']
-        },
-
-        trapFocus: true,
-        onConfirm: function (value) {
-          this.$buefy.toast.open(`Your age is: ${value}`)
-
-        }
-      })
+      console.log(i)
+          const form = new FormData();
+          form.append("className", this.className);
+          form.append("course", this.course);
+          form.append("classStartDate", this.classStartDate);
+          form.append("classEndDate", this.classEndDate);
+          form.append("classDescription", this.classDescription);
+          form.append("classImage", this.classImage);
+          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0",form, {headers})
+              .then((res)=> {
+                this.$buefy.toast.open({
+                  message: 'کلاس مورد نظر با موفقیت ویرایش شد',
+                  type: 'is-success',
+                  position: 'is-top',
+                })
+                console.log(i)
+              })
+              .catch(err=> {
+                this.$buefy.toast.open({
+                  message: 'خطا در ویرایش کلاس',
+                  type: 'is-danger',
+                  position: 'is-top',
+                })
+              })
     },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber
     }
   },
    created() {
+     this.isLoading = true
+
      axios
         .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings/0')
         .then((response)=> {
          this.posts = response.data
-
+          this.isLoading = false
           // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
           // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
           // console.log(typeof response.data)
@@ -304,12 +345,18 @@ export default {
         this.currentPage = this.totalPages
       }
       if (this.search !== '') {
+        let searchCount = 0;
         return this.posts.filter((item) => {
           let searchResult = item.meeting_name.match(this.search)
-          if (searchResult != null)
-            this.resultCount = searchResult.length
+          if (searchResult != null) {
+            ++searchCount;
+            console.log(searchResult.length)
+          }
+          this.resultCount = searchCount
+          console.log(this.resultCount)
           return searchResult;
         });
+
       }
       console.log(this.posts )
       let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
@@ -317,7 +364,8 @@ export default {
     },
   },
   components: {
-    ClassCard, EditClass
+    ClassCard,upload
   }
 }
+
 </script>
