@@ -92,97 +92,9 @@
                   </slot>
                   <div class="columns">
                     <div class="column is-flex ">
-                      <b-modal v-model="isCardModalActive" full-screen :can-cancel="false" scroll="keep">
-                        <form method="post" @submit.prevent="editClass()" >
-                        <div class="modal-card dir-ltr" style="width: auto">
-                          <header class="modal-card-head">
-                            <p class="modal-card-title">ویرایش کلاس</p>
-                          </header>
 
-                          <section class="modal-card-body">
-
-                            <div class="block direction is-flex is-justify-content-center">
-                              <div class="column  is-8-desktop">
-                                <div class="columns">
-                                  <div class="column">
-                                    <b-field  :label-position="labelPosition"
-                                              label="انتخاب دوره">
-                                      <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>
-                                        <option value="پشتیبانی فنی">پشتیبانی فنی</option>
-                                        <option value="واحد مالی">واحد مالی</option>
-                                        <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
-                                      </b-select>
-                                    </b-field>
-                                  </div>
-                                  <div class="column">
-                                    <b-field  label="عنوان کلاس" :label-position="labelPosition">
-                                      <b-input v-model="className"></b-input>
-                                    </b-field>
-                                  </div>
-                                </div>
-
-                                <div class="columns">
-                                  <div class="column">
-                                    <b-field  label="زمان پایان" :label-position="labelPosition">
-                                      <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>
-                                    </b-field>
-                                  </div>
-                                  <div class="column">
-                                    <b-field  label="زمان شروع" :label-position="labelPosition">
-                                      <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>
-                                    </b-field>
-                                  </div>
-                                </div>
-                                <div class="columns">
-                                  <div class="column  is-flex is-align-items-center is-justify-content-center">
-                                    <upload v-model="classImage">
-                                      <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>
-                                    </upload>
-
-                                  </div>
-                                  <div class="column">
-                                    <b-field  label="توضحیات دوره" :label-position="labelPosition">
-                                      <b-input  v-model="classDescription" maxlength="400" type="textarea"></b-input>
-                                    </b-field>
-                                  </div>
-                                </div>
-                                <div class="columns">
-                                  <div class="column">
-                                  </div>
-                                  <div class="column is-flex is-align-items-center is-justify-content-center">
-                                    <b-field>
-                                      <b-checkbox :value="true" class="is-family-iranSans">
-                                        قابلیت ضبظ
-                                      </b-checkbox>
-                                    </b-field>
-                                  </div>
-                                </div>
-                                <div class="column is-flex is-justify-content-center"> <button @click="editClass(item.id)" class="button is-success is-rounded ">
-                                  <span>ویرایش  کلاس</span>
-                                  <span class="icon is-small">
-                 <i class="fas fa-check"></i>
-                 </span>
-                                </button>
-                                </div>
-                              </div>
-                            </div>
-                          </section>
-
-                          <footer class="modal-card-foot">
-                            <b-button
-                                label="انصراف"
-                                type="is-warning"
-                                @click="isCardModalActive=false" />
-                          </footer>
-                        </div>
-                        </form>
-                      </b-modal>
-                      <b-button
-                          class="is-light"
-                          type="is-info"
-                          icon-right="square-edit-outline is-light"
-                          @click="isCardModalActive = true"
-                      />
+<!--                      <router-link :to="{ path: '/EditClass/'+item.id}" class="dropdown-item">Home</router-link>-->
+                      <router-link :to="{ name: 'editClass', params: { id: item.id, isRegisteringMe:'ffffffff' }}">Register</router-link>
                     </div>
                     <div class="column  is-flex">
                       <b-button
@@ -210,7 +122,91 @@
         </ClassCard>
 
       </div>
+<!--      <b-modal v-model="isCardModalActive" full-screen :can-cancel="false" scroll="keep">-->
+<!--        <form method="post" @submit.prevent="editClass()" >-->
+<!--          <div class="modal-card dir-ltr" style="width: auto">-->
+<!--            <header class="modal-card-head">-->
+<!--              <p class="modal-card-title">ویرایش کلاس</p>-->
+<!--            </header>-->
 
+<!--            <section class="modal-card-body">-->
+
+<!--              <div class="block direction is-flex is-justify-content-center">-->
+<!--                <div class="column  is-8-desktop">-->
+<!--                  <div class="columns">-->
+<!--                    <div class="column">-->
+<!--                      <b-field  :label-position="labelPosition"-->
+<!--                                label="انتخاب دوره">-->
+<!--                        <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>-->
+<!--                          <option value="پشتیبانی فنی">پشتیبانی فنی</option>-->
+<!--                          <option value="واحد مالی">واحد مالی</option>-->
+<!--                          <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>-->
+<!--                        </b-select>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                    <div class="column">-->
+<!--                      <b-field  label="عنوان کلاس" :label-position="labelPosition">-->
+<!--                        <b-input  ></b-input>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  <div class="columns">-->
+<!--                    <div class="column">-->
+<!--                      <b-field  label="زمان پایان" :label-position="labelPosition">-->
+<!--                        <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                    <div class="column">-->
+<!--                      <b-field  label="زمان شروع" :label-position="labelPosition">-->
+<!--                        <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="columns">-->
+<!--                    <div class="column  is-flex is-align-items-center is-justify-content-center">-->
+<!--                      <upload v-model="classImage">-->
+<!--                        <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>-->
+<!--                      </upload>-->
+
+<!--                    </div>-->
+<!--                    <div class="column">-->
+<!--                      <b-field  label="توضحیات دوره" :label-position="labelPosition">-->
+<!--                        <b-input  v-model="classDescription" maxlength="400" type="textarea"></b-input>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="columns">-->
+<!--                    <div class="column">-->
+<!--                    </div>-->
+<!--                    <div class="column is-flex is-align-items-center is-justify-content-center">-->
+<!--                      <b-field>-->
+<!--                        <b-checkbox :value="true" class="is-family-iranSans">-->
+<!--                          قابلیت ضبظ-->
+<!--                        </b-checkbox>-->
+<!--                      </b-field>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="column is-flex is-justify-content-center"> <b-button tag="router-link" :to="{ path: '/AddClass/', params: { itemId: item.id } }" exact  class="button is-success is-rounded ">-->
+<!--                    <span>ویرایش  کلاس</span>-->
+<!--                    <span class="icon is-small">-->
+<!--                 <i class="fas fa-check"></i>-->
+<!--                 </span>-->
+<!--                  </b-button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </section>-->
+
+<!--            <footer class="modal-card-foot">-->
+<!--              <b-button-->
+<!--                  label="انصراف"-->
+<!--                  type="is-warning"-->
+<!--                  @click="isCardModalActive=false" />-->
+<!--            </footer>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </b-modal>-->
     </div>
 
     <div class="column is-flex is-align-content-center is-justify-content-center">
@@ -230,6 +226,7 @@
         </ul>
       </nav>
     </div>
+
   </section>
 
 </template>
@@ -243,6 +240,9 @@ import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
 
 export default {
+  props: {
+    someValueToPass: String
+  },
   data() {
     return {
       className : '',
@@ -287,7 +287,7 @@ export default {
       })
     },
     editClass(i) {
-      console.log(i)
+
           const form = new FormData();
           form.append("className", this.className);
           form.append("course", this.course);
@@ -295,8 +295,9 @@ export default {
           form.append("classEndDate", this.classEndDate);
           form.append("classDescription", this.classDescription);
           form.append("classImage", this.classImage);
+          form.append("classId", i);
           const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0",form, {headers})
+          axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/",form, {headers})
               .then((res)=> {
                 this.$buefy.toast.open({
                   message: 'کلاس مورد نظر با موفقیت ویرایش شد',

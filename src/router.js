@@ -60,6 +60,12 @@ let routes = [
         component : require('./components/dashbord/master/class/AddClass.vue').default
       },
       {
+        name:'editClass',
+        path : '/EditClass/:id/:isRegisteringMe',
+        props:true,
+        component : require('./components/dashbord/master/class/EditClass.vue').default
+      },
+      {
         path : '/Ticketing',
         component : require('./components/dashbord/master/pages/Ticketing.vue').default
       },
