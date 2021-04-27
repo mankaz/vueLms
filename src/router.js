@@ -61,7 +61,8 @@ let routes = [
       },
       {
         name:'editClass',
-        path : '/EditClass/:id/:isRegisteringMe',
+        // path : '/EditClass/:id/:isRegisteringMe',
+        path : '/EditClass',
         props:true,
         component : require('./components/dashbord/master/class/EditClass.vue').default
       },

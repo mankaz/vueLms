@@ -1,8 +1,6 @@
 <!-- eslint-disable -->
 <template>
   <section>
-
-
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
         <b-button tag="router-link" :to="{ path: '/AddClass' }" exact type="is-info" rounded
@@ -92,9 +90,13 @@
                   </slot>
                   <div class="columns">
                     <div class="column is-flex ">
-
-<!--                      <router-link :to="{ path: '/EditClass/'+item.id}" class="dropdown-item">Home</router-link>-->
-                      <router-link :to="{ name: 'editClass', params: { id: item.id, isRegisteringMe:'ffffffff' }}">Register</router-link>
+                      <b-button
+                          class="is-light"
+                          type="is-info"
+                          icon-right="square-edit-outline is-light"
+                          @click="editClass(item.id)"
+                      />
+<!--                      <router-link :to="{ name: 'editClass', params: { id: item.id, isRegisteringMe:'ffffffff' }}">Register</router-link>-->
                     </div>
                     <div class="column  is-flex">
                       <b-button
@@ -287,32 +289,7 @@ export default {
       })
     },
     editClass(i) {
-
-          const form = new FormData();
-          form.append("className", this.className);
-          form.append("course", this.course);
-          form.append("classStartDate", this.classStartDate);
-          form.append("classEndDate", this.classEndDate);
-          form.append("classDescription", this.classDescription);
-          form.append("classImage", this.classImage);
-          form.append("classId", i);
-          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/",form, {headers})
-              .then((res)=> {
-                this.$buefy.toast.open({
-                  message: 'کلاس مورد نظر با موفقیت ویرایش شد',
-                  type: 'is-success',
-                  position: 'is-top',
-                })
-                console.log(i)
-              })
-              .catch(err=> {
-                this.$buefy.toast.open({
-                  message: 'خطا در ویرایش کلاس',
-                  type: 'is-danger',
-                  position: 'is-top',
-                })
-              })
+      this.$router.push({name: 'editClass',params:{data:i}})
     },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber

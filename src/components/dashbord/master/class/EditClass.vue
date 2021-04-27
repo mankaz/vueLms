@@ -12,7 +12,9 @@
             </div>
           </div>
         </div>
-        <b-notification ref="element" :closable="false">
+        <b-notification  :closable="false" >
+          <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
+        </b-notification>
           <form method="post" @submit.prevent="editClass()">
             <div class="block is-flex is-justify-content-center">
               <div class="column  is-8-desktop">
@@ -80,7 +82,6 @@
                     </b-field>
                   </div>
                 </div>
-                {{ this.classId }}
                 <div class="column is-flex is-justify-content-center">
                   <button class="button is-success is-rounded ">
                     <span>ویرایش کلاس</span>
@@ -92,7 +93,7 @@
               </div>
             </div>
           </form>
-        </b-notification>
+
       </div>
     </div>
 
@@ -106,8 +107,8 @@ export default {
 
   data() {
     return {
+      classId:'',
       routeParam: this.$route.params.id,
-      classId: this.$route.params.id,
       className: '',
       course: '',
       classStartDate: '',
@@ -115,102 +116,48 @@ export default {
       classDescription: '',
       file2: null,
       labelPosition: 'on-border',
+      isLoading: false,
+      isFullPage: true
     }
+  },
+  created() {
+    this.classId = this.$route.params.data
   },
   methods: {
     editClass() {
-
+      this.isLoading = true
       const form = new FormData();
       form.append("className", this.className);
       form.append("course", this.course);
       form.append("classStartDate", this.classStartDate);
       form.append("classEndDate", this.classEndDate);
       form.append("classDescription", this.classDescription);
-      // form.append("classImage", this.classImage);
       form.append("classId", this.classId);
       form.append("file2", this.file2);
-
-      console.log(this.file2)
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
       axios.post("http://gholeydoon.ir/bbb/public/BBBController/updateMeeting", form, {headers})
-          .then((res) => {
-            console.log(res)
+          .then(() => {
+            this.isLoading = false
+            this.className=''
+            this.course= '',
+            this.classStartDate= '',
+            this.classEndDate= '',
+            this.classDescription= '',
+            this.file2= null,
             this.$buefy.toast.open({
               message: 'کلاس مورد نظر با موفقیت ویرایش شد',
               type: 'is-success',
               position: 'is-top',
             })
-
           })
-      // .catch(err=> {
-      //   this.$buefy.toast.open({
-      //     message: 'خطا در ویرایش کلاس',
-      //     type: 'is-danger',
-      //     position: 'is-top',
-      //   })
-      // })
+      .catch(()=> {
+        this.$buefy.toast.open({
+          message: 'خطا در ویرایش کلاس',
+          type: 'is-danger',
+          position: 'is-top',
+        })
+      })
     },
-    // addClass : function () {
-    //   if(this.className === '') {
-    //     this.$buefy.toast.open({
-    //       message: 'عنوان کلاس را وارد نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   } else if(this.course === ''){
-    //     this.$buefy.toast.open({
-    //       message: 'دوره مورد نظر را انتخاب نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   }else if(this.classStartDate === ''){
-    //     this.$buefy.toast.open({
-    //       message: 'زمان شروع کلاس را انتخاب نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   }
-    //   else if(this.classEndDate === ''){
-    //     this.$buefy.toast.open({
-    //       message: 'زمان پایان کلاس را انتخاب نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   } else {
-    //
-    //     const form = new FormData();
-    //     form.append("className", this.className);
-    //     form.append("course", this.course);
-    //     form.append("classStartDate", this.classStartDate);
-    //     form.append("classEndDate", this.classEndDate);
-    //     form.append("classDescription", this.classDescription);
-    //     form.append("classImage", this.classImage);
-    //     const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-    //     const loadingComponent = this.$buefy.loading.open({
-    //       container: this.isFullPage ? null : this.$refs.element.$el,
-    //     })
-    //     axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0",form, {headers, })
-    //         .then((res)=> {
-    //           loadingComponent.close()
-    //           this.$buefy.toast.open({
-    //             message: 'کلاس مورد نظر با موفقیت ایجاد شد',
-    //             type: 'is-success',
-    //             position: 'is-top',
-    //           })
-    //           // console.log(res)
-    //         })
-    //         .catch(err=> {
-    //           loadingComponent.close()
-    //           this.$buefy.toast.open({
-    //             message: 'خطا در ایجاد کلاس',
-    //             type: 'is-danger',
-    //             position: 'is-top',
-    //           })
-    //           console.log(err)
-    //         })
-    //   }
-    //
-    // }
   },
   components: {
 
