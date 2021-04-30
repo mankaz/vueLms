@@ -7,7 +7,7 @@
       </div>
       <div class="column repeat-code container is-flex is-justify-content-center">
         <a class="is-family-iranSans" size="is-small" v-show="visibleGetCode"
-           @click="secondsInterval();visibleGetCode = !visibleGetCode">دریافت مجدد کد</a>
+           @click="sendNewCode();visibleGetCode = !visibleGetCode">دریافت مجدد کد</a>
         <label v-show="!visibleGetCode" class="label is-family-iranSans is-size-7">مهلت ورود کد تأیید
           <span id="timer"></span>
         </label>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+
+
+import axios from "axios";
 
 export default {
   data() {
@@ -53,7 +56,18 @@ export default {
         clearInterval(this.countDown);
         this.seconds = 60
       }
+    },
+   sendNewCode() {
 
+      this.visibleGetCode = true
+      const form = new FormData();
+      form.append("mobile", localStorage.getItem('mobile'));
+      const headers = {'content-type': 'application/x-www-form-urlencoded'};
+      axios.post("http://gholeydoon.ir/bbb/public/BBBController/loginOrRegister",form, {headers})
+          .then(() => {
+            console.log(localStorage.getItem('mobile'))
+           this.secondsInterval()
+          })
     },
   },
   mounted() {

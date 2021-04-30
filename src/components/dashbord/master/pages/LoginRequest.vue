@@ -124,13 +124,16 @@ export default {
             this.isLoading = false
             loadingComponent.close()
 
-            console.log(data.data.error_code)
+            console.log(data)
             if(data.data.error_code != 0){
               this.$buefy.toast.open({
                 message: data.data.error_message,
                 type: 'is-danger',
                 position: 'is-top',
               })
+            }else {
+              console.log('kkkkkkkkkkkkk')
+              this.$router.push('/dashboard')
             }
             // vm.$router.push('/dashboard')
           })
