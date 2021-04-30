@@ -33,11 +33,11 @@
                       <div class="control has-icons-left">
                         <div class="columns">
                           <div class="column code-input">
-                            <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup" autofocus>
-                            <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
-                            <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
-                            <input class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
-                            <input class="input verificationCode" type="hidden" maxlength="1" @keyup="onKeyup">
+                            <input v-model="oneNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup" autofocus>
+                            <input v-model="twoNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
+                            <input v-model="threeNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
+                            <input v-model="fourNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
+                            <input v-model="fiveNumber" class="input verificationCode" type="hidden" maxlength="1" @keyup="onKeyup">
                           </div>
                         </div>
 
@@ -64,6 +64,7 @@
 
 <script>
 import LoginRequestCode from "../login/LoginRequestCode";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -72,7 +73,13 @@ export default {
       countDown : null,
       seconds : 10,
       myTimer : null,
-      fields :  ''
+      fields :  '',
+      oneNumber:'',
+      twoNumber:'',
+      threeNumber:'',
+      fourNumber:'',
+      fiveNumber:'',
+
     }
   },
   name: "login",
@@ -100,16 +107,48 @@ export default {
     },
     open() {
       this.visibleGetCode = true
-      const vm=this
+      // const vm=this
       const loadingComponent = this.$buefy.loading.open({
         container: this.isFullPage ? null : this.$refs.element.$el,
       })
-      setTimeout(function()
-      {
-        loadingComponent.close()
-        // this.sub.click()
-        vm.$router.push('/dashboard')
-      }, 3000);
+      const form = new FormData();
+      form.append("oneNumber", this.oneNumber);
+      form.append("twoNumber", this.twoNumber);
+      form.append("threeNumber", this.threeNumber);
+      form.append("fourNumber", this.fourNumber);
+      form.append("mobile", localStorage.getItem('mobile'));
+
+      const headers = {'content-type': 'application/x-www-form-urlencoded'};
+      axios.post("http://gholeydoon.ir/bbb/public/BBBController/verifyCode",form, {headers})
+          .then((data) => {
+            this.isLoading = false
+            loadingComponent.close()
+
+            console.log(data.data.error_code)
+            if(data.data.error_code != 0){
+              this.$buefy.toast.open({
+                message: data.data.error_message,
+                type: 'is-danger',
+                position: 'is-top',
+              })
+            }
+            // vm.$router.push('/dashboard')
+          })
+          .catch((data)=> {
+            console.log(data.data.error_code)
+            this.$buefy.toast.open({
+              message: 'خطا در ویرایش کلاس',
+              type: 'is-danger',
+              position: 'is-top',
+            })
+          })
+
+      // setTimeout(function()
+      // {
+      //   loadingComponent.close()
+      //   // this.sub.click()
+      //   vm.$router.push('/dashboard')
+      // }, 3000);
     },
     submitForm () {
       if (this.fields.length < 4) {

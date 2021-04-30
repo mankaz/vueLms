@@ -20,18 +20,21 @@
                     <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
                       <label  class="label is-size-7">برای استفاده از خدمات بی نام، وارد حساب کاربری خود شوید</label>
                     </div>
+                    <form method="post">
                     <div class="field login-mobileNumber">
                       <div class="control has-icons-left">
                         <b-field  label="شماره همراه" :label-position="labelPosition">
-                          <input @keyup="onKeyup" class="input" id="mobile" maxlength="11" icon-right="cellphone" size="is-normal">
+                          <input @keyup="onKeyup" v-model="mobile" class="input" id="mobile" maxlength="11" icon-right="cellphone" size="is-normal">
                         </b-field>
                       </div>
                     </div>
+
                     <div class="field">
                       <div  class="column is-flex is-justify-content-center">
-                        <b-button class="is-rounded is-success" @click="submitForm" >تأیید و ادامه</b-button>
+                        <b-button class="is-rounded is-success" @click.prevent="submitForm" >تأیید و ادامه</b-button>
                       </div>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -44,11 +47,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+
   data(){
     return {
       labelPosition: 'on-border',
-      mobileNumber:null
+      mobile:null
     }
 
   },
@@ -57,6 +63,9 @@ export default {
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
     },
     submitForm () {
+      const form = new FormData();
+      form.append("mobile", this.mobile);
+      localStorage.mobile = this.mobile ;
       let mobile = document.getElementById('mobile')
       if (mobile.value === '' || !(/^(\+98|0)?9\d{9}/g.test(mobile.value)) ) {
         this.$buefy.toast.open({
@@ -65,16 +74,40 @@ export default {
           position: 'is-top',
         })
       } else {
-        this.$router.push('/loginRequest')
+        const headers = {'content-type': 'application/x-www-form-urlencoded'};
+        axios.post("http://gholeydoon.ir/bbb/public/BBBController/loginOrRegister",form, {headers})
+            .then(() => {
+              this.isLoading = false
+              this.$router.push('/loginRequest')
+            })
+            .catch(()=> {
+              this.$buefy.toast.open({
+                message: 'خطا در ویرایش کلاس',
+                type: 'is-danger',
+                position: 'is-top',
+              })
+            })
+
       }
+      console.log(localStorage.mobile = this.mobile)
     },
   },
   created() {
-    history.pushState(null, null, document.URL);
-    window.addEventListener('popstate', function () {
-      history.pushState(null, null, document.URL);
-    });
+    // history.pushState(null, null, document.URL);
+    // window.addEventListener('popstate', function () {
+    //   history.pushState(null, null, document.URL);
+    // });
   },
-  name: "login"
+  mounted() {
+    // if (localStorage.mobile) {
+    //   localStorage.name = this.mobile ;
+    // }
+  },
+  // watch:{
+  //   mobile(newName) {
+  //     localStorage.mobile = newName;
+  //   }
+  // },
+  // name: "login"
 };
 </script>
