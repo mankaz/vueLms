@@ -23,7 +23,7 @@ let routes = [
       },
       {
         path : '/LoginRequest',
-        component : require('./components/dashbord/master/pages/LoginRequest.vue').default
+        component : require('./components/dashbord/master/pages/VerifyCode.vue').default
       }
     ],
   },
