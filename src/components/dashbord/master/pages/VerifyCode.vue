@@ -43,7 +43,7 @@
 
                       </div>
                     </div>
-                    <LoginRequestCode v-show="!visibleGetCode"></LoginRequestCode>
+                    <ResendCode v-show="!visibleGetCode"></ResendCode>
                     <div class="field">
                       <div class="column is-flex is-justify-content-center">
                         <b-button id="sub" class="button  is-success is-rounded "  @click="submitForm">تأیید و ادامه</b-button>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import LoginRequestCode from "../login/LoginRequestCode";
+import ResendCode from "../login/ResendCode";
 import axios from "axios";
 export default {
   data() {
@@ -144,13 +144,6 @@ export default {
               position: 'is-top',
             })
           })
-
-      // setTimeout(function()
-      // {
-      //   loadingComponent.close()
-      //   // this.sub.click()
-      //   vm.$router.push('/dashboard')
-      // }, 3000);
     },
     submitForm () {
       if (this.fields.length < 4) {
@@ -178,7 +171,7 @@ export default {
     clearInterval(this.countDown);
   },
   components : {
-    LoginRequestCode
+    ResendCode
   },
 };
 </script>

@@ -39,18 +39,22 @@ export default {
       let $vm = this;
       // console.log(this.myTimer)
       clearInterval(this.countDown);
-      let progress = document.querySelector('progress')
+
+      let getTimeStore = localStorage.getItem("seconds")
+      console.log(getTimeStore)
+      // let progress = document.querySelector('progress')
       this.myTimer = document.querySelector("#timer")
       this.countDown = setInterval(this.secondsInterval, 1000);
-      let minutes = Math.floor(this.seconds / 60),
-          remSeconds = this.seconds % 60;
-      if (remSeconds < 10) {
-        remSeconds = "0" + remSeconds;
+      let minutes = Math.floor(this.seconds / 60);
+      getTimeStore = this.seconds % 60;
+      if (getTimeStore < 10) {
+        getTimeStore = "0" + getTimeStore;
       }
-      this.myTimer.innerHTML = minutes + ":" + remSeconds;
+      this.myTimer.innerHTML = minutes + ":" + getTimeStore;
       if (this.seconds > 0) {
         this.seconds = this.seconds - 1;
-        progress.value = Math.floor(this.seconds * 1.71)
+        localStorage.seconds = this.seconds ;
+        // progress.value = Math.floor(this.seconds * 1.71)
       } else {
         $vm.visibleGetCode = true
         clearInterval(this.countDown);
