@@ -75,7 +75,7 @@ export default {
         })
       } else {
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
-        axios.post("http://gholeydoon.ir/bbb/public/BBBController/loginOrRegister",form, {headers})
+        axios.post("http://gholeydoon.ir/bbb/public/UserController/loginOrRegister",form, {headers})
             .then(() => {
               this.isLoading = false
               this.$router.push('/loginRequest')
@@ -93,15 +93,21 @@ export default {
     },
   },
   created() {
+
     // history.pushState(null, null, document.URL);
     // window.addEventListener('popstate', function () {
     //   history.pushState(null, null, document.URL);
     // });
   },
   mounted() {
-    // if (localStorage.mobile) {
-    //   localStorage.name = this.mobile ;
-    // }
+    const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    axios.post("http://gholeydoon.ir/bbb/public/BBBController/checkLogin", {headers})
+        .then((data) => {
+          console.log(data.data)
+          if(data.data.feed.isLoggedIn) {
+            this.$router.push('/dashboard')
+          }
+        })
   },
   // watch:{
   //   mobile(newName) {

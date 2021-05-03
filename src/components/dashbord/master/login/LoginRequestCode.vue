@@ -63,7 +63,7 @@ export default {
       const form = new FormData();
       form.append("mobile", localStorage.getItem('mobile'));
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://gholeydoon.ir/bbb/public/BBBController/loginOrRegister",form, {headers})
+      axios.post("http://gholeydoon.ir/bbb/public/UserController/loginOrRegister",form, {headers})
           .then(() => {
             console.log(localStorage.getItem('mobile'))
            this.secondsInterval()

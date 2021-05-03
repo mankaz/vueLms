@@ -119,7 +119,7 @@ export default {
       form.append("mobile", localStorage.getItem('mobile'));
 
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://gholeydoon.ir/bbb/public/BBBController/verifyCode",form, {headers})
+      axios.post("http://gholeydoon.ir/bbb/public/UserController/verifyCode",form, {headers})
           .then((data) => {
             this.isLoading = false
             loadingComponent.close()
@@ -132,7 +132,6 @@ export default {
                 position: 'is-top',
               })
             }else {
-              console.log('kkkkkkkkkkkkk')
               this.$router.push('/dashboard')
             }
             // vm.$router.push('/dashboard')

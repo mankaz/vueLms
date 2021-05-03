@@ -11,7 +11,7 @@
               icon-right="menu-down"/>
         </template>
         <b-dropdown-item aria-role="listitem">پروفایل</b-dropdown-item>
-        <b-dropdown-item aria-role="listitem">خروج</b-dropdown-item>
+        <b-dropdown-item @click="logOut()" aria-role="listitem">خروج</b-dropdown-item>
       </b-dropdown>
       <b-button
           rounded
@@ -39,6 +39,8 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -46,5 +48,15 @@ export default {
       unit :'ریال'
     }
   },
+  methods : {
+    logOut () {
+      console.log('ffffffff')
+      const headers = {'content-type': 'application/x-www-form-urlencoded'};
+      axios.post("http://gholeydoon.ir/bbb/public//userController/logOut", {headers})
+          .then(() => {
+            this.$router.push('/login')
+          })
+    }
+  }
 }
 </script>
