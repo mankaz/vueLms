@@ -11,7 +11,10 @@ Vue.component('date-picker', VuePersianDatetimePicker);
 import VueStore from '@websanova/vue-store';
 import vueResource from 'vue-resource';
 import {guest} from "@/plugin/axios";
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 
+Vue.use(require('vue-cookies'))
 Vue.use(VueRouter)
 Vue.use(
     Buefy,

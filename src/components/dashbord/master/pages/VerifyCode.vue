@@ -132,6 +132,10 @@ export default {
                 position: 'is-top',
               })
             }else {
+              this.$cookies.set('mobile',data.data.feed.mobile);
+              this.$cookies.set('token',data.data.feed.token);
+              //console.log(this.$cookies.get('mobile'))
+              //console.log(data)
               this.$router.push('/dashboard')
             }
             // vm.$router.push('/dashboard')

@@ -268,6 +268,7 @@ export default {
   methods: {
 
     deleteRow(i) {
+      console.log(i)
       let $vm = this;
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
@@ -276,14 +277,24 @@ export default {
         confirmText: 'بله',
         type: 'is-danger',
         onConfirm: function () {
-          console.log(i)
+          // console.log($vm.posts[i]['id'])
           $vm.posts.splice(i, 1);
-          // console.log($vm.data[i]['id'])
-          this.$buefy.toast.open({
-            message: 'کلاس مورد نظر با موفقیت حذف شد',
-            type: 'is-warning',
-            position: 'is-bottom',
-          })
+          const form = new FormData();
+          form.append("meetingId", $vm.posts[i]['id']);
+          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+              .then(()=> {
+                this.$buefy.toast.open({
+                  message: 'کلاس مورد نظر با موفقیت ایجاد شد',
+                  type: 'is-success',
+                  position: 'is-top',
+                })
+              })
+          // this.$buefy.toast.open({
+          //   message: 'کلاس مورد نظر با موفقیت حذف شد',
+          //   type: 'is-warning',
+          //   position: 'is-bottom',
+          // })
         }
 
       })

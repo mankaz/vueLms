@@ -22,7 +22,7 @@
                   <div class="column">
                     <b-field :label-position="labelPosition"
                              label="انتخاب دوره">
-                      <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>
+                      <b-select v-model="courseId" placeholder="یک عنوان انتخاب نمایید" expanded>
                         <option value="پشتیبانی فنی">پشتیبانی فنی</option>
                         <option value="واحد مالی">واحد مالی</option>
                         <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
@@ -110,7 +110,7 @@ export default {
       classId:'',
       routeParam: this.$route.params.id,
       className: '',
-      course: '',
+      courseId: '',
       classStartDate: '',
       classEndDate: '',
       classDescription: '',
@@ -128,7 +128,7 @@ export default {
       this.isLoading = true
       const form = new FormData();
       form.append("className", this.className);
-      form.append("course", this.course);
+      form.append("courseId", this.courseId);
       form.append("classStartDate", this.classStartDate);
       form.append("classEndDate", this.classEndDate);
       form.append("classDescription", this.classDescription);

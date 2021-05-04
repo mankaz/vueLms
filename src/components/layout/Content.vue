@@ -73,7 +73,6 @@
 
 
   import Menu from "../dashbord/master/Menu.vue"
-
   export default {
   data(){
     return{
@@ -82,6 +81,27 @@
     }
 
   },
+    mounted() {
+      // if (this.$cookies.get('mobile') && this.$cookies.get('token')) {
+      //   this.$router.push('/dashboard')
+      // }
+      let test = this.$cookies.set('test' , 'mansour')
+      if(!test) {
+        console.log(test)
+      }
+      if (!this.$cookies.get('mobile') || !this.$cookies.get('token')){
+        this.$router.push('/login')
+
+      // const headers = {'content-type': 'application/x-www-form-urlencoded'};
+      // axios.post("http://gholeydoon.ir/bbb/public/userController/checkSession", {headers})
+      //     .then((data) => {
+      //       console.log(data.data)
+      //       if(!data.data.feed.isLoggedIn) {
+      //         this.$router.push('/login')
+      //       }
+      //     })
+      }
+    },
     components : {Menu},
 
   }

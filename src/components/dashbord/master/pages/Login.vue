@@ -89,7 +89,7 @@ export default {
             })
 
       }
-      console.log(localStorage.mobile = this.mobile)
+      // console.log(localStorage.mobile = this.mobile)
     },
   },
   created() {
@@ -100,14 +100,22 @@ export default {
     // });
   },
   mounted() {
-    const headers = {'content-type': 'application/x-www-form-urlencoded'};
-    axios.post("http://gholeydoon.ir/bbb/public/BBBController/checkLogin", {headers})
-        .then((data) => {
-          console.log(data.data)
-          if(data.data.feed.isLoggedIn) {
-            this.$router.push('/dashboard')
-          }
-        })
+    if (this.$cookies.get('mobile') && this.$cookies.get('token')) {
+      this.$router.push('/dashboard')
+    }
+    // const form = new FormData();
+    // form.append("mobile", this.$cookies.get('mobile'));
+    // form.append("mobile", this.$cookies.get('token'));
+    // const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    // axios.post("http://gholeydoon.ir/bbb/public/BBBController/checkLogin", {headers})
+    //     .then((data) => {
+    //       console.log(data.data)
+    //       if(data.data.feed.isLoggedIn) {
+    //         this.$cookies.set('mobile',data.data.feed.mobile);
+    //         this.$cookies.set('token',data.data.feed.token);
+    //         this.$router.push('/dashboard')
+    //       }
+    //     })
   },
   // watch:{
   //   mobile(newName) {
