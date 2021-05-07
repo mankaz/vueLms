@@ -1,6 +1,6 @@
 <template>
   <section class="hero is-fullheight">
-    <div class="hero-body">
+    <div class="hero-body"  v-if="verifyHidden">
       <div class="container">
         <div class="columns is-centered">
           <div class="column container is-two-thirds is-max-desktop">
@@ -9,8 +9,7 @@
                 <div class="column login-border-rad auth-img is-flex  is-justify-content-center">
                   <p class="is-family-iranSans has-text-white is-flex is-align-items-center">به سامانه آموزش مجازی خوش آمدید</p>
                 </div>
-
-                <div class="column is-flex is-justify-content-center">
+                <div class="column is-flex is-justify-content-center" >
                   <b-notification ref="element" :closable="false">
 
                     <div class="column is-flex is-justify-content-flex-end">
@@ -24,8 +23,7 @@
                     </div>
                     <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
                       <label class="label is-size-7">
-                        <b-button size="is-small" class="is-rounded is-warning" tag="router-link"
-                                  :to="{ path: '/login' }" exact>ویرایش شماره
+                        <b-button size="is-small" class="is-rounded is-warning" @click="backLogin()">ویرایش شماره
                         </b-button>
                       </label>
                     </div>
@@ -59,6 +57,7 @@
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -79,12 +78,12 @@ export default {
       threeNumber:'',
       fourNumber:'',
       fiveNumber:'',
-
     }
   },
-  name: "login",
+
 
   methods: {
+
     onKeyup(event) {
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
       if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {

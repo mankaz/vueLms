@@ -85,12 +85,16 @@
       // if (this.$cookies.get('mobile') && this.$cookies.get('token')) {
       //   this.$router.push('/dashboard')
       // }
-      let test = this.$cookies.set('test' , 'mansour')
-      if(!test) {
-        console.log(test)
-      }
-      if (!this.$cookies.get('mobile') || !this.$cookies.get('token')){
-        this.$router.push('/login')
+
+
+      // let test = this.$cookies.set('test' , 'mansour')
+      // if(!test) {
+      //   console.log(test)
+      // }
+      // if (!this.$cookies.get('mobile') || !this.$cookies.get('token')){
+      //   this.$router.push('/login')
+
+
 
       // const headers = {'content-type': 'application/x-www-form-urlencoded'};
       // axios.post("http://gholeydoon.ir/bbb/public/userController/checkSession", {headers})
@@ -100,7 +104,7 @@
       //         this.$router.push('/login')
       //       }
       //     })
-      }
+      // }
     },
     components : {Menu},
 
