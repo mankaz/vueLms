@@ -18,18 +18,25 @@
             <div class="column  is-8-desktop">
               <div class="columns">
                 <div class="column">
-                  <b-field  :label-position="labelPosition"
-                            label="انتخاب دوره">
-                    <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>
-                      <option value="پشتیبانی فنی">پشتیبانی فنی</option>
-                      <option value="واحد مالی">واحد مالی</option>
-                      <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
+                  <b-field>
+                    <b-select placeholder="انتخاب " v-model="courseId">
+                      <option
+                          v-for="option in selectList"
+                          :value="option.id"
+                          :key="option.id">
+                        {{ option.title}}
+                      </option>
                     </b-select>
                   </b-field>
                 </div>
                 <div class="column">
                   <b-field  label="عنوان کلاس" :label-position="labelPosition">
                     <b-input v-model="className"></b-input>
+                  </b-field>
+                </div>
+                <div class="column">
+                  <b-field  label="پیغام خوش آمد گویی" :label-position="labelPosition">
+                    <b-input v-model="welcomeMsg"></b-input>
                   </b-field>
                 </div>
               </div>
@@ -48,10 +55,19 @@
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <upload v-model="classImage">
-                    <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>
-                  </upload>
-
+                  <b-field>
+                    <b-field class="file is-info" :class="{'has-name': !!file2}">
+                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
+                          <span class="file-cta">
+                              <b-icon class="file-icon" icon="upload"></b-icon>
+                           <span>انتخاب تصویر</span>
+                          </span>
+                        <span class="file-name" v-if="file2">
+                            {{ file2.name }}
+                </span>
+                      </b-upload>
+                    </b-field>
+                  </b-field>
                 </div>
                 <div class="column">
                   <b-field  label="توضحیات دوره" :label-position="labelPosition">
@@ -64,7 +80,7 @@
                 </div>
                 <div class="column is-flex is-align-items-center is-justify-content-center">
                   <b-field>
-                    <b-checkbox :value="true" class="is-family-iranSans">
+                    <b-checkbox  v-model="recordable" class="is-family-iranSans">
                       قابلیت ضبظ
                     </b-checkbox>
                   </b-field>
@@ -88,20 +104,24 @@
 </template>
 
 <script>
-import upload from "../extension/upload";
 import axios from "axios";
 
 
 export default {
   data() {
     return {
+        courseId:'',
         className : '',
+        welcomeMsg:'',
         course : '',
         classStartDate : '',
         classEndDate:'',
         classDescription:'',
         classImage:'',
-      labelPosition: 'on-border',
+        file2: null,
+        recordable:'',
+        labelPosition: 'on-border',
+        selectList:null,
     }
   },
   methods : {
@@ -112,12 +132,12 @@ export default {
           type: 'is-warning',
           position: 'is-top',
         })
-      } else if(this.course === ''){
-        this.$buefy.toast.open({
-          message: 'دوره مورد نظر را انتخاب نمایید',
-          type: 'is-warning',
-          position: 'is-top',
-        })
+      // } else if(this.course === ''){
+      //   this.$buefy.toast.open({
+      //     message: 'دوره مورد نظر را انتخاب نمایید',
+      //     type: 'is-warning',
+      //     position: 'is-top',
+      //   })
       }else if(this.classStartDate === ''){
         this.$buefy.toast.open({
           message: 'زمان شروع کلاس را انتخاب نمایید',
@@ -135,17 +155,21 @@ export default {
 
         const form = new FormData();
         form.append("className", this.className);
-        form.append("course", this.course);
+        form.append("welcomeMsg", this.welcomeMsg);
+        form.append("courseId", this.courseId);
         form.append("classStartDate", this.classStartDate);
         form.append("classEndDate", this.classEndDate);
         form.append("classDescription", this.classDescription);
-        form.append("classImage", this.classImage);
+        form.append("file2", this.file2);
+        form.append("recordable", this.recordable);
+        console.log(this.className)
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
         const loadingComponent = this.$buefy.loading.open({
           container: this.isFullPage ? null : this.$refs.element.$el,
         })
-        axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0",form, {headers, })
+        axios.post("https://gholeydoon.ir/bbb/public/BBBController/createMeeting",form, {headers, })
             .then((res)=> {
+              console.log(res)
               loadingComponent.close()
               this.$buefy.toast.open({
                 message: 'کلاس مورد نظر با موفقیت ایجاد شد',
@@ -167,8 +191,16 @@ export default {
 
     }
   },
+  mounted() {
+    const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+        .then((data)=> {
+          this.selectList = data.data
+          // console.log(this.selectList)
+        })
+  },
   components : {
-    upload
+
   }
 }
 </script>

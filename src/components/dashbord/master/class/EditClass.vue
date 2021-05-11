@@ -15,19 +15,30 @@
         <b-notification  :closable="false" >
           <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
         </b-notification>
-          <form method="post" @submit.prevent="editClass()">
+          <form method="post"  @submit.prevent="editClass()">
             <div class="block is-flex is-justify-content-center">
               <div class="column  is-8-desktop">
                 <div class="columns">
                   <div class="column">
-                    <b-field :label-position="labelPosition"
-                             label="انتخاب دوره">
-                      <b-select v-model="courseId" placeholder="یک عنوان انتخاب نمایید" expanded>
-                        <option value="پشتیبانی فنی">پشتیبانی فنی</option>
-                        <option value="واحد مالی">واحد مالی</option>
-                        <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>
+<!--                    <b-field :label-position="labelPosition"-->
+<!--                             label="انتخاب دوره">-->
+<!--                      <b-select v-model="courseId" placeholder="یک عنوان انتخاب نمایید" expanded>-->
+<!--                        <option value="پشتیبانی فنی">پشتیبانی فنی</option>-->
+<!--                        <option value="واحد مالی">واحد مالی</option>-->
+<!--                        <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>-->
+<!--                      </b-select>-->
+<!--                    </b-field>-->
+                    <b-field label="Simple">
+                      <b-select placeholder="انتخاب " v-model="courseId">
+                        <option
+                            v-for="option in selectList"
+                            :value="option.id"
+                            :key="option.id">
+                          {{ option.title}}
+                        </option>
                       </b-select>
                     </b-field>
+
                   </div>
                   <div class="column">
                     <b-field label="عنوان کلاس" :label-position="labelPosition">
@@ -83,7 +94,7 @@
                   </div>
                 </div>
                 <div class="column is-flex is-justify-content-center">
-                  <button class="button is-success is-rounded ">
+                  <button  class="button is-success is-rounded ">
                     <span>ویرایش کلاس</span>
                     <span class="icon is-small">
                  <i class="fas fa-check"></i>
@@ -117,14 +128,17 @@ export default {
       file2: null,
       labelPosition: 'on-border',
       isLoading: false,
-      isFullPage: true
+      isFullPage: true,
+      selectList:null,
     }
   },
   created() {
     this.classId = this.$route.params.data
   },
   methods: {
+
     editClass() {
+
       this.isLoading = true
       const form = new FormData();
       form.append("className", this.className);
@@ -134,6 +148,7 @@ export default {
       form.append("classDescription", this.classDescription);
       form.append("classId", this.classId);
       form.append("file2", this.file2);
+
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
       axios.post("http://gholeydoon.ir/bbb/public/BBBController/updateMeeting", form, {headers})
           .then(() => {
@@ -157,7 +172,16 @@ export default {
           position: 'is-top',
         })
       })
+
     },
+  },
+  mounted() {
+    const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+        .then((data)=> {
+          this.selectList = data.data
+          // console.log(this.selectList)
+        })
   },
   components: {
 

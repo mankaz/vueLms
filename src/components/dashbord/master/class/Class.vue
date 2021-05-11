@@ -19,11 +19,28 @@
     </div>
     <div class="columns is-flex  is-justify-content-flex-end ">
       <div class="column">
+        <b-field label="Simple">
+          <b-select placeholder="انتخاب " v-model="courseId">
+            <option
+                v-for="option in selectList"
+                :value="option.id"
+                :key="option.id">
+              {{ option.title}}
+            </option>
+          </b-select>
+        </b-field>
+        <button  class="button is-success is-rounded " @click="getMeeting(courseId)">
+          <span>نمایش کلاس</span>
+          <span class="icon is-small">
+                 <i class="fas fa-check"></i>
+                 </span>
+        </button>
       </div>
       <div class="column is-4-desktop is-rtl">
         <b-field class="class-search" label="جستجو در عنوان کلاس" :label-position="labelPosition">
           <b-input v-model="search"></b-input>
         </b-field>
+
       </div>
     </div>
     <b-notification  :closable="false" >
@@ -247,6 +264,7 @@ export default {
   },
   data() {
     return {
+      courseId:'',
       className : '',
       course : '',
       classStartDate :'',
@@ -262,11 +280,28 @@ export default {
       itemsPerPage: 4,
       resultCount: 0,
       isLoading: false,
-      isFullPage: false
+      isFullPage: false,
+      selectList:null,
     }
   },
   methods: {
+      getMeeting(){
+        this.isLoading = true
+        const form = new FormData();
+        form.append("courseId", this.courseId);
+        const headers = {'content-type': 'application/x-www-form-urlencoded'};
+        axios
+            .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
+            .then((response)=> {
+              this.posts = response.data
+              console.log(response)
+              this.isLoading = false
+              // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
+              // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
+              // console.log(typeof response.data)
+            })
 
+      },
     deleteRow(i) {
       console.log(i)
       let $vm = this;
@@ -307,19 +342,18 @@ export default {
     }
   },
    created() {
-     this.isLoading = true
-
-     axios
-        .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings/0')
-        .then((response)=> {
-         this.posts = response.data
-          this.isLoading = false
-          // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
-          // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
-          // console.log(typeof response.data)
-        })
+     // this.isLoading = true
+     //
+     // axios
+     //    .post('http://gholeydoon.ir/bbb/public/BBBController/getAllMeetings')
+     //    .then((response)=> {
+     //     this.posts = response.data
+     //      this.isLoading = false
+     //      // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
+     //      // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
+     //      // console.log(typeof response.data)
+     //    })
   },
-
   computed: {
     totalPages: function () {
       return Math.ceil(this.resultCount / this.itemsPerPage)
@@ -351,6 +385,14 @@ export default {
       let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
       return this.posts.slice(index, index + this.itemsPerPage)
     },
+  },
+  mounted() {
+    const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+        .then((data)=> {
+          this.selectList = data.data
+          // console.log(this.selectList)
+        })
   },
   components: {
     ClassCard,upload

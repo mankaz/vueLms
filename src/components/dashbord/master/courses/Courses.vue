@@ -230,7 +230,7 @@ export default {
     this.isLoading = true
 
     axios
-        .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings/0')
+        .post('http://gholeydoon.ir/bbb/public/BBBController/getCourses')
         .then((response) => {
           this.posts = response.data
           this.isLoading = false
