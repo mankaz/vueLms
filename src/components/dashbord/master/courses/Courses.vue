@@ -40,7 +40,7 @@
         </thead>
         <tbody>
         <tr v-for="(item,index )  in paginate " :key="index">
-          <td>{{ item.meeting_name }}</td>
+          <td>{{ item.title }}</td>
           <td>{{ item.description }}</td>
           <td>
             <div class="columns">
@@ -55,7 +55,7 @@
                 <b-button
                     type="is-danger"
                     icon-right="delete-outline"
-                    @click="deleteRow(index)"
+                    @click="deleteRow(index,item.id)"
                 />
               </div>
             </div>
@@ -155,7 +155,7 @@ export default {
   data() {
     return {
       className: '',
-      course: '',
+      courseId: null,
       classStartDate: '',
       classEndDate: '',
       classDescription: '',
@@ -174,18 +174,42 @@ export default {
   },
   methods: {
 
-    deleteRow(i) {
+    deleteRow(i,id) {
+
+      //console.log(i)
       let $vm = this;
+      // console.log($vm.posts[(this.currentPage-1)* $vm.itemsPerPage +i]['id'])
       this.$buefy.dialog.confirm({
-        title: 'حذف کلاس',
-        message: `آیا از حذف این کلاس اطمینان دارید؟`,
+        title: 'حذف دوره',
+        message: `آیا از حذف این دوره اطمینان دارید؟`,
         cancelText: 'انصرف',
         confirmText: 'بله',
         type: 'is-danger',
         onConfirm: function () {
-          console.log(i)
-          $vm.posts.splice(i, 1);
-          // console.log($vm.data[i]['id'])
+          console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
+
+          //console.log($vm.posts[i]['id'])
+
+          // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+          // this.$buefy.toast.open({
+          //   message: 'دوره مورد نظر با موفقیت حذف شد',
+          //   type: 'is-success',
+          //   position: 'is-top',
+          // })
+          //
+          const form = new FormData();
+
+          form.append("courseId", id);
+          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
+              .then(()=> {
+                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+                this.$buefy.toast.open({
+                  message: 'دوره مورد نظر با موفقیت حذف شد',
+                  type: 'is-success',
+                  position: 'is-top',
+                })
+              })
           this.$buefy.toast.open({
             message: 'کلاس مورد نظر با موفقیت حذف شد',
             type: 'is-warning',

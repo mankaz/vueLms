@@ -10,39 +10,72 @@
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
-          <small class="is-family-iranSans is-size-5 dir-ltr">کلاس ها</small>
-          <p class="is-family-iranSans is-size-7">:جزئیات کلاس های ایجاد شده شما در این صفحه لیست شده اند</p>
+          <small class="is-family-iranSans is-size-5 dir-ltr">کلاس ها  <b-icon icon="google-classroom" size="is-normal"></b-icon></small>
+          <p class="is-family-iranSans is-size-7">:با انتخاب یک دوره، کلاس های زیرمجموعه دوره انتخاب شده نمایش داده می شود</p>
           <br>
         </div>
       </div>
 
     </div>
-    <div class="columns is-flex  is-justify-content-flex-end ">
-      <div class="column">
-        <b-field label="Simple">
-          <b-select placeholder="انتخاب " v-model="courseId">
-            <option
-                v-for="option in selectList"
-                :value="option.id"
-                :key="option.id">
-              {{ option.title}}
-            </option>
-          </b-select>
-        </b-field>
-        <button  class="button is-success is-rounded " @click="getMeeting(courseId)">
-          <span>نمایش کلاس</span>
-          <span class="icon is-small">
-                 <i class="fas fa-check"></i>
-                 </span>
-        </button>
-      </div>
-      <div class="column is-4-desktop is-rtl">
+    <div class="columns">
+      <div class="column is-flex is-justify-content-center">
         <b-field class="class-search" label="جستجو در عنوان کلاس" :label-position="labelPosition">
           <b-input v-model="search"></b-input>
         </b-field>
+      </div>
+      <div class="column is-flex is-justify-content-center">
+                <b-field>
+                  <b-select @input="getMeeting()" v-model="courseId">
+                    <option :value="null" disabled>انتخاب دوره مورد نظر</option>
+                    <option
+                        v-for="option in selectList"
+                        :value="option.id"
+                        :key="option.id">
+                      {{ option.title}}
+                    </option>
+                  </b-select>
+                </b-field>
+<!--        <div class="select">-->
+<!--          <select  @input="getMeeting(courseId)" v-model="courseId">-->
+<!--            <option :value="null" disabled>انتخاب دوره مورد نظر</option>-->
+<!--            <option v-for="option in selectList" :value="option.id" :key="option.id">-->
+<!--              {{ option.title}}-->
+<!--            </option>-->
+<!--          </select>-->
+<!--        </div>-->
 
+<!--        <div class="select is-normal" v-model="courseId">-->
+<!--          <select>-->
+<!--            <option  v-for="option in selectList" :value="option.id" :key="option.id">-->
+<!--              {{ option.title}}-->
+<!--            </option>-->
+<!--          </select>-->
+<!--        </div>-->
+
+<!--        <b-field label="Simple">-->
+<!--          <b-select placeholder="انتخاب " v-model="courseId">-->
+<!--            <option-->
+<!--                v-for="option in selectList"-->
+<!--                :value="option.id"-->
+<!--                :key="option.id">-->
+<!--              {{ option.title}}-->
+<!--            </option>-->
+<!--          </b-select>-->
+<!--        </b-field>-->
       </div>
     </div>
+<!--    <div class="columns is-flex  is-justify-content-flex-end ">-->
+<!--      <div class="column">-->
+
+<!--        <button  class="button is-success is-rounded " @click="getMeeting(courseId)">-->
+<!--          <span>نمایش کلاس</span>-->
+<!--          <span class="icon is-small">-->
+<!--                 <i class="fas fa-check"></i>-->
+<!--                 </span>-->
+<!--        </button>-->
+<!--      </div>-->
+
+<!--    </div>-->
     <b-notification  :closable="false" >
       <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
     </b-notification>
@@ -81,6 +114,19 @@
                       <slot><small>عنوان دوره:</small></slot>
                     </div>
                   </div>
+
+
+<!--                    <div class="columns start-date">-->
+<!--                      <div class="column">-->
+<!--                        <slot><small>آدرس:</small>-->
+<!--                          <span :id="index"  :value="item.meeting_name" class="urlCopy">http://conf.ir/{{item.meeting_name}}</span>-->
+<!--                        </slot>-->
+<!--                      </div>-->
+<!--                      <div class="column is-7 is-size-7">-->
+<!--                        <b-button icon-right="content-copy"  class="button is-small" @click="copyUrl"></b-button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
                   <div class="columns">
                       <slot>
                         <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">
@@ -111,7 +157,7 @@
                           class="is-light"
                           type="is-info"
                           icon-right="square-edit-outline is-light"
-                          @click="editClass(item.id)"
+                          @click="editClass(item)"
                       />
 <!--                      <router-link :to="{ name: 'editClass', params: { id: item.id, isRegisteringMe:'ffffffff' }}">Register</router-link>-->
                     </div>
@@ -128,7 +174,7 @@
                           class="is-light"
                           type="is-danger"
                           icon-right="delete-outline"
-                          @click="deleteRow(index)"
+                          @click="deleteRow(index ,item.id)"
                       />
                     </div>
                   </div>
@@ -259,12 +305,10 @@ import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
 
 export default {
-  props: {
-    someValueToPass: String
-  },
   data() {
     return {
-      courseId:'',
+      id:null,
+      courseId:null,
       className : '',
       course : '',
       classStartDate :'',
@@ -288,6 +332,7 @@ export default {
       getMeeting(){
         this.isLoading = true
         const form = new FormData();
+        console.log(this.courseId)
         form.append("courseId", this.courseId);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios
@@ -296,15 +341,18 @@ export default {
               this.posts = response.data
               console.log(response)
               this.isLoading = false
+
               // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
               // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
               // console.log(typeof response.data)
             })
 
       },
-    deleteRow(i) {
-      console.log(i)
+    deleteRow(i,id) {
+
+      //console.log(i)
       let $vm = this;
+      // console.log($vm.posts[(this.currentPage-1)* $vm.itemsPerPage +i]['id'])
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
         message: `آیا از حذف این کلاس اطمینان دارید؟`,
@@ -312,19 +360,30 @@ export default {
         confirmText: 'بله',
         type: 'is-danger',
         onConfirm: function () {
-          // console.log($vm.posts[i]['id'])
-          $vm.posts.splice(i, 1);
-          const form = new FormData();
-          form.append("meetingId", $vm.posts[i]['id']);
-          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
-              .then(()=> {
-                this.$buefy.toast.open({
-                  message: 'کلاس مورد نظر با موفقیت ایجاد شد',
-                  type: 'is-success',
-                  position: 'is-top',
-                })
-              })
+          console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
+
+          $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+          this.$buefy.toast.open({
+            message: 'کلاس مورد نظر با موفقیت حذف شد',
+            type: 'is-success',
+            position: 'is-top',
+          })
+
+          // const form = new FormData();
+          //
+          // form.append("meetingId", id);
+          // const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          // axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+          //     .then(()=> {
+          //       $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+          //       this.$buefy.toast.open({
+          //         message: 'کلاس مورد نظر با موفقیت حذف شد',
+          //         type: 'is-success',
+          //         position: 'is-top',
+          //       })
+          //
+          //
+          //     })
           // this.$buefy.toast.open({
           //   message: 'کلاس مورد نظر با موفقیت حذف شد',
           //   type: 'is-warning',
@@ -334,8 +393,24 @@ export default {
 
       })
     },
-    editClass(i) {
-      this.$router.push({name: 'editClass',params:{data:i}})
+    editClass(item) {
+      // this.$router.push({name: 'editClass',params:{data:i}})
+      this.$router.push({name: 'editClass',params:{data:item}})
+    },
+    copyUrl () {
+      let copyText = document.getElementById("testing-code2");
+      let textArea = document.createElement("textarea");
+      textArea.value = copyText.textContent;
+      document.body.appendChild(textArea);
+      textArea.select();
+      let successful = document.execCommand("Copy");
+      textArea.remove();
+      console.log(textArea.value)
+      let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
+      this.$buefy.toast.open({
+        message: 'لینک ' + msg,
+        type: 'is-success'
+      })
     },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber
@@ -373,15 +448,15 @@ export default {
           let searchResult = item.meeting_name.match(this.search)
           if (searchResult != null) {
             ++searchCount;
-            console.log(searchResult.length)
+            // console.log(searchResult.length)
           }
           this.resultCount = searchCount
-          console.log(this.resultCount)
+          // console.log(this.resultCount)
           return searchResult;
         });
 
       }
-      console.log(this.posts )
+      // console.log(this.posts )
       let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
       return this.posts.slice(index, index + this.itemsPerPage)
     },

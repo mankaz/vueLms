@@ -23,9 +23,19 @@
                 </b-field>
                 <div class="columns">
                   <div class="column is-flex is-flex is-align-items-center is-justify-content-center">
-                    <upload>
-                      <slot><span class="file-label">انتخاب تصویر دوره</span></slot>
-                    </upload>
+                    <b-field>
+                      <b-field class="file is-info" :class="{'has-name': !!file2}">
+                        <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
+                          <span class="file-cta">
+                              <b-icon class="file-icon" icon="upload"></b-icon>
+                           <span>انتخاب تصویر</span>
+                          </span>
+                          <span class="file-name" v-if="file2">
+                            {{ file2.name }}
+                </span>
+                        </b-upload>
+                      </b-field>
+                    </b-field>
                   </div>
                   <div class="column">
                     <b-field label="توضحیات دوره" :label-position="labelPosition">
@@ -53,7 +63,6 @@
 </template>
 
 <script>
-import upload from "../extension/upload";
 import axios from "axios";
 
 export default {
@@ -61,7 +70,7 @@ export default {
     return {
       courseName: '',
       courseDescription: '',
-      courseImage: '',
+      file2: null,
       labelPosition: 'on-border',
     }
   },
@@ -80,9 +89,9 @@ export default {
         const form = new FormData();
         form.append("courseName", this.courseName);
         form.append("courseDescription", this.courseDescription);
-        form.append("courseImage", this.courseImage);
+        form.append("file2", this.file2);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
-        axios.post("http://localhost/bbb/CI/public/BBBController/createCourse/0", form, {headers,})
+        axios.post("https://gholeydoon.ir/bbb/public/BBBController/createCourse", form, {headers,})
             .then((res) => {
               loadingComponent.close()
               this.$buefy.toast.open({
@@ -105,7 +114,7 @@ export default {
     }
   },
   components: {
-    upload
+
   }
 }
 </script>

@@ -66,6 +66,7 @@ const router = new VueRouter({
         },
         {
           path : '/Class',
+          name:'class',
           meta: { Auth: true },
           component : require('./components/dashbord/master/pages/Class.vue').default
         },

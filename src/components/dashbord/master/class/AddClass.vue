@@ -8,7 +8,7 @@
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">
-              <small class="is-family-iranSans is-size-5 dir-ltr">ایجاد کلاس</small>
+              <small class="is-family-iranSans is-size-5 dir-ltr">    ایجاد کلاس <b-icon icon="plus-thick" size="is-small"></b-icon></small>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
               <div class="columns">
                 <div class="column">
                   <b-field>
-                    <b-select placeholder="انتخاب " v-model="courseId">
+                    <b-select placeholder="انتخاب دوره " v-model="courseId">
                       <option
                           v-for="option in selectList"
                           :value="option.id"
@@ -76,7 +76,26 @@
                 </div>
               </div>
               <div class="columns">
-                <div class="column">
+                <div class="column is-flex is-align-items-center is-justify-content-center">
+                  <b-field>
+                    <b-checkbox  v-model="adminAllow" class="is-family-iranSans">
+                      اجازه مدیر
+                    </b-checkbox>
+                  </b-field>
+                </div>
+                <div class="column is-flex is-align-items-center is-justify-content-center">
+                  <b-field>
+                    <b-checkbox  v-model="userAdmin" class="is-family-iranSans">
+                      ورود همه کاربران به صورت مدیر
+                    </b-checkbox>
+                  </b-field>
+                </div>
+                <div class="column is-flex is-align-items-center is-justify-content-center">
+                  <b-field>
+                    <b-checkbox  v-model="allowBegin" class="is-family-iranSans">
+                      اجازه شروع کلاس توسط همه کاربران
+                    </b-checkbox>
+                  </b-field>
                 </div>
                 <div class="column is-flex is-align-items-center is-justify-content-center">
                   <b-field>
@@ -110,7 +129,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-        courseId:'',
+        courseId:null,
         className : '',
         welcomeMsg:'',
         course : '',
@@ -122,6 +141,9 @@ export default {
         recordable:'',
         labelPosition: 'on-border',
         selectList:null,
+        adminAllow:'',
+        userAdmin:'',
+        allowBegin:''
     }
   },
   methods : {
@@ -162,7 +184,9 @@ export default {
         form.append("classDescription", this.classDescription);
         form.append("file2", this.file2);
         form.append("recordable", this.recordable);
-        console.log(this.className)
+        form.append("adminAllow", this.adminAllow);
+        form.append("userAdmin", this.userAdmin);
+        form.append("allowBegin", this.allowBegin);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
         const loadingComponent = this.$buefy.loading.open({
           container: this.isFullPage ? null : this.$refs.element.$el,
