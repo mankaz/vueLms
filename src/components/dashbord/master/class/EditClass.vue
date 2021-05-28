@@ -4,11 +4,11 @@
       <div class="box">
         <div class="columns">
           <div class="column control services-btn is-flex is-justify-content-left">
-            <b-button type="is-info" icon-right="arrow-left-bold" tag="router-link" :to="{ path: '/Class' }" exact/>
+            <b-button type="is-success" class="is-size-7" label="بازگشت" icon-right="arrow-left-bold" tag="router-link" :to="{ path: '/Class' }" exact/>
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">
-              <small class="is-family-iranSans is-size-5 dir-ltr">ویرایش کلاس</small>
+              <small class="is-family-iranSans is-size-5 dir-ltr"> ویرایش کلاس <b-icon icon="square-edit-outline" size="is-small"></b-icon></small>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
                   <!--                        <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>-->
                   <!--                      </b-select>-->
                   <!--                    </b-field>-->
-                  <b-field label="Simple">
+                  <b-field>
                     <b-select placeholder="انتخاب " v-model="routeData['course_id']">
                       <option
                           v-for="option in selectList"
@@ -84,13 +84,38 @@
               <div class="columns">
                 <div class="column">
                 </div>
-                <div class="column is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                    <b-checkbox :value="true" class="is-family-iranSans">
-                      قابلیت ضبظ
-                    </b-checkbox>
-                  </b-field>
+                <div class="add-class-checkbox">
+                  <div class="columns is-justify-content-flex-end">
+                    <b-field>
+                      <b-checkbox  v-model="adminAllow" class="is-family-iranSans">
+                        موافقت مدیر قبل از ورود
+                      </b-checkbox>
+                    </b-field>
+                  </div>
+                  <div class="columns is-justify-content-flex-end">
+                    <b-field>
+                      <b-checkbox  v-model="userAdmin" class="is-family-iranSans">
+                        تمام کاربران بعنوان مدیر وارد شوند
+                      </b-checkbox>
+                    </b-field>
+                  </div>
+                  <div class="columns is-justify-content-flex-end">
+                    <b-field>
+                      <b-checkbox  v-model="allowBegin" class="is-family-iranSans">
+                        هر کاربری اجازه شروع کلاس را دارد
+                      </b-checkbox>
+                    </b-field>
+                  </div>
+                  <div class="columns is-justify-content-flex-end">
+                    <b-field>
+                      <b-checkbox :value="true" v-model="recordable" class="is-family-iranSans">
+                        قابلیت ضبظ
+                      </b-checkbox>
+                    </b-field>
+                  </div>
+
                 </div>
+
               </div>
               <div class="column is-flex is-justify-content-center">
                 <button  class="button is-success is-rounded ">
@@ -130,6 +155,10 @@ export default {
       isLoading: false,
       isFullPage: true,
       selectList:null,
+      recordable:'',
+      adminAllow:'',
+      userAdmin:'',
+      allowBegin:''
     }
   },
   created() {

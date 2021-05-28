@@ -4233,6 +4233,10 @@ tr.is-selected {
   font-family: IRANSans;
 }
 
+.add-class-checkbox {
+  line-height: 3;
+}
+
 .lable-group {
   margin-top: 30px;
   direction: rtl;
@@ -4245,6 +4249,10 @@ tr.is-selected {
 }
 .btn-register .btn {
   font-family: IRANSans;
+}
+
+.no-data {
+  margin-top: 50px;
 }
 
 .class-search {
@@ -4544,7 +4552,7 @@ ul {
   direction: rtl;
   color: #121212;
   font-family: IRANSans;
-  font-size: 1.25rem;
+  font-size: 2.5rem;
   font-weight: 400;
   transition: all 0.2s ease-in-out;
 }

@@ -48,7 +48,6 @@
                 <b-button
                     type="is-info"
                     icon-right="square-edit-outline is-light"
-                    @click="isCardModalActive = true"
                 />
               </div>
               <div class="column">
@@ -60,62 +59,6 @@
               </div>
             </div>
           </td>
-          <b-modal v-model="isCardModalActive" full-screen :can-cancel="false" scroll="keep">
-
-            <form method="post" @submit.prevent="editClass()">
-              <div class="modal-card dir-ltr" style="width: auto">
-                <header class="modal-card-head">
-                  <p class="modal-card-title">ویرایش دوره</p>
-                </header>
-
-                <section class="modal-card-body">
-
-                  <div class="block direction is-flex is-justify-content-center">
-                    <div class="column  is-8-desktop">
-                      <div class="columns">
-
-                        <div class="column">
-                          <b-field label="عنوان دوره" :label-position="labelPosition">
-                            <b-input v-model="className"></b-input>
-                          </b-field>
-                        </div>
-                      </div>
-
-                      <div class="columns">
-                        <div class="column is-flex is-flex is-align-items-center is-justify-content-center">
-                          <upload>
-                            <slot><span class="file-label">انتخاب تصویر دوره</span></slot>
-                          </upload>
-                        </div>
-                        <div class="column">
-                          <b-field label="توضحیات دوره" :label-position="labelPosition">
-                            <b-input v-model="courseDescription" maxlength="400" type="textarea"></b-input>
-                          </b-field>
-                        </div>
-                      </div>
-
-
-                      <div class="column is-flex is-justify-content-center">
-                        <button @click="editClass(item.id)" class="button is-success is-rounded ">
-                          <span>ویرایش  کلاس</span>
-                          <span class="icon is-small">
-                 <i class="fas fa-check"></i>
-                 </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <footer class="modal-card-foot">
-                  <b-button
-                      label="انصراف"
-                      type="is-warning"
-                      @click="isCardModalActive=false"/>
-                </footer>
-              </div>
-            </form>
-          </b-modal>
         </tr>
         </tbody>
       </table>
@@ -147,8 +90,6 @@
 
 import axios from "axios";
 
-// const posts = require('../../../../sample.json')
-import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
 
 export default {
@@ -175,10 +116,7 @@ export default {
   methods: {
 
     deleteRow(i,id) {
-
-      //console.log(i)
       let $vm = this;
-      // console.log($vm.posts[(this.currentPage-1)* $vm.itemsPerPage +i]['id'])
       this.$buefy.dialog.confirm({
         title: 'حذف دوره',
         message: `آیا از حذف این دوره اطمینان دارید؟`,
@@ -186,19 +124,8 @@ export default {
         confirmText: 'بله',
         type: 'is-danger',
         onConfirm: function () {
-          console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
-
-          //console.log($vm.posts[i]['id'])
-
-          // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-          // this.$buefy.toast.open({
-          //   message: 'دوره مورد نظر با موفقیت حذف شد',
-          //   type: 'is-success',
-          //   position: 'is-top',
-          // })
-          //
+          // console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
           const form = new FormData();
-
           form.append("courseId", id);
           const headers = { 'content-type': 'application/x-www-form-urlencoded' };
           axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
@@ -280,7 +207,7 @@ export default {
       if (this.search !== '') {
         let searchCount = 0;
         return this.posts.filter((item) => {
-          let searchResult = item.meeting_name.match(this.search)
+          let searchResult = item.title.match(this.search)
           if (searchResult != null) {
             ++searchCount;
             console.log(searchResult.length)
@@ -297,7 +224,7 @@ export default {
     },
   },
   components: {
-    ClassCard, upload
+    upload
   }
 }
 

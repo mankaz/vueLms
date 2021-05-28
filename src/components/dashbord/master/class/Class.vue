@@ -3,7 +3,7 @@
   <section>
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
-        <b-button tag="router-link" :to="{ path: '/AddClass' }" exact type="is-info" rounded
+        <b-button tag="router-link" class="is-size-7" :to="{ path: '/AddClass' }" exact type="is-success" rounded
                   icon-right="plus-thick">
           ایجاد کلاس جدید
         </b-button>
@@ -35,47 +35,15 @@
                     </option>
                   </b-select>
                 </b-field>
-<!--        <div class="select">-->
-<!--          <select  @input="getMeeting(courseId)" v-model="courseId">-->
-<!--            <option :value="null" disabled>انتخاب دوره مورد نظر</option>-->
-<!--            <option v-for="option in selectList" :value="option.id" :key="option.id">-->
-<!--              {{ option.title}}-->
-<!--            </option>-->
-<!--          </select>-->
-<!--        </div>-->
-
-<!--        <div class="select is-normal" v-model="courseId">-->
-<!--          <select>-->
-<!--            <option  v-for="option in selectList" :value="option.id" :key="option.id">-->
-<!--              {{ option.title}}-->
-<!--            </option>-->
-<!--          </select>-->
-<!--        </div>-->
-
-<!--        <b-field label="Simple">-->
-<!--          <b-select placeholder="انتخاب " v-model="courseId">-->
-<!--            <option-->
-<!--                v-for="option in selectList"-->
-<!--                :value="option.id"-->
-<!--                :key="option.id">-->
-<!--              {{ option.title}}-->
-<!--            </option>-->
-<!--          </b-select>-->
-<!--        </b-field>-->
       </div>
     </div>
-<!--    <div class="columns is-flex  is-justify-content-flex-end ">-->
-<!--      <div class="column">-->
 
-<!--        <button  class="button is-success is-rounded " @click="getMeeting(courseId)">-->
-<!--          <span>نمایش کلاس</span>-->
-<!--          <span class="icon is-small">-->
-<!--                 <i class="fas fa-check"></i>-->
-<!--                 </span>-->
-<!--        </button>-->
-<!--      </div>-->
+      <div v-if="isData" class="columns">
+        <div  class="column is-flex is-justify-content-center  no-data">
+          <p class="is-family-iranSans is-size-7">داده ای برای نمایش وجود ندارد<b-icon type="is-info" icon="information-outline" size="is-normal"></b-icon></p>
+      </div>
 
-<!--    </div>-->
+    </div>
     <b-notification  :closable="false" >
       <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
     </b-notification>
@@ -159,7 +127,6 @@
                           icon-right="square-edit-outline is-light"
                           @click="editClass(item)"
                       />
-<!--                      <router-link :to="{ name: 'editClass', params: { id: item.id, isRegisteringMe:'ffffffff' }}">Register</router-link>-->
                     </div>
                     <div class="column  is-flex">
                       <b-button
@@ -187,91 +154,6 @@
         </ClassCard>
 
       </div>
-<!--      <b-modal v-model="isCardModalActive" full-screen :can-cancel="false" scroll="keep">-->
-<!--        <form method="post" @submit.prevent="editClass()" >-->
-<!--          <div class="modal-card dir-ltr" style="width: auto">-->
-<!--            <header class="modal-card-head">-->
-<!--              <p class="modal-card-title">ویرایش کلاس</p>-->
-<!--            </header>-->
-
-<!--            <section class="modal-card-body">-->
-
-<!--              <div class="block direction is-flex is-justify-content-center">-->
-<!--                <div class="column  is-8-desktop">-->
-<!--                  <div class="columns">-->
-<!--                    <div class="column">-->
-<!--                      <b-field  :label-position="labelPosition"-->
-<!--                                label="انتخاب دوره">-->
-<!--                        <b-select v-model="course" placeholder="یک عنوان انتخاب نمایید" expanded>-->
-<!--                          <option value="پشتیبانی فنی">پشتیبانی فنی</option>-->
-<!--                          <option value="واحد مالی">واحد مالی</option>-->
-<!--                          <option value="پیشنهادات و انتقادات">پیشنهادات و انتقادات</option>-->
-<!--                        </b-select>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                    <div class="column">-->
-<!--                      <b-field  label="عنوان کلاس" :label-position="labelPosition">-->
-<!--                        <b-input  ></b-input>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="columns">-->
-<!--                    <div class="column">-->
-<!--                      <b-field  label="زمان پایان" :label-position="labelPosition">-->
-<!--                        <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                    <div class="column">-->
-<!--                      <b-field  label="زمان شروع" :label-position="labelPosition">-->
-<!--                        <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="columns">-->
-<!--                    <div class="column  is-flex is-align-items-center is-justify-content-center">-->
-<!--                      <upload v-model="classImage">-->
-<!--                        <slot> <span class="file-label">انتخاب تصویر کلاس</span></slot>-->
-<!--                      </upload>-->
-
-<!--                    </div>-->
-<!--                    <div class="column">-->
-<!--                      <b-field  label="توضحیات دوره" :label-position="labelPosition">-->
-<!--                        <b-input  v-model="classDescription" maxlength="400" type="textarea"></b-input>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="columns">-->
-<!--                    <div class="column">-->
-<!--                    </div>-->
-<!--                    <div class="column is-flex is-align-items-center is-justify-content-center">-->
-<!--                      <b-field>-->
-<!--                        <b-checkbox :value="true" class="is-family-iranSans">-->
-<!--                          قابلیت ضبظ-->
-<!--                        </b-checkbox>-->
-<!--                      </b-field>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="column is-flex is-justify-content-center"> <b-button tag="router-link" :to="{ path: '/AddClass/', params: { itemId: item.id } }" exact  class="button is-success is-rounded ">-->
-<!--                    <span>ویرایش  کلاس</span>-->
-<!--                    <span class="icon is-small">-->
-<!--                 <i class="fas fa-check"></i>-->
-<!--                 </span>-->
-<!--                  </b-button>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </section>-->
-
-<!--            <footer class="modal-card-foot">-->
-<!--              <b-button-->
-<!--                  label="انصراف"-->
-<!--                  type="is-warning"-->
-<!--                  @click="isCardModalActive=false" />-->
-<!--            </footer>-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </b-modal>-->
     </div>
 
     <div class="column is-flex is-align-content-center is-justify-content-center">
@@ -300,13 +182,13 @@
 
 import axios from "axios";
 
-// const posts = require('../../../../sample.json')
 import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
 
 export default {
   data() {
     return {
+      isData:true,
       id:null,
       courseId:null,
       className : '',
@@ -332,16 +214,17 @@ export default {
       getMeeting(){
         this.isLoading = true
         const form = new FormData();
-        console.log(this.courseId)
         form.append("courseId", this.courseId);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios
             .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
             .then((response)=> {
               this.posts = response.data
-              console.log(response)
+              this.isData = false
               this.isLoading = false
-
+              if(!this.posts){
+                this.isData = true
+              }
               // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
               // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
               // console.log(typeof response.data)
@@ -350,9 +233,7 @@ export default {
       },
     deleteRow(i,id) {
 
-      //console.log(i)
       let $vm = this;
-      // console.log($vm.posts[(this.currentPage-1)* $vm.itemsPerPage +i]['id'])
       this.$buefy.dialog.confirm({
         title: 'حذف کلاس',
         message: `آیا از حذف این کلاس اطمینان دارید؟`,
@@ -360,35 +241,21 @@ export default {
         confirmText: 'بله',
         type: 'is-danger',
         onConfirm: function () {
-          console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
-
-          $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-          this.$buefy.toast.open({
-            message: 'کلاس مورد نظر با موفقیت حذف شد',
-            type: 'is-success',
-            position: 'is-top',
-          })
-
-          // const form = new FormData();
-          //
-          // form.append("meetingId", id);
-          // const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          // axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
-          //     .then(()=> {
-          //       $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-          //       this.$buefy.toast.open({
-          //         message: 'کلاس مورد نظر با موفقیت حذف شد',
-          //         type: 'is-success',
-          //         position: 'is-top',
-          //       })
-          //
-          //
-          //     })
-          // this.$buefy.toast.open({
-          //   message: 'کلاس مورد نظر با موفقیت حذف شد',
-          //   type: 'is-warning',
-          //   position: 'is-bottom',
-          // })
+          this.isLoading = true
+          // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+          const form = new FormData();
+          form.append("meetingId", id);
+          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+              .then(()=> {
+                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+                this.$buefy.toast.open({
+                  message: 'کلاس مورد نظر با موفقیت حذف شد',
+                  type: 'is-success',
+                  position: 'is-top',
+                })
+                this.isLoading = false
+              })
         }
 
       })
@@ -417,7 +284,7 @@ export default {
     }
   },
    created() {
-     // this.isLoading = true
+
      //
      // axios
      //    .post('http://gholeydoon.ir/bbb/public/BBBController/getAllMeetings')

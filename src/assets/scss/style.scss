@@ -355,7 +355,9 @@ tr.is-selected{
 .addtext-btn {
   font-family: $font_IranSAns;
 }
-
+.add-class-checkbox{
+  line-height: 3;
+}
 .lable-group {
   margin-top: 30px;
   direction: rtl;
@@ -367,6 +369,9 @@ tr.is-selected{
   .btn {
     font-family: $font_IranSAns;
   }
+}
+.no-data{
+  margin-top: 50px;
 }
 .class-search{
   margin-bottom: -150px !important;
@@ -757,7 +762,7 @@ ul {
     direction: rtl;
     color: $primary-text;
     font-family: $font_IranSAns;
-    font-size: $size-5;
+    font-size: $size-2;
     font-weight: $weight-bold;
     transition: all .2s ease-in-out;
 
