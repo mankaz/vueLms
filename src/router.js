@@ -55,6 +55,16 @@ const router = new VueRouter({
           component : require('./components/dashbord/master/courses/AddCourses.vue').default
         },
         {
+          path : '/Users',
+          meta: { Auth: true },
+          component : require('./components/dashbord/master/pages/Users.vue').default
+        },
+        {
+          path : '/AddUsers',
+          meta: { Auth: true },
+          component : require('./components/dashbord/master/users/AddUsers.vue').default
+        },
+        {
           path : '/services',
           meta: { Auth: true },
           component : require('./components/dashbord/master/pages/Services.vue').default
@@ -69,6 +79,12 @@ const router = new VueRouter({
           name:'class',
           meta: { Auth: true },
           component : require('./components/dashbord/master/pages/Class.vue').default
+        },
+        {
+          path : '/ClassDetail',
+          name:'ClassDetail',
+          meta: { Auth: true },
+          component : require('./components/dashbord/master/pages/ClassDetail.vue').default
         },
         {
           path : '/AddClass',

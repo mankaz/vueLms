@@ -4,13 +4,13 @@
       <div class="box">
         <div class="columns">
           <div class="column control services-btn is-flex is-justify-content-left">
-            <b-button  type="is-success" class="is-size-7" icon-right="arrow-left-bold"  tag="router-link"  :to="{ path: '/Class' }" exact>
+            <b-button  type="is-success" class="is-size-7" icon-right="arrow-left-bold"  tag="router-link"  :to="{ path: '/Class' }" rounded exact>
               بازگشت
             </b-button>
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">
-              <small class="is-family-iranSans is-size-5 dir-ltr">    ایجاد کلاس <b-icon icon="plus-thick" size="is-small"></b-icon></small>
+              <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">    ایجاد کلاس <b-icon icon="plus-thick" size="is-small"></b-icon></small>
             </div>
           </div>
         </div>
@@ -58,11 +58,11 @@
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
                   <b-field>
-                    <b-field class="file is-info" :class="{'has-name': !!file2}">
+                    <b-field class="file is-warning is-size-6" :class="{'has-name': !!file2}">
                       <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
                           <span class="file-cta">
                               <b-icon class="file-icon" icon="upload"></b-icon>
-                           <span>انتخاب تصویر</span>
+                           <span class="is-size-6">انتخاب تصویر</span>
                           </span>
                         <span class="file-name" v-if="file2">
                             {{ file2.name }}
@@ -80,28 +80,28 @@
               <div class="add-class-checkbox">
                 <div class="columns is-justify-content-flex-end">
                   <b-field>
-                    <b-checkbox  v-model="adminAllow" class="is-family-iranSans">
+                    <b-checkbox  v-model="adminAllow" class="is-size-6 is-family-iranSans">
                       موافقت مدیر قبل از ورود
                     </b-checkbox>
                   </b-field>
                 </div>
                 <div class="columns is-justify-content-flex-end">
                   <b-field>
-                    <b-checkbox  v-model="userAdmin" class="is-family-iranSans">
+                    <b-checkbox  v-model="userAdmin" class="is-size-6 is-family-iranSans">
                       تمام کاربران بعنوان مدیر وارد شوند
                     </b-checkbox>
                   </b-field>
                 </div>
                 <div class="columns is-justify-content-flex-end">
                   <b-field>
-                    <b-checkbox  v-model="allowBegin" class="is-family-iranSans">
+                    <b-checkbox  v-model="allowBegin" class="is-size-6 is-family-iranSans">
                       هر کاربری اجازه شروع کلاس را دارد
                     </b-checkbox>
                   </b-field>
                 </div>
                 <div class="columns is-justify-content-flex-end">
                   <b-field>
-                    <b-checkbox  v-model="recordable" class="is-family-iranSans">
+                    <b-checkbox  v-model="recordable" class="is-size-6 is-family-iranSans">
                       قابلیت ضبظ
                     </b-checkbox>
                   </b-field>

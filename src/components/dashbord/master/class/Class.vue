@@ -10,7 +10,7 @@
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
-          <small class="is-family-iranSans is-size-5 dir-ltr">کلاس ها  <b-icon icon="google-classroom" size="is-normal"></b-icon></small>
+          <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">کلاس ها  <b-icon icon="google-classroom" size="is-normal"></b-icon></small>
           <p class="is-family-iranSans is-size-7">:با انتخاب یک دوره، کلاس های زیرمجموعه دوره انتخاب شده نمایش داده می شود</p>
           <br>
         </div>
@@ -69,7 +69,12 @@
 
                   <div class="media-content">
                     <slot>
-                      <p class="title is-4" v-if="item.meeting_name.length<20">{{ item.meeting_name }}</p>
+                      <p class="title is-4" v-if="item.meeting_name.length<20">
+
+                        <b-button  class="is-size-7" type="is-text" rounded @click="ClassDetail(item)">
+                          {{ item.meeting_name }}
+                        </b-button>
+                      </p>
                       <p v-else>{{ item.meeting_name.substring(0,20)+"..." }}</p>
                     </slot>
                   </div>
@@ -77,11 +82,11 @@
               </slot>
               <slot>
                 <div class="content">
-                  <div class="columns">
-                    <div class="column">
-                      <slot><small>عنوان دوره:</small></slot>
-                    </div>
-                  </div>
+<!--                  <div class="columns">-->
+<!--                    <div class="column">-->
+<!--                      <slot><small>عنوان دوره:</small></slot>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
 
 <!--                    <div class="columns start-date">-->
@@ -95,20 +100,20 @@
 <!--                      </div>-->
 <!--                    </div>-->
 
-                  <div class="columns">
-                      <slot>
-                        <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">
-                          <template #trigger="props">
-                            <a class="is-size-7" aria-controls="contentIdForA11y1">
-                              <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
-                              {{ !props.open ? 'توضیحات' : 'بستن' }}
-                            </a>
-                          </template>
-                          <p v-if="item.description">{{ item.description }} </p>
-                          <p v-else>{{ "بدون توضیح" }} </p>
-                        </b-collapse>
-                      </slot>
-                  </div>
+<!--                  <div class="columns">-->
+<!--                      <slot>-->
+<!--                        <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">-->
+<!--                          <template #trigger="props">-->
+<!--                            <a class="is-size-7" aria-controls="contentIdForA11y1">-->
+<!--                              <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>-->
+<!--                              {{ !props.open ? 'توضیحات' : 'بستن' }}-->
+<!--                            </a>-->
+<!--                          </template>-->
+<!--                          <p v-if="item.description">{{ item.description }} </p>-->
+<!--                          <p v-else>{{ "بدون توضیح" }} </p>-->
+<!--                        </b-collapse>-->
+<!--                      </slot>-->
+<!--                  </div>-->
                   <slot>
                     <div class="columns start-date">
                       <div class="column">
@@ -263,6 +268,10 @@ export default {
     editClass(item) {
       // this.$router.push({name: 'editClass',params:{data:i}})
       this.$router.push({name: 'editClass',params:{data:item}})
+    },
+    ClassDetail(item) {
+      // this.$router.push({name: 'editClass',params:{data:i}})
+      this.$router.push({name: 'ClassDetail',params:{data:item}})
     },
     copyUrl () {
       let copyText = document.getElementById("testing-code2");

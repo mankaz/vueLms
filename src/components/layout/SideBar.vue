@@ -60,7 +60,7 @@
                 <b-menu-item icon="currency-usd" tag="router-link" :to="{ path: '/payment' }" exact  label="افزایش اعتبار"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
-                <b-menu-item icon="account-multiple" tag="router-link" :to="{ path: '/users' }" exact  label="کاربران"></b-menu-item>
+                <b-menu-item icon="account-multiple" tag="router-link" :to="{ path: '/Users' }" exact  label="کاربران"></b-menu-item>
               </b-menu-list>
               <b-menu-list>
                 <b-menu-item icon="face-agent" tag="router-link" :to="{ path: '/ticketing' }" exact  label="پشتیبان"></b-menu-item>

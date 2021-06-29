@@ -3963,6 +3963,11 @@ body {
   margin-top: 30px;
 }
 
+.column .excel {
+  margin-top: 60px !important;
+  margin-bottom: 40px !important;
+  line-height: 3 !important;
+}
 .column h1.devider {
   border-bottom: 1px solid #c7c7c7 !important;
   margin-bottom: 20px;
@@ -4351,6 +4356,7 @@ ul {
 
 .urlCopy {
   width: 28em !important;
+  border-radius: 5px !important;
 }
 
 .site-wrapper {
@@ -4571,6 +4577,7 @@ ul {
 }
 .sidebar-content .menu-list ul {
   border-right: 1px !important;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1023px) {

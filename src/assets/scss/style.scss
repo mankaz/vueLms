@@ -77,6 +77,11 @@ body {
   margin-top: 30px;
 }
 .column {
+  .excel{
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
+    line-height: 3 !important;
+  }
   h1.devider{
     border-bottom: 1px solid #c7c7c7 !important;
     margin-bottom: 20px;
@@ -95,6 +100,7 @@ body {
   }
 
 }
+
 .form-control{
   width: 100% !important;
   font-family: $font_IranSAns;
@@ -400,11 +406,6 @@ tr.is-selected{
     }
   }
 
-
-
-
-
-
   .is-active {
     span.menu-label {
       color: $white !important;
@@ -537,6 +538,7 @@ ul {
 }
 .urlCopy{
     width: 28em !important;
+  border-radius : 5px !important;
   }
 
 
@@ -781,6 +783,7 @@ ul {
   .menu-list {
     ul {
       border-right: 1px !important;
+      margin-bottom: 10px;
     }
 
     direction: rtl;
