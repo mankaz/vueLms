@@ -5,7 +5,10 @@
       <div class="box">
         <div class="columns">
           <div class="column control services-btn is-flex is-justify-content-left">
-            <b-button  type="is-info" icon-right="arrow-left-bold" tag="router-link" :to="{ path: '/Courses' }" exact />
+
+            <b-button  type="is-success" class="is-size-7" icon-right="arrow-left-bold" tag="router-link" :to="{ path: '/Courses' }" exact rounded>
+              بازگشت
+            </b-button>
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">

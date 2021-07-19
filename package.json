@@ -11,7 +11,7 @@
     "@websanova/vue-store": "^1.0.5-beta",
     "apexcharts": "^3.26.0",
     "axios": "^0.21.1",
-    "buefy": "^0.9.5",
+    "buefy": "^0.9.8",
     "bulma-accordion": "^2.0.1",
     "core-js": "^3.10.0",
     "vue": "^2.6.12",

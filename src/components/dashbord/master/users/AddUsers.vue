@@ -1,3 +1,5 @@
+
+<!-- eslint-disable -->
 <template>
   <section>
     <div class="column is-10-desktop is-10-tablet is-8-mobile">
@@ -22,44 +24,67 @@
 
                 <div class="column">
                   <b-field  label="ایمیل" :label-position="labelPosition">
-                    <b-input v-model="className"></b-input>
+                    <b-input v-model="email"></b-input>
                   </b-field>
                 </div>
                 <div class="column">
                   <b-field  label="نام" :label-position="labelPosition">
-                    <b-input v-model="welcomeMsg"></b-input>
+                    <b-input v-model="name"></b-input>
                   </b-field>
                 </div>
               </div>
               <div class="columns">
                 <div class="column">
-                    <b-field  label="رمز عبور" :label-position="labelPosition">
-                      <b-input v-model="className"></b-input>
+                    <b-field  label="* رمز عبور" :label-position="labelPosition">
+                      <b-input v-model="pass"></b-input>
                     </b-field>
                 </div>
                 <div class="column">
-                  <b-field  label="نام کاربری" :label-position="labelPosition">
-                    <b-input v-model="className"></b-input>
+                  <b-field  label="* نام کاربری" :label-position="labelPosition">
+                    <b-input v-model="username"></b-input>
+                  </b-field>
+                </div>
+
+              </div>
+              <div class="columns">
+
+                <div class="column  is-flex is-align-items-center is-justify-content-center">
+                  <b-field  label="موبایل" :label-position="labelPosition">
+                    <b-input v-model="mobile"></b-input>
                   </b-field>
                 </div>
 
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
+<!--                  <b-field>-->
+<!--                    <b-select placeholder="نقش کاربر" v-model="courseId">-->
+<!--                      <option-->
+<!--                          v-for="option in selectList"-->
+<!--                          :value="option.id"-->
+<!--                          :key="option.id">-->
+<!--                        {{ option.title}}-->
+<!--                      </option>-->
+<!--                    </b-select>-->
+<!--                  </b-field>-->
                   <b-field>
-                    <b-select placeholder="انتخاب دوره " v-model="courseId">
-                      <option
-                          v-for="option in selectList"
-                          :value="option.id"
-                          :key="option.id">
-                        {{ option.title}}
-                      </option>
-                    </b-select>
+                  <b-select :disabled="meetings.length == 0" v-model="selectedMeeting">
+                    <option value="" disabled>انتخاب کلاس مورد نظر</option>
+                    <!--                <option v-for="(city_obj, city) in meetings">{{city.meeting_name}}</option>-->
+                    <option
+                        v-for="option in meetings"
+                        :value="option.id"
+                        :key="option.id">
+                      {{ option.meeting_name}}
+                    </option>
+                  </b-select>
                   </b-field>
                 </div>
-                <div class="column">
+                <div class="column is-flex is-align-items-center is-justify-content-center">
                   <b-field>
-                    <b-select placeholder="نقش کاربر" v-model="courseId">
+                    <b-select  v-model="courses">
+                      <option value="" disabled>انتخاب دوره مورد نظر</option>
+                      <!--                <option v-for="(country_obj, country) in selectList" :value="country">{{country}}</option>-->
                       <option
                           v-for="option in selectList"
                           :value="option.id"
@@ -90,12 +115,9 @@
                     </b-field>
                   </b-field>
                 </div>
-
-
               </div>
-
               <div class="column is-flex is-justify-content-center"> <button class="button is-size-6 is-success is-rounded ">
-                <span class="is-size-6">ایجاد کلاس</span>
+                <span class="is-size-6">ایجاد کاربر</span>
                 <span class="icon is-small">
                  <i class="fas fa-check"></i>
                  </span>
@@ -104,13 +126,17 @@
             </div>
           </div>
         </form>
+
         </b-notification>
       </div>
     </div>
 
   </section>
-</template>
 
+
+
+</template>
+<!-- eslint-disable -->
 <script>
 import axios from "axios";
 
@@ -118,91 +144,101 @@ import axios from "axios";
 export default {
   data() {
     return {
-        courseId:null,
-        className : '',
-        welcomeMsg:'',
-        course : '',
-        classStartDate : '',
-        classEndDate:'',
-        classDescription:'',
-        classImage:'',
-        file2: null,
-        recordable:'',
-        labelPosition: 'on-border',
-        selectList:null,
-        adminAllow:'',
-        userAdmin:'',
-        allowBegin:''
+        // courseId:null,
+      name:'',
+      username:'',
+      pass:'',
+      mobile:'',
+      email:'',
+      className : '',
+      course : '',
+      file2: null,
+      labelPosition: 'on-border',
+      selectList:null,
+      posts:null,
+      meetings: "",
+      courses: "",
+      selectedMeeting: "",
     }
   },
+  watch: {
+    courses: function() {
+      // Clear previously selected values
+      this.meetings = "";
+      // Populate list first dropdown
+      if (this.courses.length > 0) {
+        // this.meetings = this.selectList[this.courses]
+        const form = new FormData();
+        form.append("courseId", this.courses);
+        const headers = {'content-type': 'application/x-www-form-urlencoded'};
+        axios
+            .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
+            .then((response)=> {
+              this.posts = response.data
+              this.meetings = this.posts
+            })
+      }
+    },
+  },
   methods : {
-    // addClass : function () {
-    //   if(this.className === '') {
-    //     this.$buefy.toast.open({
-    //       message: 'عنوان کلاس را وارد نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   // } else if(this.course === ''){
-    //   //   this.$buefy.toast.open({
-    //   //     message: 'دوره مورد نظر را انتخاب نمایید',
-    //   //     type: 'is-warning',
-    //   //     position: 'is-top',
-    //   //   })
-    //   }else if(this.classStartDate === ''){
-    //     this.$buefy.toast.open({
-    //       message: 'زمان شروع کلاس را انتخاب نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   }
-    //   else if(this.classEndDate === ''){
-    //     this.$buefy.toast.open({
-    //       message: 'زمان پایان کلاس را انتخاب نمایید',
-    //       type: 'is-warning',
-    //       position: 'is-top',
-    //     })
-    //   } else {
-    //
-    //     const form = new FormData();
-    //     form.append("className", this.className);
-    //     form.append("welcomeMsg", this.welcomeMsg);
-    //     form.append("courseId", this.courseId);
-    //     form.append("classStartDate", this.classStartDate);
-    //     form.append("classEndDate", this.classEndDate);
-    //     form.append("classDescription", this.classDescription);
-    //     form.append("file2", this.file2);
-    //     form.append("recordable", this.recordable);
-    //     form.append("adminAllow", this.adminAllow);
-    //     form.append("userAdmin", this.userAdmin);
-    //     form.append("allowBegin", this.allowBegin);
-    //     const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-    //     const loadingComponent = this.$buefy.loading.open({
-    //       container: this.isFullPage ? null : this.$refs.element.$el,
-    //     })
-    //     axios.post("https://gholeydoon.ir/bbb/public/BBBController/createMeeting",form, {headers, })
-    //         .then((res)=> {
-    //           console.log(res)
-    //           loadingComponent.close()
-    //           this.$buefy.toast.open({
-    //             message: 'کلاس مورد نظر با موفقیت ایجاد شد',
-    //             type: 'is-success',
-    //             position: 'is-top',
-    //           })
-    //           console.log(res)
-    //         })
-    //         .catch(err=> {
-    //           loadingComponent.close()
-    //           this.$buefy.toast.open({
-    //             message: 'خطا در ایجاد کلاس',
-    //             type: 'is-danger',
-    //             position: 'is-top',
-    //           })
-    //           console.log(err)
-    //         })
-    //   }
-    //
-    // }
+    addUsers : function () {
+      if(this.name === '') {
+        this.$buefy.toast.open({
+          message: 'اسم کاربر را وارد نمایید',
+          type: 'is-warning',
+          position: 'is-top',
+        })
+
+      }else if(this.pass === ''){
+        this.$buefy.toast.open({
+          message: 'رمز عبور کاربر را وارد نمایید',
+          type: 'is-warning',
+          position: 'is-top',
+        })
+      }
+      else if(this.username === ''){
+        this.$buefy.toast.open({
+          message: 'نام کاربری را وارد نمایید',
+          type: 'is-warning',
+          position: 'is-top',
+        })
+      } else {
+
+        const form = new FormData();
+        form.append("name", this.name);
+        form.append("mobile", this.mobile);
+        form.append("username", this.username);
+        form.append("pass", this.pass);
+        form.append("email", this.email);
+        form.append("file2", this.file2);
+        const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+        const loadingComponent = this.$buefy.loading.open({
+          container: this.isFullPage ? null : this.$refs.element.$el,
+        })
+        axios.post("https://gholeydoon.ir/bbb/public/userController/insertUser",form, {headers, })
+            .then((res)=> {
+              console.log(res)
+              loadingComponent.close()
+              this.$buefy.toast.open({
+                message: 'کاربر با موفقیت ایجاد شد',
+                type: 'is-success',
+                position: 'is-top',
+              })
+              console.log(res)
+            })
+            .catch(err=> {
+              loadingComponent.close()
+              this.$buefy.toast.open({
+                message: 'خطا در ایجاد کاربر',
+                type: 'is-danger',
+                position: 'is-top',
+              })
+              console.log(err)
+            })
+      }
+
+    }
+
   },
   mounted() {
     const headers = {'content-type': 'application/x-www-form-urlencoded'};

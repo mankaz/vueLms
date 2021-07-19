@@ -3,7 +3,7 @@
   <section>
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
-        <b-button tag="router-link" :to="{ path: '/AddCourses' }" exact type="is-info" rounded
+        <b-button type="is-success" class="is-size-7" tag="router-link" :to="{ path: '/AddCourses' }" exact  rounded
                   icon-right="plus-thick">
           ایجاد دوره جدید
         </b-button>

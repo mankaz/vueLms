@@ -106,9 +106,7 @@
                     </b-checkbox>
                   </b-field>
                 </div>
-
               </div>
-
               <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">
                 <span>ایجاد کلاس</span>
                 <span class="icon is-small">
