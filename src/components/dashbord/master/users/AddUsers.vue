@@ -207,6 +207,8 @@ export default {
         const form = new FormData();
         form.append("name", this.name);
         form.append("mobile", this.mobile);
+        form.append("courseId", this.course);
+        form.append("meetingId", this.selectedMeeting);
         form.append("username", this.username);
         form.append("pass", this.pass);
         form.append("email", this.email);
@@ -215,7 +217,7 @@ export default {
         const loadingComponent = this.$buefy.loading.open({
           container: this.isFullPage ? null : this.$refs.element.$el,
         })
-        axios.post("https://gholeydoon.ir/bbb/public/userController/insertUser",form, {headers, })
+        axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser",form, {headers, })
             .then((res)=> {
               console.log(res)
               loadingComponent.close()
