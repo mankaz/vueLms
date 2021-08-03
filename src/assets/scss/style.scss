@@ -100,7 +100,12 @@ body {
   }
 
 }
-
+.pricing-table{
+  font-family: $font_IranSAns;
+}
+.plan-price-currency{
+  display: inline-block;
+}
 .form-control{
   width: 100% !important;
   font-family: $font_IranSAns;

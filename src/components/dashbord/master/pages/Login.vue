@@ -26,7 +26,7 @@
                       <div class="field login-mobileNumber">
                         <div class="control has-icons-left">
                           <b-field label="شماره همراه" :label-position="labelPosition">
-                            <input @keyup="mobileNumber" v-model="mobile" class="input" id="mobile" maxlength="11"
+                            <input autofocus @keyup="mobileNumber" v-model="mobile" class="input" id="mobile" maxlength="11"
                                    icon-right="cellphone" size="is-normal">
                           </b-field>
                         </div>
@@ -63,7 +63,7 @@
                       <div class="control has-icons-left">
                         <div class="columns">
                           <div class="column code-input">
-                            <input v-model="oneNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup" autofocus>
+                            <input autofocus v-model="oneNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
                             <input v-model="twoNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
                             <input v-model="threeNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
                             <input v-model="fourNumber" class="input verificationCode" type="text" maxlength="1" @keyup="onKeyup">
@@ -223,7 +223,7 @@ export default {
             })
             .catch(() => {
               this.$buefy.toast.open({
-                message: 'خطا در ویرایش کلاس',
+                message: 'خطا در ارسال کد تأیید',
                 type: 'is-danger',
                 position: 'is-top',
               })

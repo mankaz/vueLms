@@ -5,13 +5,13 @@
       <div class="column control services-btn is-flex is-justify-content-left">
         <b-button tag="router-link" class="is-size-7" :to="{ path: '/AddClass' }" exact type="is-success" rounded
                   icon-right="plus-thick">
-          ایجاد کلاس جدید
+          ایجاد کلاس
         </b-button>
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
           <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">کلاس ها  <b-icon icon="google-classroom" size="is-normal"></b-icon></small>
-          <p class="is-family-iranSans is-size-7">:با انتخاب یک دوره، کلاس های زیرمجموعه دوره انتخاب شده نمایش داده می شود</p>
+          <p class="is-family-iranSans is-size-7">.با انتخاب یک دوره، کلاس های زیرمجموعه دوره انتخاب شده نمایش داده می شود</p>
           <br>
         </div>
       </div>
@@ -25,7 +25,7 @@
       </div>
       <div class="column is-flex is-justify-content-center">
                 <b-field>
-                  <b-select @input="getMeeting()" v-model="courseId">
+                  <b-select class="dropdown-scroll" @input="getMeeting()" v-model="courseId">
                     <option :value="null" disabled>انتخاب دوره مورد نظر</option>
                     <option
                         v-for="option in selectList"
@@ -37,17 +37,16 @@
                 </b-field>
       </div>
     </div>
-
       <div v-if="isData" class="columns">
         <div  class="column is-flex is-justify-content-center  no-data">
-          <p class="is-family-iranSans is-size-7">داده ای برای نمایش وجود ندارد<b-icon type="is-info" icon="information-outline" size="is-normal"></b-icon></p>
+          <p class="is-family-iranSans is-size-7">!داده ای برای نمایش وجود ندارد</p>
       </div>
 
     </div>
     <b-notification  :closable="false" >
       <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
     </b-notification>
-    <div class="columns is-desktop is-multiline ">
+    <div class="columns">
 
       <div class="column is-one-quarter" v-for="(item,index )  in paginate " :key="index">
 
@@ -55,10 +54,12 @@
           <slot>
             <div class="card-image">
               <slot>
+                <a  class="is-size-7" type="is-text" rounded @click="ClassDetail(item)">
                 <figure class="image is-4by3">
                   <img class="image is-flex is-align-items-center courses-img is-128x128"
                        src="https://static.eseminar.tv/public/upload/webinar/thumb/1618049353_55.jpg">
                 </figure>
+                </a>
               </slot>
             </div>
           </slot>
@@ -71,9 +72,9 @@
                     <slot>
                       <p class="title is-4" v-if="item.meeting_name.length<20">
 
-                        <b-button  class="is-size-7" type="is-text" rounded @click="ClassDetail(item)">
+                        <a  class="is-size-7" type="is-text" rounded @click="ClassDetail(item)">
                           {{ item.meeting_name }}
-                        </b-button>
+                        </a>
                       </p>
                       <p v-else>{{ item.meeting_name.substring(0,20)+"..." }}</p>
                     </slot>
@@ -190,6 +191,7 @@ import axios from "axios";
 import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
 
+
 export default {
   data() {
     return {
@@ -213,6 +215,7 @@ export default {
       isLoading: false,
       isFullPage: false,
       selectList:null,
+
     }
   },
   methods: {

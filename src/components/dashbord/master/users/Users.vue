@@ -6,7 +6,7 @@
         <b-button tag="router-link" :to="{ path: '/AddUsers' }" exact  class="is-size-7"
                   type="is-success" rounded
                   icon-right="plus-thick">
-          تعریف کاربر
+          ایجاد کاربر
         </b-button>
       </div>
       <div class="is-flex is-justify-content-flex-end">

@@ -30,10 +30,10 @@
             <h5 class="is-size-4"> {{routeData['meeting_name']}} <span class="is-size-6">:عنوان دوره</span></h5>
           </div>
           <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> {{routeData['start_time']}} <span class="is-size-6">:زمان شروع</span></h5>
+            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-success">{{routeData['start_time']}}</span> <span class="is-size-6">:زمان شروع<b-icon icon="calendar-clock" size="is-small"></b-icon></span></h5>
           </div>
           <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> {{routeData['end_time']}} <span class="is-size-6">:زمان پایان</span></h5>
+            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-warning">{{routeData['end_time']}}</span> <span class="is-size-6">:زمان پایان<b-icon icon="timer-sand-empty" size="is-small"></b-icon></span></h5>
           </div>
           <div class="columns is-justify-content-flex-end">
             <h5 class="is-size-6 is-family-iranSans">:توضیحات کلاس</h5>

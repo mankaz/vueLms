@@ -12,7 +12,7 @@
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">
-              <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">   تعریف کاربر<b-icon icon="account-multiple-plus" size="is-normal"></b-icon></small>
+              <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">   ایجاد کاربر<b-icon icon="account-multiple-plus" size="is-normal"></b-icon></small>
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default {
       selectList:null,
       posts:null,
       meetings: "",
-      courses: "",
+      courses: null,
       selectedMeeting: "",
     }
   },

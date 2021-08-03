@@ -16,7 +16,7 @@
                 <CardComponent class="card-success info-box">
                   <slot><div class="title is-size-7">دوره های شما</div></slot>
                   <slot>
-                    <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                    <b-icon icon="certificate-outline" class="zmdi zmdi-upload" size="is-medium"></b-icon>
                   </slot>
                   <slot> <div class="value is-size-5">300 </div></slot>
                   <slot><div class="stat"><b>13</b>% increase</div></slot>
@@ -26,7 +26,7 @@
                 <CardComponent  class="card-warning info-box">
                   <slot><div class="title is-size-7">کلاس های شما</div></slot>
                   <slot>
-                    <b-icon icon="account-clock" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                    <b-icon icon="google-classroom" class="zmdi zmdi-upload" size="is-medium"></b-icon>
                   </slot>
                   <slot> <div class="value is-size-5">300 </div></slot>
                   <slot><div class="stat"><b>13</b>% increase</div></slot>
@@ -46,7 +46,7 @@
                 <CardComponent class="card-danger info-box">
                   <slot><div class="title is-size-7">کل دانشجویان</div></slot>
                   <slot>
-                    <b-icon icon="account-multiple" class="zmdi zmdi-upload" size="is-medium"></b-icon>
+                    <b-icon icon="school" class="zmdi zmdi-upload" size="is-medium"></b-icon>
                   </slot>
                   <slot> <div class="value is-size-5">300 </div></slot>
                   <slot><div class="stat"><b>13</b>% increase</div></slot>

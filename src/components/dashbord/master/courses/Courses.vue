@@ -5,7 +5,7 @@
       <div class="column control services-btn is-flex is-justify-content-left">
         <b-button type="is-success" class="is-size-7" tag="router-link" :to="{ path: '/AddCourses' }" exact  rounded
                   icon-right="plus-thick">
-          ایجاد دوره جدید
+          ایجاد دوره
         </b-button>
       </div>
       <div class="is-flex is-justify-content-flex-end">
@@ -23,6 +23,11 @@
         <b-field class="class-search" label="جستجو در عنوان دوره" :label-position="labelPosition">
           <b-input v-model="search"></b-input>
         </b-field>
+      </div>
+    </div>
+    <div v-if="isData" class="columns">
+      <div  class="column is-flex is-justify-content-center  no-data">
+        <p class="is-family-iranSans is-size-7">!دوره ای برای نمایش وجود ندارد</p>
       </div>
     </div>
     <b-notification :closable="false">
@@ -48,6 +53,8 @@
                 <b-button
                     type="is-info"
                     icon-right="square-edit-outline is-light"
+                    @click="editCourse(item)"
+
                 />
               </div>
               <div class="column">
@@ -95,6 +102,7 @@ import upload from "@/components/dashbord/master/extension/upload";
 export default {
   data() {
     return {
+      isData:false,
       className: '',
       courseId: null,
       classStartDate: '',
@@ -146,33 +154,37 @@ export default {
 
       })
     },
-    editClass(i) {
-      console.log(i)
-      const form = new FormData();
-      form.append("className", this.className);
-      form.append("course", this.course);
-      form.append("classStartDate", this.classStartDate);
-      form.append("classEndDate", this.classEndDate);
-      form.append("classDescription", this.classDescription);
-      form.append("classImage", this.classImage);
-      const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0", form, {headers})
-          .then((res) => {
-            this.$buefy.toast.open({
-              message: 'کلاس مورد نظر با موفقیت ویرایش شد',
-              type: 'is-success',
-              position: 'is-top',
-            })
-            console.log(i)
-          })
-          .catch(err => {
-            this.$buefy.toast.open({
-              message: 'خطا در ویرایش کلاس',
-              type: 'is-danger',
-              position: 'is-top',
-            })
-          })
+    editCourse(item) {
+      // this.$router.push({name: 'editClass',params:{data:i}})
+      this.$router.push({name: 'editCourse',params:{data:item}})
     },
+    // editClass(i) {
+    //   console.log(i)
+    //   const form = new FormData();
+    //   form.append("className", this.className);
+    //   form.append("course", this.course);
+    //   form.append("classStartDate", this.classStartDate);
+    //   form.append("classEndDate", this.classEndDate);
+    //   form.append("classDescription", this.classDescription);
+    //   form.append("classImage", this.classImage);
+    //   const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    //   axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0", form, {headers})
+    //       .then((res) => {
+    //         this.$buefy.toast.open({
+    //           message: 'کلاس مورد نظر با موفقیت ویرایش شد',
+    //           type: 'is-success',
+    //           position: 'is-top',
+    //         })
+    //         console.log(i)
+    //       })
+    //       .catch(err => {
+    //         this.$buefy.toast.open({
+    //           message: 'خطا در ویرایش کلاس',
+    //           type: 'is-danger',
+    //           position: 'is-top',
+    //         })
+    //       })
+    // },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber
     }
@@ -185,6 +197,9 @@ export default {
         .then((response) => {
           this.posts = response.data
           this.isLoading = false
+          if(!this.posts){
+            this.isData = true
+          }
           // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
           // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
           // console.log(typeof response.data)

@@ -4,7 +4,8 @@ import LoginLayout from "./components/layout/LoginLayout";
 import AppLayout from "./components/layout/App";
 import Vue from "vue";
 Vue.use(require('vue-cookies'))
-
+// set default config
+Vue.$cookies.config('7d')
 const router = new VueRouter({
   routes : [
     {
@@ -46,6 +47,7 @@ const router = new VueRouter({
         },
         {
           path : '/courses',
+          name:'courses',
           meta: { Auth: true },
           component : require('./components/dashbord/master/pages/Courses.vue').default
         },
@@ -98,6 +100,13 @@ const router = new VueRouter({
           meta: { Auth: true },
           props:true,
           component : require('./components/dashbord/master/class/EditClass.vue').default
+        },
+        {
+          name:'editCourse',
+          path : '/EditCourse',
+          meta: { Auth: true },
+          props:true,
+          component : require('./components/dashbord/master/courses/EditCourse.vue').default
         },
         {
           path : '/Ticketing',
