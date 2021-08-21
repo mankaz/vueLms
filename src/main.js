@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
 import VueRouter from 'vue-router';
 import router from "./router";
 import VueApexCharts from 'vue-apexcharts'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
+import Buefy from 'buefy';
+import 'bulma/css/bulma-rtl.css'
 
 Vue.component('date-picker', VuePersianDatetimePicker);
 import VueStore from '@websanova/vue-store';
@@ -13,10 +13,17 @@ import vueResource from 'vue-resource';
 import {guest} from "@/plugin/axios";
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import Vuesax from 'vuesax'
+import 'boxicons'
+import 'boxicons/css/boxicons.css'
+
+import 'vuesax/dist/vuesax.css'
+
 
 Vue.use(require('vue-cookies'))
 Vue.use(VueRouter)
 Vue.use(
+    Vuesax,
     Buefy,
     vueResource,
     VueStore,

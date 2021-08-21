@@ -17,32 +17,41 @@
           </div>
         </div>
         <b-notification ref="element" :closable="false">
-        <form method="post" @submit.prevent="addUsers()" >
+        <form  method="post" @submit.prevent="addUsers()" >
           <div class="block is-flex is-justify-content-center">
-            <div class="column  is-8-desktop">
-              <div class="columns">
+            <div class="column  is-5-desktop">
 
+              <div class="columns is-flex is-justify-content-flex-end">
                 <div class="column">
-                  <b-field  label="ایمیل" :label-position="labelPosition">
-                    <b-input v-model="email"></b-input>
-                  </b-field>
+                  <vs-input :disabled='!isDisabled' v-model="email"  icon-after  placeholder="ایمیل" >
+                    <template #icon>
+                      <i class='bx bx-mail-send'></i>
+                    </template>
+                  </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="نام" :label-position="labelPosition">
-                    <b-input v-model="name"></b-input>
-                  </b-field>
+                  <vs-input :disabled='!isDisabled' v-model="name"  icon-after  placeholder="نام" >
+                    <template #icon>
+                      <i class='bx bx-text'></i>
+                    </template>
+                  </vs-input>
                 </div>
               </div>
-              <div class="columns">
+
+              <div justify="center" class="columns is-flex is-justify-content-flex-end">
                 <div class="column">
-                    <b-field  label="* رمز عبور" :label-position="labelPosition">
-                      <b-input v-model="pass"></b-input>
-                    </b-field>
+                  <vs-input :disabled='!isDisabled' v-model="pass"  icon-after  placeholder="رمز عبور" >
+                    <template #icon>
+                      <i class='bx bx-shield-alt-2'></i>
+                    </template>
+                  </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="* نام کاربری" :label-position="labelPosition">
-                    <b-input v-model="username"></b-input>
-                  </b-field>
+                  <vs-input :disabled='!isDisabled' v-model="username"  icon-after  placeholder="نام کاربری" >
+                    <template #icon>
+                      <i class='bx bx-user'></i>
+                    </template>
+                  </vs-input>
                 </div>
 
               </div>
@@ -50,60 +59,37 @@
 
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
                   <b-field  label="موبایل" :label-position="labelPosition">
-                    <b-input v-model="mobile"></b-input>
+                    <b-input :disabled='!isDisabled' v-model="mobile"></b-input>
                   </b-field>
                 </div>
 
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-<!--                  <b-field>-->
-<!--                    <b-select placeholder="نقش کاربر" v-model="courseId">-->
-<!--                      <option-->
-<!--                          v-for="option in selectList"-->
-<!--                          :value="option.id"-->
-<!--                          :key="option.id">-->
-<!--                        {{ option.title}}-->
-<!--                      </option>-->
-<!--                    </b-select>-->
-<!--                  </b-field>-->
-                  <b-field>
-                  <b-select :disabled="meetings.length == 0" v-model="selectedMeeting">
-                    <option value="" disabled>انتخاب کلاس مورد نظر</option>
-                    <!--                <option v-for="(city_obj, city) in meetings">{{city.meeting_name}}</option>-->
-                    <option
-                        v-for="option in meetings"
-                        :value="option.id"
-                        :key="option.id">
+                  <vs-select :disabled="meetings.length == 0" filter placeholder="انتخاب کلاس مورد نظر" v-model="selectedMeeting" v-if="meetings">
+                    <vs-option  v-for="option in meetings" :value="option.id" :key="option.id" :label="option.meeting_name">
                       {{ option.meeting_name}}
-                    </option>
-                  </b-select>
-                  </b-field>
+                    </vs-option>
+                  </vs-select>
                 </div>
                 <div class="column is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                    <b-select  v-model="courses">
-                      <option value="" disabled>انتخاب دوره مورد نظر</option>
-                      <!--                <option v-for="(country_obj, country) in selectList" :value="country">{{country}}</option>-->
-                      <option
-                          v-for="option in selectList"
-                          :value="option.id"
-                          :key="option.id">
-                        {{ option.title}}
-                      </option>
-                    </b-select>
-                  </b-field>
+                  <vs-select :disabled='!isDisabled' filter placeholder="انتخاب دوره" v-model="courses" v-if="selectList">
+                    <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
+                      {{ option.title}}
+                    </vs-option>
+                  </vs-select>
                 </div>
               </div>
               <div class="excel">
                 <div class="columns  is-justify-content-flex-end">
-
-                  <h6 class="is-size-6">:ورود کاربران بصورت گروهی از اکسل  <b-icon icon="microsoft-excel"></b-icon></h6>
+                  <span>ورود کاربران بصورت گروهی از اکسل</span>
+                  <vs-checkbox v-model="disable">
+                  </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
                   <b-field>
-                    <b-field class="file is-warning" :class="{'has-name': !!file2}">
-                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
+                    <b-field class="file is-info" :class="{'has-name': !!file2}" >
+                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" :disabled='isDisabled' rounded>
                           <span class="file-cta">
                               <b-icon class="file-icon" icon="upload"></b-icon>
                            <span class="is-size-6">انتخاب فایل اکسل</span>
@@ -116,12 +102,10 @@
                   </b-field>
                 </div>
               </div>
-              <div class="column is-flex is-justify-content-center"> <button class="button is-size-6 is-success is-rounded ">
-                <span class="is-size-6">ایجاد کاربر</span>
-                <span class="icon is-small">
-                 <i class="fas fa-check"></i>
-                 </span>
-              </button>
+              <div class="column is-flex is-justify-content-center">
+                <vs-button success>
+                  ایجاد کاربر    <i class="bx bx-check"></i>
+                </vs-button>
               </div>
             </div>
           </div>
@@ -151,14 +135,15 @@ export default {
       mobile:'',
       email:'',
       className : '',
-      course : '',
+      // course : '',
       file2: null,
       labelPosition: 'on-border',
       selectList:null,
       posts:null,
       meetings: "",
-      courses: null,
+      courses: '',
       selectedMeeting: "",
+      disable: false
     }
   },
   watch: {
@@ -207,7 +192,7 @@ export default {
         const form = new FormData();
         form.append("name", this.name);
         form.append("mobile", this.mobile);
-        form.append("courseId", this.course);
+        form.append("courseId", this.courses);
         form.append("meetingId", this.selectedMeeting);
         form.append("username", this.username);
         form.append("pass", this.pass);
@@ -241,6 +226,11 @@ export default {
 
     }
 
+  },
+  computed : {
+    isDisabled: function(){
+      return !this.disable;
+    }
   },
   mounted() {
     const headers = {'content-type': 'application/x-www-form-urlencoded'};

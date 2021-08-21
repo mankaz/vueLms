@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="column is-10-desktop is-10-tablet is-8-mobile">
-      <div class="box">
+    <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
+      <div  class="box">
         <div class="columns">
           <div class="column control services-btn is-flex is-justify-content-left">
             <b-button  type="is-success" class="is-size-7" icon-right="arrow-left-bold"  tag="router-link"  :to="{ path: '/Class' }" rounded exact>
@@ -14,112 +14,88 @@
             </div>
           </div>
         </div>
-        <b-notification ref="element" :closable="false">
-        <form method="post" @submit.prevent="addClass()" >
-          <div class="block is-flex is-justify-content-center">
+          <form  v-if="contentLoading" method="post" @submit.prevent="addClass('2000', 'button-right',`<i class='bx bx-check'></i>`)" >
+          <div  class="block is-flex is-justify-content-center">
             <div class="column  is-8-desktop">
-              <div class="columns">
+              <vs-row  justify="center" class="columns is-flex is-justify-content-flex-end">
                 <div class="column">
-                  <b-field>
-                    <b-select placeholder="انتخاب دوره " v-model="courseId">
-                      <option
-                          v-for="option in selectList"
-                          :value="option.id"
-                          :key="option.id">
+                    <vs-select filter placeholder="انتخاب دوره" v-model="courseId" v-if="selectList">
+                      <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
                         {{ option.title}}
-                      </option>
-                    </b-select>
-                  </b-field>
+                      </vs-option>
+                    </vs-select>
                 </div>
                 <div class="column">
-                  <b-field  label="عنوان کلاس" :label-position="labelPosition">
-                    <b-input v-model="className"></b-input>
-                  </b-field>
+                  <vs-input v-model="welcomeMsg"  icon-after  placeholder="پیغام خوشامدگویی" >
+                    <template #icon>
+                      <i class='bx bx-message-rounded'></i>
+                    </template>
+                  </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="پیغام خوش آمد گویی" :label-position="labelPosition">
-                    <b-input v-model="welcomeMsg"></b-input>
-                  </b-field>
+                  <vs-input v-model="className"  icon-after  placeholder="عنوان کلاس" >
+                    <template #icon>
+                      <i class='bx bx-text'></i>
+                    </template>
+                  </vs-input>
                 </div>
-              </div>
+
+              </vs-row>
 
               <div class="columns">
                 <div class="column">
-                  <b-field  label="زمان پایان" :label-position="labelPosition">
-                    <date-picker v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>
-                  </b-field>
+
+                    <date-picker placeholder="زمان پایان" v-model="classEndDate" class="input" type="datetime" compact-time auto-submit/>
+
                 </div>
                 <div class="column">
-                  <b-field  label="زمان شروع" :label-position="labelPosition">
-                    <date-picker v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>
-                  </b-field>
+
+                    <date-picker placeholder="زمان شروع" v-model="classStartDate" class="input" type="datetime" compact-time auto-submit/>
+
                 </div>
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                    <b-field class="file is-warning is-size-6" :class="{'has-name': !!file2}">
-                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
-                          <span class="file-cta">
-                              <b-icon class="file-icon" icon="upload"></b-icon>
-                           <span class="is-size-6">انتخاب تصویر</span>
-                          </span>
-                        <span class="file-name" v-if="file2">
-                            {{ file2.name }}
-                </span>
-                      </b-upload>
-                    </b-field>
-                  </b-field>
+                  <vs-input  type="file" v-model="file2"  icon-after >
+
+                  </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="توضحیات دوره" :label-position="labelPosition">
-                    <b-input v-model="classDescription" maxlength="400" type="textarea"></b-input>
-                  </b-field>
+                  <textarea v-model="classDescription" class="textarea" placeholder="توضیحات"></textarea>
                 </div>
               </div>
               <div class="add-class-checkbox">
                 <div class="columns is-justify-content-flex-end">
-                  <b-field>
-                    <b-checkbox  v-model="adminAllow" class="is-size-6 is-family-iranSans">
-                      موافقت مدیر قبل از ورود
-                    </b-checkbox>
-                  </b-field>
+                  <span> موافقت مدیر قبل از ورود</span>
+                  <vs-checkbox v-model="adminAllow">
+                  </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
-                  <b-field>
-                    <b-checkbox  v-model="userAdmin" class="is-size-6 is-family-iranSans">
-                      تمام کاربران بعنوان مدیر وارد شوند
-                    </b-checkbox>
-                  </b-field>
+                  <span>  ورود کاربران بعنوان مدیر </span>
+                  <vs-checkbox v-model="userAdmin">
+                  </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
-                  <b-field>
-                    <b-checkbox  v-model="allowBegin" class="is-size-6 is-family-iranSans">
-                      هر کاربری اجازه شروع کلاس را دارد
-                    </b-checkbox>
-                  </b-field>
+                  <span> هر کاربری اجازه شروع کلاس را دارد</span>
+                  <vs-checkbox v-model="allowBegin">
+                  </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
-                  <b-field>
-                    <b-checkbox  v-model="recordable" class="is-size-6 is-family-iranSans">
-                      قابلیت ضبظ
-                    </b-checkbox>
-                  </b-field>
+                  <span>قابلیت ضبط کلاس</span>
+                  <vs-checkbox v-model="recordable">
+                  </vs-checkbox>
                 </div>
               </div>
-              <div class="column is-flex is-justify-content-center"> <button class="button is-success is-rounded ">
-                <span>ایجاد کلاس</span>
-                <span class="icon is-small">
-                 <i class="fas fa-check"></i>
-                 </span>
-              </button>
+              <div class="column is-flex is-justify-content-center">
+                <vs-button success>
+                  ایجاد کلاس    <i class="bx bx-check"></i>
+                </vs-button>
               </div>
             </div>
           </div>
-        </form>
-        </b-notification>
+          </form>
       </div>
-    </div>
+    </vs-row>
 
   </section>
 </template>
@@ -131,7 +107,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-        courseId:null,
+        courseId:'',
         className : '',
         welcomeMsg:'',
         course : '',
@@ -142,41 +118,54 @@ export default {
         file2: null,
         recordable:'',
         labelPosition: 'on-border',
-        selectList:null,
+        selectList:'',
         adminAllow:'',
         userAdmin:'',
-        allowBegin:''
+        allowBegin:'',
+        contentLoading:false,
+        progress: 0,
     }
   },
   methods : {
-    addClass : function () {
+    addClass : function (duration,position = null, icon) {
       if(this.className === '') {
-        this.$buefy.toast.open({
-          message: 'عنوان کلاس را وارد نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'عنوان کلاس وارد نشده است',
         })
-      // } else if(this.course === ''){
-      //   this.$buefy.toast.open({
-      //     message: 'دوره مورد نظر را انتخاب نمایید',
-      //     type: 'is-warning',
-      //     position: 'is-top',
-      //   })
+
       }else if(this.classStartDate === ''){
-        this.$buefy.toast.open({
-          message: 'زمان شروع کلاس را انتخاب نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'زمان شروع کلاس را انتخاب نمایید',
         })
       }
       else if(this.classEndDate === ''){
-        this.$buefy.toast.open({
-          message: 'زمان پایان کلاس را انتخاب نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'زمان پایان کلاس را انتخاب نمایید',
         })
       } else {
-
+        const loading = this.$vs.loading({
+          target: this.$refs.content,
+          scale: '0.6',
+          opacity: 0.1,
+        })
         const form = new FormData();
         form.append("className", this.className);
         form.append("welcomeMsg", this.welcomeMsg);
@@ -190,26 +179,32 @@ export default {
         form.append("userAdmin", this.userAdmin);
         form.append("allowBegin", this.allowBegin);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-        const loadingComponent = this.$buefy.loading.open({
-          container: this.isFullPage ? null : this.$refs.element.$el,
-        })
+
         axios.post("https://gholeydoon.ir/bbb/public/BBBController/createMeeting",form, {headers, })
             .then((res)=> {
+              loading.close()
               console.log(res)
-              loadingComponent.close()
-              this.$buefy.toast.open({
-                message: 'کلاس مورد نظر با موفقیت ایجاد شد',
-                type: 'is-success',
-                position: 'is-top',
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'success',
+                position,
+                progress: 'auto',
+                title: 'کلاس مورد نظر با موفقیت ایجاد شد',
               })
               console.log(res)
             })
             .catch(err=> {
-              loadingComponent.close()
-              this.$buefy.toast.open({
-                message: 'خطا در ایجاد کلاس',
-                type: 'is-danger',
-                position: 'is-top',
+              loading.close()
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'danger',
+                position,
+                progress: 'auto',
+                title: 'خطا در ایجاد کلاس',
               })
               console.log(err)
             })
@@ -218,9 +213,24 @@ export default {
     }
   },
   mounted() {
+    const loading = this.$vs.loading({
+      target: this.$refs.content,
+      scale: '0.6',
+      progress: 0,
+      opacity: 0.1,
+    })
+    const interval = setInterval(() => {
+      if (this.progress <= 100) {
+        loading.changeProgress(this.progress++)
+      }
+    })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
     axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
+          loading.close()
+          clearInterval(interval)
+          this.progress = 0
+          this.contentLoading= true
           this.selectList = data.data
           // console.log(this.selectList)
         })

@@ -5,6 +5,7 @@ html,
 body {
   height: 100%;
   background-color: $grey-lightest !important;
+  font-family: $font_IranSAns;
 }
 .progress-height{
   height: 0.5rem !important;
@@ -77,6 +78,15 @@ body {
   margin-top: 30px;
 }
 .column {
+  .textarea {
+    font-family: $font_IranSAns !important;
+    direction: rtl !important;
+    background-color: rgba(var(--vs-gray-2), 1)
+  }
+  span{
+    font-family: $font_IranSAns !important;
+    margin-right: 3px !important;
+  }
   .excel{
     margin-top: 60px !important;
     margin-bottom: 40px !important;
@@ -542,7 +552,7 @@ ul {
   font-family: $font_IranSAns;
 }
 .urlCopy{
-    width: 28em !important;
+    width: 20em !important;
   border-radius : 5px !important;
   }
 
@@ -1005,4 +1015,77 @@ background: linear-gradient(45deg, #ff5370, #ff869a);
   &.red {
     background-color: #D65B4A;
   }
+}
+
+.vs-sidebar-content {
+  max-width: 230px !important;
+}
+.vs-sidebar__item{
+  font-family: $font_IranSAns !important;
+}
+
+a{color: #000000 !important;}
+.vs-sidebar-content.right {
+  direction: rtl !important
+}
+
+.vs-sidebar__group__content:after{
+  right: 2px !important;
+}
+.vs-sidebar__item.active:after{
+  right: 2px;
+  border-radius: 20px 0px 0px 20px !important;
+}
+.vs-sidebar__item:after{
+  right: -20px;
+  border-radius: 20px 0px 0px 20px !important;
+}
+.vs-sidebar__item__arrow{
+  transform: rotate(-135deg) !important;
+}
+.vs-sidebar__group.open > .vs-sidebar__group__header .vs-sidebar__item__arrow{
+
+  transform: rotate(136deg) !important;
+}
+.vs-button{
+  font-family: $font_IranSAns !important;
+}
+.vs-select__input{
+  font-family: $font_IranSAns !important;
+  text-align: center !important;
+}
+.vs-input{
+  font-family: $font_IranSAns !important;
+}
+.vs-input__label {
+  font-family: $font_IranSAns !important;
+  text-align: center !important;
+}
+.vs-select{
+  font-family: $font_IranSAns !important;
+}
+.vs-select__options__content{
+  direction: rtl !important;
+}
+.vpd-main input{
+  background-color: rgba(var(--vs-gray-2), 1) !important;
+  direction: rtl;
+
+}
+.vpd-main{
+  background-color: rgba(var(--vs-gray-2), 1) !important;
+}
+
+.vs-checkbox-content{
+  font-family: $font_IranSAns !important;
+}
+.vs-pagination__active{
+  font-family: $font_IranSAns !important;
+}
+.vs-input{
+ direction: rtl !important;
+  font-family: $font_IranSAns !important;
+}
+.vs-pagination__button{
+  font-family: $font_IranSAns !important;
 }

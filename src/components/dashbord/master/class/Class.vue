@@ -1,6 +1,8 @@
 <!-- eslint-disable -->
 <template>
   <section>
+    <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
+      <div  class="box">
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
         <b-button tag="router-link" class="is-size-7" :to="{ path: '/AddClass' }" exact type="is-success" rounded
@@ -17,38 +19,59 @@
       </div>
 
     </div>
-    <div class="columns">
-      <div class="column is-flex is-justify-content-center">
-        <b-field class="class-search" label="جستجو در عنوان کلاس" :label-position="labelPosition">
-          <b-input v-model="search"></b-input>
-        </b-field>
-      </div>
-      <div class="column is-flex is-justify-content-center">
-                <b-field>
-                  <b-select class="dropdown-scroll" @input="getMeeting()" v-model="courseId">
-                    <option :value="null" disabled>انتخاب دوره مورد نظر</option>
-                    <option
-                        v-for="option in selectList"
-                        :value="option.id"
-                        :key="option.id">
-                      {{ option.title}}
-                    </option>
-                  </b-select>
-                </b-field>
-      </div>
-    </div>
-      <div v-if="isData" class="columns">
-        <div  class="column is-flex is-justify-content-center  no-data">
+
+    <vs-row ref="content" justify="center"  v-if="contentLoading">
+      <vs-row class="column is-flex is-justify-content-center">
+        <vs-input v-model="search"  icon-after  placeholder="جستجو در عنوان کلاس" >
+          <template #icon>
+            <i class='bx bx-search'></i>
+          </template>
+        </vs-input>
+      </vs-row>
+      <vs-row class="column is-flex is-justify-content-center">
+        <vs-select filter placeholder="انتخاب دوره" @input="getMeeting()" v-model="courseId" v-if="selectList">
+          <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
+            {{ option.title}}
+          </vs-option>
+        </vs-select>
+      </vs-row>
+    </vs-row>
+      <div v-if="isData" class="column is-flex is-justify-content-center is-justify-content-flex-end">
+        <vs-row justify="center"  v-if="contentLoading">
           <p class="is-family-iranSans is-size-7">!داده ای برای نمایش وجود ندارد</p>
-      </div>
+        </vs-row>
 
     </div>
-    <b-notification  :closable="false" >
-      <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="false"></b-loading>
-    </b-notification>
     <div class="columns">
-
       <div class="column is-one-quarter" v-for="(item,index )  in paginate " :key="index">
+        <vs-dialog width="550px" not-center v-model="active2">
+          <template #header>
+            <h4 class="not-margin">
+              Welcome to <b>Vuesax</b>
+            </h4>
+          </template>
+
+
+          <div class="con-content">
+            <p>
+
+              jjjjjjjjjjjjjjjjjj
+            </p>
+          </div>
+          <template #footer>
+            <div class="con-footer">
+              <vs-button @click="active2=false" transparent>
+                Ok
+              </vs-button>
+              <vs-button @click="active2=false" dark transparent>
+                Cancel
+              </vs-button>
+            </div>
+          </template>
+        </vs-dialog>
+
+
+
 
         <ClassCard>
           <slot>
@@ -83,38 +106,6 @@
               </slot>
               <slot>
                 <div class="content">
-<!--                  <div class="columns">-->
-<!--                    <div class="column">-->
-<!--                      <slot><small>عنوان دوره:</small></slot>-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-
-<!--                    <div class="columns start-date">-->
-<!--                      <div class="column">-->
-<!--                        <slot><small>آدرس:</small>-->
-<!--                          <span :id="index"  :value="item.meeting_name" class="urlCopy">http://conf.ir/{{item.meeting_name}}</span>-->
-<!--                        </slot>-->
-<!--                      </div>-->
-<!--                      <div class="column is-7 is-size-7">-->
-<!--                        <b-button icon-right="content-copy"  class="button is-small" @click="copyUrl"></b-button>-->
-<!--                      </div>-->
-<!--                    </div>-->
-
-<!--                  <div class="columns">-->
-<!--                      <slot>-->
-<!--                        <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">-->
-<!--                          <template #trigger="props">-->
-<!--                            <a class="is-size-7" aria-controls="contentIdForA11y1">-->
-<!--                              <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>-->
-<!--                              {{ !props.open ? 'توضیحات' : 'بستن' }}-->
-<!--                            </a>-->
-<!--                          </template>-->
-<!--                          <p v-if="item.description">{{ item.description }} </p>-->
-<!--                          <p v-else>{{ "بدون توضیح" }} </p>-->
-<!--                        </b-collapse>-->
-<!--                      </slot>-->
-<!--                  </div>-->
                   <slot>
                     <div class="columns start-date">
                       <div class="column">
@@ -127,28 +118,29 @@
                   </slot>
                   <div class="columns">
                     <div class="column is-flex ">
-                      <b-button
-                          class="is-light"
-                          type="is-info"
-                          icon-right="square-edit-outline is-light"
+                      <vs-button
+                          icon
                           @click="editClass(item)"
-                      />
+                      >
+                        <i class='bx bx-edit-alt'></i>
+                      </vs-button>
                     </div>
                     <div class="column  is-flex">
-                      <b-button
-                          class="is-light"
-                          type="is-success"
-                          icon-right="play-outline"
-                          @click="deleteRow(index)"
-                      />
-                    </div>
-                    <div class="column  is-flex ">
-                      <b-button
-                          class="is-light"
-                          type="is-danger"
-                          icon-right="delete-outline"
+                      <vs-button
+                          icon
+                          danger
                           @click="deleteRow(index ,item.id)"
-                      />
+                      >
+                        <i class='bx bx-trash'></i>
+                      </vs-button>
+                    </div>
+                    <div class="column  is-flex">
+                      <vs-button
+                          icon
+                          success
+                      >
+                        <i class='bx bx-play'></i>
+                      </vs-button>
                     </div>
                   </div>
                 </div>
@@ -163,22 +155,25 @@
     </div>
 
     <div class="column is-flex is-align-content-center is-justify-content-center">
-      <nav class="pagination" role="navigation" aria-label="pagination">
-        <ul class="pagination-list">
-          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"
-              v-for="pageNumber in totalPages"
-              v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1"
-              :key="pageNumber">
-            <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>
-            <a :key="pageNumber" @click.prevent="setPage(pageNumber)"
-               :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{
-                pageNumber
-              }}</a>
-            <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>
-          </li>
-        </ul>
-      </nav>
+      <vs-pagination  v-if="contentLoading" :color="paginationColor"  v-model="totalPages" :length="totalPages" />
+<!--      <nav class="pagination" role="navigation" aria-label="pagination">-->
+<!--        <ul class="pagination-list">-->
+<!--          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"-->
+<!--              v-for="pageNumber in totalPages"-->
+<!--              v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1"-->
+<!--              :key="pageNumber">-->
+<!--            <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>-->
+<!--            <a :key="pageNumber" @click.prevent="setPage(pageNumber)"-->
+<!--               :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{-->
+<!--                pageNumber-->
+<!--              }}</a>-->
+<!--            <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </nav>-->
     </div>
+      </div>
+    </vs-row>
 
   </section>
 
@@ -193,11 +188,13 @@ import upload from "@/components/dashbord/master/extension/upload";
 
 
 export default {
+
   data() {
     return {
+      value: '',
       isData:true,
       id:null,
-      courseId:null,
+      courseId:'',
       className : '',
       course : '',
       classStartDate :'',
@@ -214,13 +211,20 @@ export default {
       resultCount: 0,
       isLoading: false,
       isFullPage: false,
-      selectList:null,
+      selectList:'',
+      contentLoading:false,
+      progress: 0,
+      paginationColor:'success'
 
     }
   },
   methods: {
       getMeeting(){
-        this.isLoading = true
+        const loading = this.$vs.loading({
+          target: this.$refs.content,
+          scale: '0.6',
+          opacity: 0.1,
+        })
         const form = new FormData();
         form.append("courseId", this.courseId);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
@@ -229,7 +233,7 @@ export default {
             .then((response)=> {
               this.posts = response.data
               this.isData = false
-              this.isLoading = false
+              loading.close()
               if(!this.posts){
                 this.isData = true
               }
@@ -240,6 +244,28 @@ export default {
 
       },
     deleteRow(i,id) {
+        const loading = this.$vs.loading()
+        setTimeout(() => {
+          loading.close()
+          $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+        }, 1000)
+
+
+      // this.isLoading = true
+      // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+      // const form = new FormData();
+      // form.append("meetingId", id);
+      // const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+      // axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+      //     .then(()=> {
+      //       $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+      //       this.$buefy.toast.open({
+      //         message: 'کلاس مورد نظر با موفقیت حذف شد',
+      //         type: 'is-success',
+      //         position: 'is-top',
+      //       })
+      //       this.isLoading = false
+      //     })
 
       let $vm = this;
       this.$buefy.dialog.confirm({
@@ -295,19 +321,6 @@ export default {
       this.currentPage = pageNumber
     }
   },
-   created() {
-
-     //
-     // axios
-     //    .post('http://gholeydoon.ir/bbb/public/BBBController/getAllMeetings')
-     //    .then((response)=> {
-     //     this.posts = response.data
-     //      this.isLoading = false
-     //      // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
-     //      // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
-     //      // console.log(typeof response.data)
-     //    })
-  },
   computed: {
     totalPages: function () {
       return Math.ceil(this.resultCount / this.itemsPerPage)
@@ -341,9 +354,24 @@ export default {
     },
   },
   mounted() {
+      const loading = this.$vs.loading({
+        target: this.$refs.content,
+        scale: '0.6',
+        progress: 0,
+        opacity: 0.1,
+      })
+      const interval = setInterval(() => {
+        if (this.progress <= 100) {
+          loading.changeProgress(this.progress++)
+        }
+      })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
     axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
+          loading.close()
+          clearInterval(interval)
+          this.progress = 0
+          this.contentLoading= true
           this.selectList = data.data
           // console.log(this.selectList)
         })
@@ -354,3 +382,4 @@ export default {
 }
 
 </script>
+

@@ -1,12 +1,11 @@
 <!-- eslint-disable -->
 <template>
   <section>
-    <div class="columns">
+    <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
+      <div  class="box">
+
       <div class="column control services-btn is-flex is-justify-content-left">
-        <b-button type="is-success" class="is-size-7" tag="router-link" :to="{ path: '/AddCourses' }" exact  rounded
-                  icon-right="plus-thick">
-          ایجاد دوره
-        </b-button>
+
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
@@ -15,14 +14,16 @@
           <br>
         </div>
       </div>
-    </div>
+
     <div class="columns is-flex  is-justify-content-flex-end ">
       <div class="column">
       </div>
-      <div class="column is-4-desktop is-rtl">
-        <b-field class="class-search" label="جستجو در عنوان دوره" :label-position="labelPosition">
-          <b-input v-model="search"></b-input>
-        </b-field>
+      <div class="column is-3-desktop is-rtl">
+        <vs-input v-model="search"  icon-after  placeholder="جستجو در عنوان کلاس" >
+          <template #icon>
+            <i class='bx bx-search'></i>
+          </template>
+        </vs-input>
       </div>
     </div>
     <div v-if="isData" class="columns">
@@ -50,19 +51,21 @@
           <td>
             <div class="columns">
               <div class="column">
-                <b-button
-                    type="is-info"
-                    icon-right="square-edit-outline is-light"
+                <vs-button
+                    icon
                     @click="editCourse(item)"
-
-                />
+                >
+                  <i class='bx bx-edit'></i>
+                </vs-button>
               </div>
               <div class="column">
-                <b-button
-                    type="is-danger"
-                    icon-right="delete-outline"
+                <vs-button
+                    danger
+                    icon
                     @click="deleteRow(index,item.id)"
-                />
+                >
+                  <i class='bx bx-trash'></i>
+                </vs-button>
               </div>
             </div>
           </td>
@@ -73,22 +76,26 @@
     </div>
 
     <div class="column is-flex is-align-content-center is-justify-content-center">
-      <nav class="pagination" role="navigation" aria-label="pagination">
-        <ul class="pagination-list">
-          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"
-              v-for="pageNumber in totalPages"
-              v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1"
-              :key="pageNumber">
-            <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>
-            <a :key="pageNumber" @click.prevent="setPage(pageNumber)"
-               :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{
-                pageNumber
-              }}</a>
-            <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>
-          </li>
-        </ul>
-      </nav>
+      <vs-pagination :color="paginationColor"  v-model="currentPage" :length="totalPages" />
+
+<!--      <nav class="pagination" role="navigation" aria-label="pagination">-->
+<!--        <ul class="pagination-list">-->
+<!--          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"-->
+<!--              v-for="pageNumber in totalPages"-->
+<!--              v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber === totalPages || pageNumber === 1"-->
+<!--              :key="pageNumber">-->
+<!--            <span v-if="(pageNumber === totalPages && Math.abs(pageNumber - currentPage) > 3) ">...</span>-->
+<!--            <a :key="pageNumber" @click.prevent="setPage(pageNumber)"-->
+<!--               :class="{'pagination-link is-current ': currentPage === pageNumber,'pagination-link' : pageNumber}">{{-->
+<!--                pageNumber-->
+<!--              }}</a>-->
+<!--            <span v-if="(pageNumber === 1 && Math.abs(pageNumber - currentPage) > 3)">...</span>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </nav>-->
     </div>
+      </div>
+    </vs-row>
   </section>
 </template>
 <!-- eslint-disable -->
@@ -118,7 +125,10 @@ export default {
       itemsPerPage: 4,
       resultCount: 0,
       isLoading: false,
-      isFullPage: false
+      isFullPage: false,
+      paginationColor: 'success',
+      contentLoading:false,
+      progress: 0,
     }
   },
   methods: {
@@ -190,20 +200,20 @@ export default {
     }
   },
   created() {
-    this.isLoading = true
-
-    axios
-        .post('http://gholeydoon.ir/bbb/public/BBBController/getCourses')
-        .then((response) => {
-          this.posts = response.data
-          this.isLoading = false
-          if(!this.posts){
-            this.isData = true
-          }
-          // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
-          // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
-          // console.log(typeof response.data)
-        })
+    // this.isLoading = true
+    //
+    // axios
+    //     .post('http://gholeydoon.ir/bbb/public/BBBController/getCourses')
+    //     .then((response) => {
+    //       this.posts = response.data
+    //       this.isLoading = false
+    //       if(!this.posts){
+    //         this.isData = true
+    //       }
+    //       // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
+    //       // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
+    //       // console.log(typeof response.data)
+    //     })
   },
 
   computed: {
@@ -237,6 +247,30 @@ export default {
       let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
       return this.posts.slice(index, index + this.itemsPerPage)
     },
+  },
+  mounted() {
+    const loading = this.$vs.loading({
+      target: this.$refs.content,
+      scale: '0.6',
+      progress: 0,
+      opacity: 0.1,
+    })
+    const interval = setInterval(() => {
+      if (this.progress <= 100) {
+        loading.changeProgress(this.progress++)
+      }
+    })
+    const headers = {'content-type': 'application/x-www-form-urlencoded'};
+    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+        .then((data)=> {
+          this.posts = data.data
+          loading.close()
+          clearInterval(interval)
+          this.progress = 0
+          this.contentLoading= true
+          this.selectList = data.data
+          // console.log(this.selectList)
+        })
   },
   components: {
     upload

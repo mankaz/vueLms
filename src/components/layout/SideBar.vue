@@ -1,79 +1,112 @@
 <template>
-<div class="sidebar-page">
-  <section class="sidebar-layout">
-    <b-sidebar
-      type="is-light"
-      :fullheight="fullheight"
-      :fullwidth="fullwidth"
-      :overlay="overlay"
-      :right="right"
-      :open.sync="open"
-      :mobile="mobile"
-    >
-      <div class="p-1">
-        <img class="logo"  :src="`img/logo.png`" />
-        <b-menu>
-          <b-menu class="is-custom-mobile">
-            <b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="view-dashboard" tag="router-link" :to="{ path: '/dashboard' }" exact  label="پیشخوان"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="google-classroom" tag="router-link" :to="{ path: '/class' }" exact  label="کلاس ها"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact   label="دوره ها"></b-menu-item>
-              </b-menu-list>
-<!--              <b-menu>-->
-<!--                <b-menu-list>-->
-<!--                  <b-menu-item icon="certificate-outline" tag="router-link" :to="{ path: '/courses' }" exact >-->
-<!--                    <template #label>-->
-<!--                      دوره ها-->
-<!--                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">-->
-<!--                        <template #trigger>-->
-<!--                          <b-icon icon="dots-vertical"></b-icon>-->
-<!--                        </template>-->
-<!--                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddCourses'}" exact>دوره جدید</router-link></b-dropdown-item>-->
-<!--                      </b-dropdown>-->
-<!--                    </template>-->
-<!--                  </b-menu-item>-->
-<!--                </b-menu-list>-->
 
-<!--                <b-menu-list>-->
-<!--                  <b-menu-item icon="cellphone-link" tag="router-link" :to="{ path: '/class' }" exact >-->
-<!--                    <template #label>-->
-<!--                      کلاس ها-->
-<!--                      <b-dropdown :triggers="['hover']" aria-role="list" class="is-pulled-left" position="is-bottom-left">-->
-<!--                        <template #trigger>-->
-<!--                          <b-icon icon="dots-vertical"></b-icon>-->
-<!--                        </template>-->
-<!--                        <b-dropdown-item icon-right="plus"><router-link  :to="{ path: '/AddClass'}" exact>کلاس جدید</router-link></b-dropdown-item>-->
-<!--                      </b-dropdown>-->
-<!--                    </template>-->
-<!--                  </b-menu-item>-->
-<!--                </b-menu-list>-->
-<!--              </b-menu>-->
-              <b-menu-list>
-                <b-menu-item icon="cog-outline" tag="router-link" :to="{ path: '/services' }" exact  label="سرویس ها"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="currency-usd" tag="router-link" :to="{ path: '/payment' }" exact  label="افزایش اعتبار"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="account-multiple" tag="router-link" :to="{ path: '/Users' }" exact  label="کاربران"></b-menu-item>
-              </b-menu-list>
-              <b-menu-list>
-                <b-menu-item icon="face-agent" tag="router-link" :to="{ path: '/ticketing' }" exact  label="پشتیبان"></b-menu-item>
-              </b-menu-list>
+<div>
 
-            </b-menu-list>
-          </b-menu>
+  <vs-sidebar
+      right
+      absolute
+      v-model="active"
+      open
+  >
+    <template #logo>
+      <img  :src="`img/logo.png`" />
+    </template>
+    <template #header>
 
-        </b-menu>
-      </div>
-    </b-sidebar>
+    </template>
 
-  </section>
+
+      <vs-sidebar-item id="home" :to="{ path: '/dashboard' }" exact>
+        <template #icon>
+          <i class='bx bxs-widget'></i>
+        </template>
+        داشبورد
+      </vs-sidebar-item>
+
+    <vs-sidebar-group>
+      <template #header>
+        <vs-sidebar-item arrow>
+          <template #icon>
+            <i class='bx bx-award'></i>
+          </template>
+          دوره ها
+        </vs-sidebar-item>
+      </template>
+
+      <vs-sidebar-item id="course" :to="{ path: '/courses' }" exact>
+        دوره های شما
+      </vs-sidebar-item>
+
+      <vs-sidebar-item id="adcourse" :to="{ path: '/addcourses' }" exact>
+        ایجاد دوره
+      </vs-sidebar-item>
+    </vs-sidebar-group>
+
+    <vs-sidebar-group>
+      <template #header>
+        <vs-sidebar-item arrow>
+          <template #icon>
+            <i class='bx bx-chalkboard'></i>
+          </template>
+          کلاس ها
+        </vs-sidebar-item>
+      </template>
+
+      <vs-sidebar-item id="class" :to="{ path: '/class' }" exact>
+         کلاس های شما
+      </vs-sidebar-item>
+      <vs-sidebar-item id="addclass" :to="{ path: '/addclass' }" exact>
+
+        ایجاد کلاس
+      </vs-sidebar-item>
+    </vs-sidebar-group>
+    <vs-sidebar-item id="services" :to="{ path: '/services' }" exact>
+      <template #icon>
+        <i class='bx bx-cog'></i>
+      </template>
+      سرویس ها
+    </vs-sidebar-item>
+    <vs-sidebar-group>
+      <template #header>
+        <vs-sidebar-item arrow>
+          <template #icon>
+            <i class='bx bx-group'></i>
+          </template>
+          کاربران
+        </vs-sidebar-item>
+      </template>
+
+      <vs-sidebar-item id="class" :to="{ path: '/users' }" exact>
+       همه کاربران
+      </vs-sidebar-item>
+      <vs-sidebar-item id="adduser" :to="{ path: '/addusers' }" exact>
+
+        ایجاد کاربر
+      </vs-sidebar-item>
+    </vs-sidebar-group>
+    <vs-sidebar-item id="support" :to="{ path: '/support' }" exact>
+      <template #icon>
+        <i class='bx bx-support'></i>
+      </template>
+      پشتیبان
+    </vs-sidebar-item>
+    <template #footer>
+      <vs-row justify="space-between">
+        <vs-avatar>
+          <img src="/avatars/avatar-5.png" alt="">
+        </vs-avatar>
+
+        <vs-avatar badge-color="danger" badge-position="top-right">
+          <i class='bx bx-bell' ></i>
+
+          <template #badge>
+            28
+          </template>
+        </vs-avatar>
+      </vs-row>
+    </template>
+  </vs-sidebar>
+
 </div>
 </template>
 <script>
@@ -81,14 +114,7 @@
   export default {
     data() {
       return {
-        open: true,
-        overlay: false,
-        fullheight: true,
-        fullwidth: false,
-        right: true,
-        expandOnHover: false,
-        mobile: "reduce",
-        reduce: true,
+        active: 'home',
       }
     },
   }

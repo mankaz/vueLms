@@ -49,7 +49,7 @@ const router = new VueRouter({
           path : '/courses',
           name:'courses',
           meta: { Auth: true },
-          component : require('./components/dashbord/master/pages/Courses.vue').default
+          component : require('./components/dashbord/master/courses/Courses.vue').default
         },
         {
           path : '/AddCourses',
@@ -58,8 +58,9 @@ const router = new VueRouter({
         },
         {
           path : '/Users',
+          name: 'users',
           meta: { Auth: true },
-          component : require('./components/dashbord/master/pages/Users.vue').default
+          component : require('./components/dashbord/master/users/Users.vue').default
         },
         {
           path : '/AddUsers',
@@ -80,13 +81,13 @@ const router = new VueRouter({
           path : '/Class',
           name:'class',
           meta: { Auth: true },
-          component : require('./components/dashbord/master/pages/Class.vue').default
+          component : require('./components/dashbord/master/class/Class.vue').default
         },
         {
           path : '/ClassDetail',
           name:'ClassDetail',
           meta: { Auth: true },
-          component : require('./components/dashbord/master/pages/ClassDetail.vue').default
+          component : require('./components/dashbord/master/class/ClassDetail.vue').default
         },
         {
           path : '/AddClass',
@@ -107,6 +108,13 @@ const router = new VueRouter({
           meta: { Auth: true },
           props:true,
           component : require('./components/dashbord/master/courses/EditCourse.vue').default
+        },
+        {
+          name:'editUser',
+          path : '/EditUser',
+          meta: { Auth: true },
+          props:true,
+          component : require('./components/dashbord/master/users/EditUser.vue').default
         },
         {
           path : '/Ticketing',

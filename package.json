@@ -7,23 +7,24 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
     "@tinymce/tinymce-vue": "^4.0.0",
     "@websanova/vue-store": "^1.0.5-beta",
     "apexcharts": "^3.26.0",
     "axios": "^0.21.1",
+    "boxicons": "^2.0.9",
     "buefy": "^0.9.8",
-    "bulma-accordion": "^2.0.1",
-    "bulma-extensions": "^6.2.7",
     "bulma-pricingtable": "^0.2.0",
+    "bulma-rtl": "^0.8.0",
     "core-js": "^3.10.0",
     "table": "^6.7.1",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.0",
     "vue-axios": "^3.2.4",
-    "vue-bulma-modal": "^2.0.0-alpha.2",
     "vue-cookies": "^1.7.4",
     "vue-persian-datetime-picker": "^2.6.0",
-    "vue-resource": "^1.5.2"
+    "vue-resource": "^1.5.2",
+    "vuesax": "^4.0.1-alpha.25"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.12",

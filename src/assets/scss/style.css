@@ -4340,6 +4340,7 @@ html,
 body {
   height: 100%;
   background-color: #ededed !important;
+  font-family: IRANSans;
 }
 
 .progress-height {
@@ -4421,6 +4422,15 @@ body {
   margin-top: 30px;
 }
 
+.column .textarea {
+  font-family: IRANSans !important;
+  direction: rtl !important;
+  background-color: rgba(var(--vs-gray-2), 1);
+}
+.column span {
+  font-family: IRANSans !important;
+  margin-right: 3px !important;
+}
 .column .excel {
   margin-top: 60px !important;
   margin-bottom: 40px !important;
@@ -4821,7 +4831,7 @@ ul {
 }
 
 .urlCopy {
-  width: 28em !important;
+  width: 20em !important;
   border-radius: 5px !important;
 }
 
@@ -5219,6 +5229,96 @@ a.last::before {
 }
 .custom-card.red {
   background-color: #D65B4A;
+}
+
+.vs-sidebar-content {
+  max-width: 230px !important;
+}
+
+.vs-sidebar__item {
+  font-family: IRANSans !important;
+}
+
+a {
+  color: #000000 !important;
+}
+
+.vs-sidebar-content.right {
+  direction: rtl !important;
+}
+
+.vs-sidebar__group__content:after {
+  right: 2px !important;
+}
+
+.vs-sidebar__item.active:after {
+  right: 2px;
+  border-radius: 20px 0px 0px 20px !important;
+}
+
+.vs-sidebar__item:after {
+  right: -20px;
+  border-radius: 20px 0px 0px 20px !important;
+}
+
+.vs-sidebar__item__arrow {
+  transform: rotate(-135deg) !important;
+}
+
+.vs-sidebar__group.open > .vs-sidebar__group__header .vs-sidebar__item__arrow {
+  transform: rotate(136deg) !important;
+}
+
+.vs-button {
+  font-family: IRANSans !important;
+}
+
+.vs-select__input {
+  font-family: IRANSans !important;
+  text-align: center !important;
+}
+
+.vs-input {
+  font-family: IRANSans !important;
+}
+
+.vs-input__label {
+  font-family: IRANSans !important;
+  text-align: center !important;
+}
+
+.vs-select {
+  font-family: IRANSans !important;
+}
+
+.vs-select__options__content {
+  direction: rtl !important;
+}
+
+.vpd-main input {
+  background-color: rgba(var(--vs-gray-2), 1) !important;
+  direction: rtl;
+}
+
+.vpd-main {
+  background-color: rgba(var(--vs-gray-2), 1) !important;
+}
+
+.vs-checkbox-content {
+  font-family: IRANSans !important;
+}
+
+.vs-pagination__active {
+  font-family: IRANSans !important;
+}
+
+.vs-input {
+  direction: rtl !important;
+  font-family: IRANSans !important;
+}
+
+.vs-pagination__button {
+  font-family: IRANSans !important;
 }
 
 /*# sourceMappingURL=style.css.map */

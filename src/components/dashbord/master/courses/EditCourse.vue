@@ -18,9 +18,13 @@
         <form method="post" @submit.prevent="editCourse()">
           <div class="block is-flex is-justify-content-center">
             <div class="column  is-8-desktop">
-              <b-field label="عنوان دوره" :label-position="labelPosition">
-                <b-input v-model="routeData['title']" size="is-medium"></b-input>
-              </b-field>
+              <div class="columns is-flex is-justify-content-flex-end">
+              <vs-input v-model="routeData['title']"  icon-after  placeholder="عنوان دوره" >
+                <template #icon>
+                  <i class='bx bx-text'></i>
+                </template>
+              </vs-input>
+              </div>
               <div class="columns">
                 <div class="column is-flex is-flex is-align-items-center is-justify-content-center">
                   <b-field>
@@ -38,128 +42,22 @@
                   </b-field>
                 </div>
                 <div class="column">
-                  <b-field label="توضحیات دوره" :label-position="labelPosition">
-                    <b-input v-model="routeData['description']" maxlength="400" type="textarea"></b-input>
-                  </b-field>
+                  <div class="column is-flex is-justify-content-flex-end">
+                    <textarea v-model="routeData['description']" class="textarea" placeholder="توضیحات"></textarea>
+                  </div>
                 </div>
               </div>
               <div class="column is-flex is-justify-content-center">
-                <button class="button is-success is-rounded ">
-                  <span>ویرایش دوره</span>
-                  <span class="icon is-small">
-                     <i class="fas fa-check"></i>
-                    </span>
-                </button>
+                <vs-button warn :to="{ path: '/courses' }">
+                  انصراف   <i class="bx bx-arrow-back"></i>
+                </vs-button>
+                <vs-button success>
+                  ویرایش دوره    <i class="bx bx-edit"></i>
+                </vs-button>
               </div>
             </div>
           </div>
         </form>
-<!--        <form method="post"  @submit.prevent="editClass()">-->
-<!--          <div class="block is-flex is-justify-content-center">-->
-<!--            <div class="column  is-8-desktop">-->
-<!--              <div class="columns">-->
-<!--                <div class="column">-->
-<!--                  <b-field>-->
-<!--                    <b-select placeholder="انتخاب " v-model="routeData['course_id']">-->
-<!--                      <option-->
-<!--                          v-for="option in selectList"-->
-<!--                          :value="option.id"-->
-<!--                          :key="option.id">-->
-<!--                        {{ option.title}}-->
-<!--                      </option>-->
-<!--                    </b-select>-->
-<!--                  </b-field>-->
-
-<!--                </div>-->
-<!--                <div class="column">-->
-<!--                  <b-field label="عنوان کلاس" :label-position="labelPosition">-->
-<!--                    <b-input  v-model="routeData['meeting_name']"></b-input>-->
-<!--                  </b-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="columns">-->
-<!--                <div class="column">-->
-<!--                  <b-field label="زمان پایان" :label-position="labelPosition">-->
-<!--                    <date-picker v-model="routeData['end_time']" class="input" type="datetime" compact-time auto-submit/>-->
-<!--                  </b-field>-->
-<!--                </div>-->
-<!--                <div class="column">-->
-<!--                  <b-field label="زمان شروع" :label-position="labelPosition">-->
-<!--                    <date-picker v-model="routeData['start_time']" class="input" type="datetime" compact-time auto-submit/>-->
-<!--                  </b-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="columns">-->
-<!--                <div class="column  is-flex is-align-items-center is-justify-content-center">-->
-<!--                  <b-field>-->
-<!--                    <b-field class="file is-info" :class="{'has-name': !!file2}">-->
-<!--                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>-->
-<!--                          <span class="file-cta">-->
-<!--                              <b-icon class="file-icon" icon="upload"></b-icon>-->
-<!--                           <span>انتخاب تصویر</span>-->
-<!--                          </span>-->
-<!--                        <span class="file-name" v-if="file2">-->
-<!--                            {{ file2.name }}-->
-<!--                </span>-->
-<!--                      </b-upload>-->
-<!--                    </b-field>-->
-<!--                  </b-field>-->
-
-<!--                </div>-->
-<!--                <div class="column">-->
-<!--                  <b-field label="توضحیات دوره" :label-position="labelPosition">-->
-<!--                    <b-input v-model="routeData['description']" maxlength="400" type="textarea"></b-input>-->
-<!--                  </b-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="columns">-->
-<!--                <div class="column">-->
-<!--                </div>-->
-<!--                <div class="add-class-checkbox">-->
-<!--                  <div class="columns is-justify-content-flex-end">-->
-<!--                    <b-field>-->
-<!--                      <b-checkbox  v-model="adminAllow" class="is-family-iranSans">-->
-<!--                        موافقت مدیر قبل از ورود-->
-<!--                      </b-checkbox>-->
-<!--                    </b-field>-->
-<!--                  </div>-->
-<!--                  <div class="columns is-justify-content-flex-end">-->
-<!--                    <b-field>-->
-<!--                      <b-checkbox  v-model="userAdmin" class="is-family-iranSans">-->
-<!--                        تمام کاربران بعنوان مدیر وارد شوند-->
-<!--                      </b-checkbox>-->
-<!--                    </b-field>-->
-<!--                  </div>-->
-<!--                  <div class="columns is-justify-content-flex-end">-->
-<!--                    <b-field>-->
-<!--                      <b-checkbox  v-model="allowBegin" class="is-family-iranSans">-->
-<!--                        هر کاربری اجازه شروع کلاس را دارد-->
-<!--                      </b-checkbox>-->
-<!--                    </b-field>-->
-<!--                  </div>-->
-<!--                  <div class="columns is-justify-content-flex-end">-->
-<!--                    <b-field>-->
-<!--                      <b-checkbox :value="true" v-model="recordable" class="is-family-iranSans">-->
-<!--                        قابلیت ضبظ-->
-<!--                      </b-checkbox>-->
-<!--                    </b-field>-->
-<!--                  </div>-->
-
-<!--                </div>-->
-
-<!--              </div>-->
-<!--              <div class="column is-flex is-justify-content-center">-->
-<!--                <button  class="button is-success is-rounded ">-->
-<!--                  <span>ویرایش کلاس</span>-->
-<!--                  <span class="icon is-small">-->
-<!--                 <i class="fas fa-check"></i>-->
-<!--                 </span>-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </form>-->
-
       </div>
     </div>
 
@@ -193,38 +91,57 @@ export default {
   },
   methods: {
 
-    editCourse() {
+    editCourse(duration,position = null, icon) {
+      if (this.courseName === '') {
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'عنوان دوره وارد نشده است',
+        })
 
-      this.isLoading = true
-      const form = new FormData();
+      } else {
+        this.isLoading = true
+        const form = new FormData();
 
-      form.append("courseId", this.routeData['course_id']);
-      form.append("courseName", this.routeData['title']);
-      form.append("classDescription", this.routeData['description']);
-      form.append("file2", this.file2);
-console.log(this.routeData['end_time'])
-      const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://gholeydoon.ir/bbb/public/BBBController/updateCourse", form, {headers})
-          .then(() => {
-            this.isLoading = false
-            this.className=''
-            this.course= '',
-                this.courseDescription= '',
-                this.file2= null,
-                this.$buefy.toast.open({
-                  message: 'کلاس مورد نظر با موفقیت ویرایش شد',
-                  type: 'is-success',
-                  position: 'is-top',
-                })
-          })
-          .catch(()=> {
-            this.$buefy.toast.open({
-              message: 'خطا در ویرایش کلاس',
-              type: 'is-danger',
-              position: 'is-top',
+        form.append("courseId", this.routeData['course_id']);
+        form.append("courseName", this.routeData['title']);
+        form.append("classDescription", this.routeData['description']);
+        form.append("file2", this.file2);
+        console.log(this.routeData['end_time'])
+        const headers = {'content-type': 'application/x-www-form-urlencoded'};
+        axios.post("http://gholeydoon.ir/bbb/public/BBBController/updateCourse", form, {headers})
+            .then(() => {
+              this.isLoading = false
+              this.className = ''
+              this.course = ''
+                  this.courseDescription = ''
+                  this.file2 = null
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'success',
+                position,
+                progress: 'auto',
+                title: 'دوره با موفقیت ویرایش شد',
+              })
             })
-          })
-
+            .catch(() => {
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'danger',
+                position,
+                progress: 'auto',
+                title: 'خطا در ویرایش دوره',
+              })
+            })
+      }
     },
   },
   mounted() {
@@ -238,5 +155,6 @@ console.log(this.routeData['end_time'])
   components: {
 
   }
+
 }
 </script>
