@@ -12,7 +12,6 @@
             </div>
           </div>
         </div>
-        <b-notification ref="element" :closable="false">
           <form method="post" @submit.prevent="addCourse('2000', 'button-right',`<i class='bx bx-info-circle'></i>`)">
             <div class="block is-flex is-justify-content-center">
 
@@ -26,19 +25,36 @@
                 </div>
                 <div class="columns">
                   <div class="column  is-flex is-align-items-center is-justify-content-center">
-                    <b-field>
-                      <b-field class="file is-info" :class="{'has-name': !!file2}">
-                        <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
-                          <span class="file-cta">
-                              <b-icon class="file-icon" icon="upload"></b-icon>
-                           <span>انتخاب تصویر</span>
+                    <div class="file is-info has-name">
+                      <label class="file-label">
+                        <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
                           </span>
-                          <span class="file-name" v-if="file2">
-                            {{ file2.name }}
-                </span>
-                        </b-upload>
-                      </b-field>
-                    </b-field>
+                          <span class="file-label is-size-7">
+                          بارگذاری عکس
+                          </span>
+                      </span>
+                        <span class="file-name" v-if="fileName">
+                    {{fileName}}
+                         </span>
+                      </label>
+                    </div>
+<!--                    <b-field>-->
+<!--                      <b-field class="file is-info" :class="{'has-name': !!file2}">-->
+<!--                        <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>-->
+<!--                          <span class="file-cta">-->
+<!--                              <b-icon class="file-icon" icon="upload"></b-icon>-->
+<!--                           <span>انتخاب تصویر</span>-->
+<!--                          </span>-->
+<!--                          <span class="file-name" v-if="file2">-->
+<!--                            {{ file2.name }}-->
+<!--                </span>-->
+<!--                        </b-upload>-->
+<!--                      </b-field>-->
+<!--                    </b-field>-->
                   </div>
 
                     <div class="column is-flex is-justify-content-flex-end">
@@ -54,7 +70,6 @@
               </div>
             </div>
           </form>
-        </b-notification>
       </div>
 
     </div>
@@ -64,17 +79,19 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
       courseName: '',
       courseDescription: '',
-      file2: null,
-      labelPosition: 'on-border',
+      fileName:''
     }
   },
   methods: {
+    onFileChange(event){
+      let fileData =  event.target.files[0];
+      this.fileName=fileData.name;
+    },
     addCourse: function (duration,position = null, icon) {
       if (this.courseName === '') {
         // eslint-disable-next-line no-unused-vars
@@ -96,7 +113,7 @@ export default {
         const form = new FormData();
         form.append("courseName", this.courseName);
         form.append("courseDescription", this.courseDescription);
-        form.append("file2", this.file2);
+        form.append("file2", this.fileName);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios.post("https://gholeydoon.ir/bbb/public/BBBController/createCourse", form, {headers,})
             .then((res) => {

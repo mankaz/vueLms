@@ -1089,3 +1089,16 @@ a{color: #000000 !important;}
 .vs-pagination__button{
   font-family: $font_IranSAns !important;
 }
+input[type="file"]  {
+  height:0;
+  weight:0;
+  //OR
+  display:none
+}
+.navbar-dropdown{
+  width: 150px !important;
+}
+.vs-tooltip {
+  font-family: $font_IranSAns !important;
+  font-size: 0.75em !important;
+}

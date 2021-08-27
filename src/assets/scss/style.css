@@ -5321,4 +5321,19 @@ a {
   font-family: IRANSans !important;
 }
 
+input[type=file] {
+  height: 0;
+  weight: 0;
+  display: none;
+}
+
+.navbar-dropdown {
+  width: 150px !important;
+}
+
+.vs-tooltip {
+  font-family: IRANSans !important;
+  font-size: 0.75em !important;
+}
+
 /*# sourceMappingURL=style.css.map */

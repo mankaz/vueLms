@@ -5,10 +5,6 @@
       <div  class="box">
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
-        <b-button tag="router-link" class="is-size-7" :to="{ path: '/AddClass' }" exact type="is-success" rounded
-                  icon-right="plus-thick">
-          ایجاد کلاس
-        </b-button>
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
@@ -20,7 +16,7 @@
 
     </div>
 
-    <vs-row ref="content" justify="center"  v-if="contentLoading">
+    <vs-row justify="center"  v-if="contentLoading">
       <vs-row class="column is-flex is-justify-content-center">
         <vs-input v-model="search"  icon-after  placeholder="جستجو در عنوان کلاس" >
           <template #icon>
@@ -44,35 +40,6 @@
     </div>
     <div class="columns">
       <div class="column is-one-quarter" v-for="(item,index )  in paginate " :key="index">
-        <vs-dialog width="550px" not-center v-model="active2">
-          <template #header>
-            <h4 class="not-margin">
-              Welcome to <b>Vuesax</b>
-            </h4>
-          </template>
-
-
-          <div class="con-content">
-            <p>
-
-              jjjjjjjjjjjjjjjjjj
-            </p>
-          </div>
-          <template #footer>
-            <div class="con-footer">
-              <vs-button @click="active2=false" transparent>
-                Ok
-              </vs-button>
-              <vs-button @click="active2=false" dark transparent>
-                Cancel
-              </vs-button>
-            </div>
-          </template>
-        </vs-dialog>
-
-
-
-
         <ClassCard>
           <slot>
             <div class="card-image">
@@ -243,12 +210,30 @@ export default {
             })
 
       },
-    deleteRow(i,id) {
+    deleteRow(i,id,duration, position = null, icon) {
+
+      let result = confirm("آیا از حذف کلاس اطمینان دارید؟");
+      if (result) {
         const loading = this.$vs.loading()
-        setTimeout(() => {
-          loading.close()
-          $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-        }, 1000)
+          const form = new FormData();
+          form.append("meetingId", id);
+          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+              .then(()=> {
+                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+                loading.close()
+                this.$vs.notification({
+                  duration,
+                  icon,
+                  color: 'success',
+                  position,
+                  progress: 'auto',
+                  title: 'کلاس مورد نظر با موفقیت حذف شد',
+                })
+              })
+      }
+
+
 
 
       // this.isLoading = true

@@ -56,19 +56,23 @@
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                    <b-field class="file is-info" :class="{'has-name': !!file2}">
-                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" rounded>
-                          <span class="file-cta">
-                              <b-icon class="file-icon" icon="upload"></b-icon>
-                           <span>انتخاب تصویر</span>
+                  <div class="file is-info has-name">
+                    <label class="file-label">
+                      <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+
+                      <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
                           </span>
-                        <span class="file-name" v-if="file2">
-                            {{ file2.name }}
-                </span>
-                      </b-upload>
-                    </b-field>
-                  </b-field>
+                          <span class="file-label is-size-7">
+                          بارگذاری عکس
+                          </span>
+                      </span>
+                      <span class="file-name" v-if="fileName">
+                    {{fileName}}
+                         </span>
+                    </label>
+                  </div>
 
                 </div>
                 <div class="column">
@@ -104,7 +108,7 @@
                 </div>
               </div>
               <div class="column is-flex is-justify-content-center">
-                <vs-button warn>
+                <vs-button warn :to="{ path: 'class' }">
                   انصراف   <i class="bx bx-arrow-back"></i>
                 </vs-button>
                 <vs-button success>
@@ -141,12 +145,13 @@ export default {
       isLoading: false,
       isFullPage: true,
       selectList:null,
-      recordable:'',
-      adminAllow:'',
-      userAdmin:'',
-      allowBegin:'',
+      recordable:false,
+      adminAllow:false,
+      userAdmin:false,
+      allowBegin:false,
       contentLoading:false,
       progress: 0,
+      fileName:''
     }
   },
   created() {
@@ -156,7 +161,10 @@ export default {
       this.$router.push({name: 'class'})
   },
   methods: {
-
+    onFileChange(event){
+      let fileData =  event.target.files[0];
+      this.fileName=fileData.name;
+    },
     editClass(duration,position = null, icon) {
       if(this.className === '') {
         // eslint-disable-next-line no-unused-vars
@@ -199,7 +207,7 @@ export default {
       form.append("classEndDate", this.routeData['end_time']);
       form.append("classDescription", this.routeData['description']);
       form.append("classId", this.routeData['id']);
-      form.append("file2", this.file2);
+      form.append("file2", this.fileName);
         const loading = this.$vs.loading({
           target: this.$refs.content,
           scale: '0.6',

@@ -22,19 +22,23 @@
                     <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
                       <label class="label is-size-7">برای استفاده از خدمات بی نام، وارد حساب کاربری خود شوید</label>
                     </div>
-                    <form method="post">
+                    <form method="post" @submit.prevent="submitForm('2000', 'button-right',`<i class='bx bx-info-circle'></i>`)">
+                      <div class="column  is-10-desktop">
                       <div class="field login-mobileNumber">
                         <div class="control has-icons-left">
-                          <b-field label="شماره همراه" :label-position="labelPosition">
-                            <input autofocus @keyup="mobileNumber" v-model="mobile" class="input" id="mobile" maxlength="11"
-                                   icon-right="cellphone" size="is-normal">
-                          </b-field>
+                          <vs-input id="mobile"  @keyup="mobileNumber" v-model="mobile"  icon-after  placeholder="شماره همراه" maxlength="11">
+                            <template #icon>
+                              <i class='bx bx-mobile'></i>
+                            </template>
+                          </vs-input>
                         </div>
                       </div>
-
+                      </div>
                       <div class="field">
                         <div class="column is-flex is-justify-content-center">
-                          <b-button class="is-rounded is-success" @click.prevent="submitForm()">تأیید و ادامه</b-button>
+                          <vs-button success >
+                            تأیید و ادامه    <i class="bx bx-check"></i>
+                          </vs-button>
                         </div>
                       </div>
                     </form>
@@ -43,7 +47,7 @@
 
 
                 <div class="column is-flex is-justify-content-center" v-if="verifyHidden" >
-                  <b-notification ref="element" :closable="false">
+                  <div class="column  is-10-desktop">
                     <div class="column is-flex is-justify-content-flex-end">
                       <img class="image is-48x48" src="../../../../../public/img/logo.png">
                     </div>
@@ -55,8 +59,9 @@
                     </div>
                     <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
                       <label class="label is-size-7">
-                        <b-button size="is-small" class="is-rounded is-warning" @click="backLogin()">ویرایش شماره
-                        </b-button>
+                        <a class="is-family-iranSans is-warning" size="is-small" @click="mobileEdit()">
+                          ویرایش شماره    <i class="bx bx-edit"></i>
+                        </a>
                       </label>
                     </div>
                     <div class="field login-mobileNumber">
@@ -76,11 +81,11 @@
                     <ResendCode v-show="!visibleGetCode"></ResendCode>
                     <div class="field">
                       <div class="column is-flex is-justify-content-center">
-                        <b-button id="sub" class="button  is-success is-rounded "  @click="verifySubmit">تأیید و ادامه</b-button>
+                        <vs-button id="sub" success @click="verifySubmit">تأیید و ادامه</vs-button>
                       </div>
                     </div>
+                  </div>
 
-                  </b-notification>
                 </div>
 
               </div>
@@ -101,7 +106,7 @@ export default {
   data() {
     return {
       labelPosition: 'on-border',
-      mobile: null,
+      mobile: '',
       verifyHidden: false,
       loginHidden: true,
       visibleGetCode: false,
@@ -121,7 +126,7 @@ export default {
   methods: {
 /* start verify actions */
 
-    backLogin(){
+    mobileEdit(){
       this.verifyHidden = false
       this.loginHidden = true
          this.oneNumber=''
@@ -149,11 +154,13 @@ export default {
         this.open()
       }
     },
-    open() {
+    open(duration,position = null, icon) {
       this.visibleGetCode = true
       // const vm=this
-      const loadingComponent = this.$buefy.loading.open({
-        container: this.isFullPage ? null : this.$refs.element.$el,
+      const loading = this.$vs.loading({
+        target: this.$refs.content,
+        scale: '0.6',
+        opacity: 0.3,
       })
       const form = new FormData();
       form.append("oneNumber", this.oneNumber);
@@ -165,14 +172,17 @@ export default {
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
       axios.post("http://gholeydoon.ir/bbb/public/UserController/verifyCode",form, {headers})
           .then((data) => {
-            this.isLoading = false
-            loadingComponent.close()
-            console.log(data)
-            if(data.data.error_code != 0){
-              this.$buefy.toast.open({
-                message: data.data.error_message,
-                type: 'is-danger',
-                position: 'is-top',
+            loading.close()
+            // console.log(data)
+            if(data.data.error_code !== 0){
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'danger',
+                position,
+                progress: 'auto',
+                title: data.data.error_message,
               })
             }else {
               this.$cookies.set('mobile',data.data.feed.mobile);
@@ -184,12 +194,16 @@ export default {
             // vm.$router.push('/dashboard')
           })
     },
-    verifySubmit () {
+    verifySubmit (duration,position = null, icon) {
       if (this.fields.length < 4) {
-        this.$buefy.toast.open({
-          message: 'ورود کد تأیید الزامی است',
-          type: 'is-warning',
-          position: 'is-top',
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'ورود کد تأیید الزامی است',
         })
       } else {
         this.$router.push('/dashboard')
@@ -201,18 +215,32 @@ export default {
     mobileNumber(event) {
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
     },
-    submitForm() {
+    submitForm(duration,position = null, icon) {
       const form = new FormData();
       form.append("mobile", this.mobile);
       localStorage.mobile = this.mobile;
-      let mobile = document.getElementById('mobile')
-      if (mobile.value === '' || !(/^(\+98|0)?9\d{9}/g.test(mobile.value))) {
-        this.$buefy.toast.open({
-          message: 'شماره موبایل را وارد نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+      // let mobile = document.getElementById('mobile')
+      if (this.mobile === '') {
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color:'warn',
+          position,
+          progress: 'auto',
+          title: 'شماره موبایل را وارد نمایید',
         })
-      } else {
+      // } else if (!(/(\+98|0)?9\d{9}/.test(this.mobile.value))) {
+      //   // eslint-disable-next-line no-unused-vars
+      //   const noti = this.$vs.notification({
+      //     duration,
+      //     icon,
+      //     color: 'warn',
+      //     position,
+      //     progress: 'auto',
+      //     title: 'شماره موبایل وارد شده صحیح نمی باشد',
+      //   })
+      }else{
         this.verifyHidden = true
         this.loginHidden = false
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
@@ -222,10 +250,14 @@ export default {
               // this.$router.push({name : 'VerifyCode' , params : this.$route.meta.title = this.VerifyCode})
             })
             .catch(() => {
-              this.$buefy.toast.open({
-                message: 'خطا در ارسال کد تأیید',
-                type: 'is-danger',
-                position: 'is-top',
+              // eslint-disable-next-line no-unused-vars
+              const noti = this.$vs.notification({
+                duration,
+                icon,
+                color:'danger',
+                position,
+                progress: 'auto',
+                title: 'خطا در ارسال کد تأیید',
               })
             })
 

@@ -1,6 +1,6 @@
 <!-- eslint-disable -->
-<template>
-  <section>
+<template >
+  <section >
     <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
       <div  class="box">
     <div class="columns">

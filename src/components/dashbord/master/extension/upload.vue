@@ -1,18 +1,23 @@
 <template>
   <section>
-    <b-field>
-      <b-field class="file is-info"  :class="{'has-name': !!file2}">
-        <b-upload v-model="file2" class="file-label" rounded>
-                <span class="file-cta">
-                    <b-icon class="file-icon" icon="upload"></b-icon>
-                  <slot></slot>
-                </span>
-          <span class="file-name" v-if="file2">
-                    {{ file2.name }}
-                </span>
-        </b-upload>
-      </b-field>
-    </b-field>
+    <div class="file is-info has-name">
+      <label class="file-label">
+        <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+
+        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label is-size-7">
+                           <slot></slot>
+                          </span>
+                      </span>
+        <span class="file-name" v-if="fileName">
+                    {{fileName}}
+                         </span>
+      </label>
+    </div>
+
   </section>
 </template>
 
@@ -20,8 +25,14 @@
   export default {
     data() {
       return {
-        file2 : null
+        fileName : ''
       }
     },
+    methods : {
+      onFileChange(event){
+        let fileData =  event.target.files[0];
+        this.fileName=fileData.name;
+      },
+    }
   }
 </script>

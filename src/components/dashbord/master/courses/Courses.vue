@@ -1,12 +1,9 @@
-<!-- eslint-disable -->
-<template>
+
+<template ref="content">
   <section>
     <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
       <div  class="box">
 
-      <div class="column control services-btn is-flex is-justify-content-left">
-
-      </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
           <small class="is-family-iranSans is-size-5 dir-ltr">دوره ها</small>

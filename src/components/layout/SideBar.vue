@@ -93,7 +93,7 @@
     <template #footer>
       <vs-row justify="space-between">
         <vs-avatar>
-          <img src="/avatars/avatar-5.png" alt="">
+          <img src="@/assets/img/avatar.jpg"/>
         </vs-avatar>
 
         <vs-avatar badge-color="danger" badge-position="top-right">
