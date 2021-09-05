@@ -5194,7 +5194,7 @@ a.last::before {
   font-size: 28px;
   opacity: 0.3;
   position: relative;
-  left: 30%;
+  left: 20%;
   top: 13px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 100px;
@@ -5334,6 +5334,22 @@ input[type=file] {
 .vs-tooltip {
   font-family: IRANSans !important;
   font-size: 0.75em !important;
+}
+
+.money-bag {
+  height: calc(100% - 1px) !important;
+  direction: rtl !important;
+}
+.money-bag p {
+  font-family: IRANSans !important;
+  height: 30px;
+}
+
+.money {
+  width: 90%;
+  background-color: #ededed;
+  margin-bottom: 30px;
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

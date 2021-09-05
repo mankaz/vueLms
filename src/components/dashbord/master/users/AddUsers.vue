@@ -1,5 +1,3 @@
-
-<!-- eslint-disable -->
 <template>
   <section>
     <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
@@ -9,24 +7,24 @@
           </div>
           <div class="is-flex is-justify-content-flex-end">
             <div class="media-content">
-              <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">   ایجاد کاربر<b-icon icon="account-multiple-plus" size="is-normal"></b-icon></small>
+              <small class="is-size-6 is-family-iranSans  dir-ltr">   ایجاد کاربر<b-icon icon="account-multiple-plus" size="is-normal"></b-icon></small>
             </div>
           </div>
         </div>
-        <form  method="post" @submit.prevent="addUsers()"  v-if="contentLoading">
+        <form  method="post" @submit.prevent="addUsers()" ref="userForm" v-if="contentLoading">
           <div class="block is-flex is-justify-content-center">
             <div class="column  is-5-desktop">
 
               <div class="columns is-flex is-justify-content-flex-end">
                 <div class="column">
-                  <vs-input :disabled='!isDisabled' v-model="email"  icon-after  placeholder="ایمیل" >
+                  <vs-input :disabled='!isDisabled' v-model="email"  icon-after  placeholder="ایمیل" v-if="isDisabled">
                     <template #icon>
                       <i class='bx bx-mail-send'></i>
                     </template>
                   </vs-input>
                 </div>
                 <div class="column">
-                  <vs-input :disabled='!isDisabled' v-model="name"  icon-after  placeholder="نام" >
+                  <vs-input :disabled='!isDisabled' v-model="name"  icon-after  placeholder="نام" v-if="isDisabled">
                     <template #icon>
                       <i class='bx bx-text'></i>
                     </template>
@@ -36,14 +34,14 @@
 
               <div justify="center" class="columns is-flex is-justify-content-flex-end">
                 <div class="column">
-                  <vs-input :disabled='!isDisabled' v-model="pass"  icon-after  placeholder="رمز عبور" >
+                  <vs-input :disabled='!isDisabled' v-model="pass"  icon-after  placeholder="رمز عبور" v-if="isDisabled">
                     <template #icon>
                       <i class='bx bx-shield-alt-2'></i>
                     </template>
                   </vs-input>
                 </div>
                 <div class="column">
-                  <vs-input :disabled='!isDisabled' v-model="username"  icon-after  placeholder="نام کاربری" >
+                  <vs-input :disabled='!isDisabled' v-model="username"  icon-after  placeholder="نام کاربری" v-if="isDisabled">
                     <template #icon>
                       <i class='bx bx-user'></i>
                     </template>
@@ -54,7 +52,7 @@
               <div class="columns">
 
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <vs-input :disabled='!isDisabled' v-model="mobile"  icon-after  placeholder="شماره همراه" >
+                  <vs-input :disabled='!isDisabled' v-model="mobile"  icon-after  placeholder="شماره همراه" v-if="isDisabled">
                     <template #icon>
                       <i class='bx bx-mobile'></i>
                     </template>
@@ -64,14 +62,14 @@
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <vs-select :disabled="meetings.length == 0" filter placeholder="انتخاب کلاس مورد نظر" v-model="selectedMeeting" v-if="meetings">
+                  <vs-select autocomplete="off" :disabled="meetings.length == 0" filter placeholder="انتخاب کلاس مورد نظر" v-model="selectedMeeting" v-if="meetings">
                     <vs-option  v-for="option in meetings" :value="option.id" :key="option.id" :label="option.meeting_name">
                       {{ option.meeting_name}}
                     </vs-option>
                   </vs-select>
                 </div>
                 <div class="column is-flex is-align-items-center is-justify-content-center">
-                  <vs-select :disabled='!isDisabled' filter placeholder="انتخاب دوره" v-model="courses" v-if="selectList">
+                  <vs-select  filter placeholder="انتخاب دوره" v-model="courses" v-if="selectList">
                     <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
                       {{ option.title}}
                     </vs-option>
@@ -81,7 +79,7 @@
               <div class="excel">
                 <div class="columns  is-justify-content-flex-end">
                   <span class="is-size-6">ورود کاربران بصورت گروهی از اکسل</span>
-                  <vs-checkbox v-model="disable">
+                  <vs-checkbox id="excelCheckBox" v-model="disable">
                   </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
@@ -181,9 +179,24 @@ export default {
     },
   },
   methods : {
-    onFileChange(event){
-      let fileData =  event.target.files[0];
-      this.fileName=fileData.name;
+    onFileChange(event, duration, position = null, icon) {
+      let fileData = event.target.files[0];
+      this.fileName = fileData.name;
+      let filePath = this.$refs.fileName.value;
+      let allowedExtensions = /(\.csv|\.xls|\.xlsx|\.xlsm|\.)$/i;
+      if (!allowedExtensions.exec(filePath)) {
+        this.$refs.fileName.value = null
+        this.$vs.notification({
+          duration,
+          icon,
+          color: 'primary',
+          position,
+          progress: 'auto',
+          title: 'تنها مجاز به انتخاب فایل اکسل می باشید',
+        })
+        this.fileName = ""
+
+      }
     },
     addUsers : function () {
       if(this.name === '') {
@@ -216,7 +229,7 @@ export default {
         form.append("username", this.username);
         form.append("pass", this.pass);
         form.append("email", this.email);
-        form.append("file2", this.file2);
+        form.append("file2",this.$refs.fileName.files[0]);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
         const loadingComponent = this.$buefy.loading.open({
           container: this.isFullPage ? null : this.$refs.element.$el,
@@ -225,19 +238,25 @@ export default {
             .then((res)=> {
               console.log(res)
               loadingComponent.close()
-              this.$buefy.toast.open({
-                message: 'کاربر با موفقیت ایجاد شد',
-                type: 'is-success',
-                position: 'is-top',
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'success',
+                position,
+                progress: 'auto',
+                title: 'کاربر با موفقیت ایجاد شد',
               })
               console.log(res)
             })
             .catch(err=> {
               loadingComponent.close()
-              this.$buefy.toast.open({
-                message: 'خطا در ایجاد کاربر',
-                type: 'is-danger',
-                position: 'is-top',
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'success',
+                position,
+                progress: 'auto',
+                title: 'خطا در ایجاد کاربر',
               })
               console.log(err)
             })
@@ -248,6 +267,12 @@ export default {
   },
   computed : {
     isDisabled: function(){
+      this.name=''
+      this.username=''
+      this.pass=''
+      this.mobile=''
+      this.email=''
+      this.className= ''
       return !this.disable;
     }
   },

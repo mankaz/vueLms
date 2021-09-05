@@ -142,9 +142,24 @@ export default {
   },
 
   methods: {
-    onFileChange(event){
+    onFileChange(event, duration, position = null, icon){
       let fileData =  event.target.files[0];
       this.fileName=fileData.name;
+      let filePath = this.$refs.fileName.value;
+      let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+      if (!allowedExtensions.exec(filePath)) {
+        this.$refs.fileName.value = null
+         this.$vs.notification({
+          duration,
+          icon,
+          color: 'primary',
+          position,
+          progress: 'auto',
+          title: 'تنها مجاز به انتخاب عکس می باشید',
+        })
+        this.fileName = ""
+
+      }
     },
     addClass: function (duration, position = null, icon) {
       if (this.className === '') {
@@ -191,7 +206,7 @@ export default {
         form.append("classStartDate", this.classStartDate);
         form.append("classEndDate", this.classEndDate);
         form.append("classDescription", this.classDescription);
-        form.append("file2", this.fileName);
+        form.append("file2", this.$refs.fileName.files[0]);
         form.append("recordable", this.recordable);
         form.append("adminAllow", this.adminAllow);
         form.append("userAdmin", this.userAdmin);

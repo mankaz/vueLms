@@ -43,7 +43,7 @@ const router = new VueRouter({
         {
           path : '/dashboard',
           meta: { Auth: true },
-          component : require('./components/layout/Content.vue').default
+          component : require('./components/dashbord/master/Menu.vue').default
         },
         {
           path : '/courses',

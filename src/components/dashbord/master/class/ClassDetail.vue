@@ -1,6 +1,8 @@
 <!-- eslint-disable -->
 <template>
   <section>
+    <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
+      <div class="box">
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
         <vs-button success class="is-size-7" :to="{ path: '/Class' }" exact>
@@ -20,7 +22,7 @@
     <div class="columns">
 
       <div class="column  is-flex is-justify-content-center">
-        <img src="https://static.eseminar.tv/public/upload/webinar/thumb/1618049353_55.jpg" class="box " alt="">
+        <img :src="routeData['img']" class="box " alt="">
       </div>
 
 
@@ -55,6 +57,8 @@
     </div>
     <div class="columns is-desktop is-multiline ">
     </div>
+      </div>
+    </vs-row>
   </section>
 
 </template>
@@ -97,15 +101,11 @@ methods : {
         color,
         position,
         progress: 'auto',
-        title: 'لینک ذخیره شد',
+        title: 'لینک کلاس ذخیره شد',
       })
 
 
     let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
-    // this.$buefy.toast.open({
-    //   message: 'لینک ' + msg,
-    //   type: 'is-success'
-    // })
   },
 },
   created() {

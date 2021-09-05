@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="column is-10-desktop is-10-tablet is-8-mobile">
+    <vs-row ref="content" class="column is-10-desktop is-10-tablet is-8-mobile">
 
       <div class="box">
         <div class="columns">
@@ -72,7 +72,7 @@
           </form>
       </div>
 
-    </div>
+    </vs-row>
 
   </section>
 </template>
@@ -88,9 +88,23 @@ export default {
     }
   },
   methods: {
-    onFileChange(event){
-      let fileData =  event.target.files[0];
-      this.fileName=fileData.name;
+    onFileChange(event, duration, position = null, icon) {
+      let fileData = event.target.files[0];
+      this.fileName = fileData.name;
+      let filePath = this.$refs.fileName.value;
+      let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+      if (!allowedExtensions.exec(filePath)) {
+        this.$refs.fileName.value = null
+        this.$vs.notification({
+          duration,
+          icon,
+          color: 'primary',
+          position,
+          progress: 'auto',
+          title: 'تنها مجاز به انتخاب عکس می باشید',
+        })
+        this.fileName = ""
+      }
     },
     addCourse: function (duration,position = null, icon) {
       if (this.courseName === '') {
@@ -113,7 +127,7 @@ export default {
         const form = new FormData();
         form.append("courseName", this.courseName);
         form.append("courseDescription", this.courseDescription);
-        form.append("file2", this.fileName);
+        form.append("file2", this.$refs.fileName.files[0]);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios.post("https://gholeydoon.ir/bbb/public/BBBController/createCourse", form, {headers,})
             .then((res) => {

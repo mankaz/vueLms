@@ -25,7 +25,7 @@
         </vs-input>
       </vs-row>
       <vs-row class="column is-flex is-justify-content-center">
-        <vs-select filter placeholder="انتخاب دوره" @input="getMeeting()" v-model="courseId" v-if="selectList">
+        <vs-select autocomplete="off" filter placeholder="انتخاب دوره" @input="getMeeting()" v-model="courseId" v-if="selectList">
           <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
             {{ option.title}}
           </vs-option>
@@ -44,10 +44,10 @@
           <slot>
             <div class="card-image">
               <slot>
-                <a  class="is-size-7" type="is-text" rounded @click="ClassDetail(item)">
+                <a  class="is-size-7" type="is-text"  @click="ClassDetail(item)">
                 <figure class="image is-4by3">
                   <img class="image is-flex is-align-items-center courses-img is-128x128"
-                       src="https://static.eseminar.tv/public/upload/webinar/thumb/1618049353_55.jpg">
+                       :src="item.img">
                 </figure>
                 </a>
               </slot>
@@ -86,6 +86,7 @@
                   <div class="columns">
                     <div class="column is-flex ">
                       <vs-button
+                          transparent
                           icon
                           @click="editClass(item)"
                       >
@@ -94,6 +95,7 @@
                     </div>
                     <div class="column  is-flex">
                       <vs-button
+                          transparent
                           icon
                           danger
                           @click="deleteRow(index ,item.id)"
@@ -103,6 +105,7 @@
                     </div>
                     <div class="column  is-flex">
                       <vs-button
+                          transparent
                           icon
                           success
                       >
@@ -122,7 +125,7 @@
     </div>
 
     <div class="column is-flex is-align-content-center is-justify-content-center">
-      <vs-pagination  v-if="contentLoading" :color="paginationColor"  v-model="totalPages" :length="totalPages" />
+      <vs-pagination  v-if="contentLoading" :color="paginationColor"  v-model="currentPage" :length="totalPages" />
 <!--      <nav class="pagination" role="navigation" aria-label="pagination">-->
 <!--        <ul class="pagination-list">-->
 <!--          <li class="is-flex align-items-center is-justify-content-center is-align-content-center"-->

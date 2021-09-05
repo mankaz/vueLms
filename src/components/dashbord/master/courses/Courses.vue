@@ -13,10 +13,10 @@
       </div>
 
     <div class="columns is-flex  is-justify-content-flex-end ">
-      <div class="column">
+      <div class="column is-12">
       </div>
-      <div class="column is-3-desktop is-rtl">
-        <vs-input v-model="search"  icon-after  placeholder="جستجو در عنوان کلاس" >
+      <div class="column is-flex is-justify-content-center is-rtl">
+        <vs-input v-model="search"  icon-after  placeholder="جستجو در عنوان دوره" >
           <template #icon>
             <i class='bx bx-search'></i>
           </template>
