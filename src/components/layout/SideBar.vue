@@ -60,12 +60,6 @@
         ایجاد کلاس
       </vs-sidebar-item>
     </vs-sidebar-group>
-    <vs-sidebar-item id="services" :to="{ path: '/services' }" exact>
-      <template #icon>
-        <i class='bx bx-cog'></i>
-      </template>
-      سرویس ها
-    </vs-sidebar-item>
     <vs-sidebar-group>
       <template #header>
         <vs-sidebar-item arrow>
@@ -84,6 +78,18 @@
         ایجاد کاربر
       </vs-sidebar-item>
     </vs-sidebar-group>
+    <vs-sidebar-item id="plug" :to="{ path: '/plug' }" exact>
+      <template #icon>
+        <i class='bx bx-plug'></i>
+      </template>
+     اتصال ها
+    </vs-sidebar-item>
+    <vs-sidebar-item id="services" :to="{ path: '/services' }" exact>
+      <template #icon>
+        <i class='bx bx-cog'></i>
+      </template>
+      سرویس ها
+    </vs-sidebar-item>
     <vs-sidebar-item id="support" :to="{ path: '/support' }" exact>
       <template #icon>
         <i class='bx bx-support'></i>

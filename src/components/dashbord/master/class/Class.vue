@@ -254,33 +254,33 @@ export default {
       //       })
       //       this.isLoading = false
       //     })
-
-      let $vm = this;
-      this.$buefy.dialog.confirm({
-        title: 'حذف کلاس',
-        message: `آیا از حذف این کلاس اطمینان دارید؟`,
-        cancelText: 'انصرف',
-        confirmText: 'بله',
-        type: 'is-danger',
-        onConfirm: function () {
-          this.isLoading = true
-          // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-          const form = new FormData();
-          form.append("meetingId", id);
-          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
-              .then(()=> {
-                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-                this.$buefy.toast.open({
-                  message: 'کلاس مورد نظر با موفقیت حذف شد',
-                  type: 'is-success',
-                  position: 'is-top',
-                })
-                this.isLoading = false
-              })
-        }
-
-      })
+      //
+      // let $vm = this;
+      // this.$buefy.dialog.confirm({
+      //   title: 'حذف کلاس',
+      //   message: `آیا از حذف این کلاس اطمینان دارید؟`,
+      //   cancelText: 'انصرف',
+      //   confirmText: 'بله',
+      //   type: 'is-danger',
+      //   onConfirm: function () {
+      //     this.isLoading = true
+      //     // $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+      //     const form = new FormData();
+      //     form.append("meetingId", id);
+      //     const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+      //     axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+      //         .then(()=> {
+      //           $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+      //           this.$buefy.toast.open({
+      //             message: 'کلاس مورد نظر با موفقیت حذف شد',
+      //             type: 'is-success',
+      //             position: 'is-top',
+      //           })
+      //           this.isLoading = false
+      //         })
+      //   }
+      //
+      // })
     },
     editClass(item) {
       // this.$router.push({name: 'editClass',params:{data:i}})
@@ -289,21 +289,6 @@ export default {
     ClassDetail(item) {
       // this.$router.push({name: 'editClass',params:{data:i}})
       this.$router.push({name: 'ClassDetail',params:{data:item}})
-    },
-    copyUrl () {
-      let copyText = document.getElementById("testing-code2");
-      let textArea = document.createElement("textarea");
-      textArea.value = copyText.textContent;
-      document.body.appendChild(textArea);
-      textArea.select();
-      let successful = document.execCommand("Copy");
-      textArea.remove();
-      console.log(textArea.value)
-      let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
-      this.$buefy.toast.open({
-        message: 'لینک ' + msg,
-        type: 'is-success'
-      })
     },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber

@@ -79,7 +79,7 @@
               <div class="excel">
                 <div class="columns  is-justify-content-flex-end">
                   <span class="is-size-6">ورود کاربران بصورت گروهی از اکسل</span>
-                  <vs-checkbox id="excelCheckBox" v-model="disable">
+                  <vs-checkbox ref="checkbox" id="excelCheckBox" v-model="disable">
                   </vs-checkbox>
                 </div>
                 <div class="columns is-justify-content-flex-end">
@@ -198,29 +198,54 @@ export default {
 
       }
     },
-    addUsers : function () {
-      if(this.name === '') {
-        this.$buefy.toast.open({
-          message: 'اسم کاربر را وارد نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+    addUsers : function (duration, position = null, icon) {
+      if(this.name === '' && this.isDisabled) {
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'نام کاربر را وارد نمایید',
         })
 
-      }else if(this.pass === ''){
-        this.$buefy.toast.open({
-          message: 'رمز عبور کاربر را وارد نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+      }else if(this.username === ''  && this.isDisabled){
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'نام کابری را وارد نمایید',
         })
-      }
-      else if(this.username === ''){
-        this.$buefy.toast.open({
-          message: 'نام کاربری را وارد نمایید',
-          type: 'is-warning',
-          position: 'is-top',
+      } else if(this.pass === ''  && this.isDisabled){
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'رمز عبور کاربر را وارد نمایید',
         })
-      } else {
-
+      } else if(this.selectedMeeting === ''  && this.isDisabled){
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'دوره مورد نظر را انتخاب کنید',
+        })
+      }else {
+        const loading = this.$vs.loading({
+          target: this.$refs.content,
+          scale: '0.6',
+          opacity: 0.1,
+        })
         const form = new FormData();
         form.append("name", this.name);
         form.append("mobile", this.mobile);
@@ -231,13 +256,12 @@ export default {
         form.append("email", this.email);
         form.append("file2",this.$refs.fileName.files[0]);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-        const loadingComponent = this.$buefy.loading.open({
-          container: this.isFullPage ? null : this.$refs.element.$el,
-        })
+
         axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser",form, {headers, })
             .then((res)=> {
               console.log(res)
-              loadingComponent.close()
+              loading.close()
+
               this.$vs.notification({
                 duration,
                 icon,
@@ -249,11 +273,11 @@ export default {
               console.log(res)
             })
             .catch(err=> {
-              loadingComponent.close()
+              loading.close()
               this.$vs.notification({
                 duration,
                 icon,
-                color: 'success',
+                color: 'danger',
                 position,
                 progress: 'auto',
                 title: 'خطا در ایجاد کاربر',
