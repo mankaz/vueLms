@@ -223,7 +223,7 @@ export default {
           const headers = { 'content-type': 'application/x-www-form-urlencoded' };
           axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
               .then(()=> {
-                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+                this.posts.splice((this.currentPage-1)* this.itemsPerPage +i, 1);
                 loading.close()
                 this.$vs.notification({
                   duration,

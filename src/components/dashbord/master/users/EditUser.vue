@@ -16,84 +16,80 @@
             </div>
           </div>
         </div>
-        <b-notification ref="element" :closable="false">
         <form  method="post" @submit.prevent="editUser()" >
+
           <div class="block is-flex is-justify-content-center">
-            <div class="column  is-8-desktop">
-              <div class="columns">
+            <div class="column  is-5-desktop">
+              <div class="columns is-flex is-justify-content-flex-end">
 
                 <div class="column">
-                  <b-field  label="ایمیل" :label-position="labelPosition">
-                    <b-input  v-model="email"></b-input>
-                  </b-field>
+                  <vs-input   v-model="routeData['title']"  icon-after  placeholder="ایمیل">
+                    <template #icon>
+                      <i class='bx bx-mail-send'></i>
+                    </template>
+                  </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="نام" :label-position="labelPosition">
-                    <b-input  v-model="name"></b-input>
-                  </b-field>
+                  <vs-input   v-model="name"  icon-after  placeholder="نام">
+                    <template #icon>
+                      <i class='bx bx-text'></i>
+                    </template>
+                  </vs-input>
                 </div>
               </div>
               <div class="columns">
                 <div class="column">
-                    <b-field  label="* رمز عبور" :label-position="labelPosition">
-                      <b-input  v-model="pass"></b-input>
-                    </b-field>
+                  <vs-input  v-model="pass"  icon-after  placeholder="رمز عبور">
+                    <template #icon>
+                      <i class='bx bx-shield-alt-2'></i>
+                    </template>
+                    </vs-input>
                 </div>
                 <div class="column">
-                  <b-field  label="* نام کاربری" :label-position="labelPosition">
-                    <b-input v-model="username"></b-input>
-                  </b-field>
+                  <vs-input  v-model="username"  icon-after  placeholder="نام کاربری" :label-position="labelPosition">
+                    <template #icon>
+                      <i class='bx bx-user'></i>
+                    </template>
+                  </vs-input>
                 </div>
 
               </div>
               <div class="columns">
 
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <b-field  label="موبایل" :label-position="labelPosition">
-                    <b-input  v-model="mobile"></b-input>
-                  </b-field>
+                  <vs-input  v-model="mobile"  icon-after  placeholder="شماره همراه">
+                    <template #icon>
+                      <i class='bx bx-mobile'></i>
+                    </template>
+                  </vs-input>
                 </div>
 
               </div>
               <div class="columns">
                 <div class="column  is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                  <b-select :disabled="meetings.length == 0" v-model="selectedMeeting">
-                    <option value="" disabled>انتخاب کلاس مورد نظر</option>
-                    <!--                <option v-for="(city_obj, city) in meetings">{{city.meeting_name}}</option>-->
-                    <option
-                        v-for="option in meetings"
-                        :value="option.id"
-                        :key="option.id">
+                  <vs-select autocomplete="off" :disabled="meetings.length == 0" filter placeholder="انتخاب کلاس مورد نظر" v-model="selectedMeeting" v-if="meetings">
+                    <vs-option  v-for="option in meetings" :value="option.id" :key="option.id" :label="option.meeting_name">
                       {{ option.meeting_name}}
-                    </option>
-                  </b-select>
-                  </b-field>
+                    </vs-option>
+                  </vs-select>
                 </div>
                 <div class="column is-flex is-align-items-center is-justify-content-center">
-                  <b-field>
-                    <b-select  placeholder="انتخاب دوره مورد نظر" v-model="courses">
-                      <option value="انتخاب دوره مورد نظر">انتخاب دوره مورد نظر</option>
-                      <option
-                          v-for="option in selectList"
-                          :value="option.id"
-                          :key="option.id">
-                        {{ option.title}}
-                      </option>
-                    </b-select>
-                  </b-field>
+                  <vs-select  filter placeholder="انتخاب دوره" v-model="courses" v-if="selectList">
+                    <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
+                      {{ option.title}}
+                    </vs-option>
+                  </vs-select>
                 </div>
               </div>
-              <div class="column is-flex is-justify-content-center"> <button class="button is-size-6 is-success is-rounded ">
-                <span class="is-size-6">ویرایش کاربر</span>
-                <b-icon  icon="pencil-outline"></b-icon>
-              </button>
+              <div class="column is-flex is-justify-content-center">
+                <vs-button success>
+                  ویرایش کاربر    <i class="bx bx-edit"></i>
+                </vs-button>
               </div>
             </div>
           </div>
         </form>
 
-        </b-notification>
       </div>
     </div>
 
@@ -112,6 +108,7 @@ export default {
   data() {
     return {
       routeParam: this.$route.params.id,
+      routeData: '',
       name:'',
       username:'',
       pass:'',
@@ -131,6 +128,7 @@ export default {
   created() {
     if (this.$route.params.data){
       this.routeData = this.$route.params.data
+      console.log( this.routeData)
     }else
       this.$router.push({name: 'users'})
   },

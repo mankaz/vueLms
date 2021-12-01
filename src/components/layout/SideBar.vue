@@ -70,7 +70,7 @@
         </vs-sidebar-item>
       </template>
 
-      <vs-sidebar-item id="class" :to="{ path: '/users' }" exact>
+      <vs-sidebar-item id="users" :to="{ path: '/users' }" exact>
        همه کاربران
       </vs-sidebar-item>
       <vs-sidebar-item id="adduser" :to="{ path: '/addusers' }" exact>
@@ -78,12 +78,12 @@
         ایجاد کاربر
       </vs-sidebar-item>
     </vs-sidebar-group>
-    <vs-sidebar-item id="plug" :to="{ path: '/plug' }" exact>
-      <template #icon>
-        <i class='bx bx-plug'></i>
-      </template>
-     اتصال ها
-    </vs-sidebar-item>
+<!--    <vs-sidebar-item id="plug" :to="{ path: '/plug' }" exact>-->
+<!--      <template #icon>-->
+<!--        <i class='bx bx-plug'></i>-->
+<!--      </template>-->
+<!--     اتصال ها-->
+<!--    </vs-sidebar-item>-->
     <vs-sidebar-item id="services" :to="{ path: '/services' }" exact>
       <template #icon>
         <i class='bx bx-cog'></i>

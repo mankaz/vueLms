@@ -59,7 +59,7 @@
                 <vs-button
                     danger
                     icon
-                    @click="deleteRow(index,item.id)"
+                    @click="deleteRow(index ,item.id)"
                 >
                   <i class='bx bx-trash'></i>
                 </vs-button>
@@ -129,38 +129,68 @@ export default {
     }
   },
   methods: {
+    deleteRow(i,id,duration, position = null, icon) {
 
-    deleteRow(i,id) {
-      let $vm = this;
-      this.$buefy.dialog.confirm({
-        title: 'حذف دوره',
-        message: `آیا از حذف این دوره اطمینان دارید؟`,
-        cancelText: 'انصرف',
-        confirmText: 'بله',
-        type: 'is-danger',
-        onConfirm: function () {
-          // console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
-          const form = new FormData();
-          form.append("courseId", id);
-          const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
-              .then(()=> {
-                $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
-                this.$buefy.toast.open({
-                  message: 'دوره مورد نظر با موفقیت حذف شد',
-                  type: 'is-success',
-                  position: 'is-top',
-                })
+      let result = confirm("آیا از حذف این دوره دارید؟ با حذف این دوره کلاس های متعلق به آن نیز حذف می شود");
+      if (result) {
+        const loading = this.$vs.loading()
+        const form = new FormData();
+        form.append("meetingId", id);
+        const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+        axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+            .then(()=> {
+              this.posts.splice((this.currentPage-1)* this.itemsPerPage +i, 1);
+              loading.close()
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'success',
+                position,
+                progress: 'auto',
+                title: 'کلاس مورد نظر با موفقیت حذف شد',
               })
-          this.$buefy.toast.open({
-            message: 'کلاس مورد نظر با موفقیت حذف شد',
-            type: 'is-warning',
-            position: 'is-bottom',
-          })
-        }
-
-      })
+            })
+      }
     },
+
+
+
+
+    // deleteRow(i,id) {
+    //   let $vm = this;
+    //   this.$buefy.dialog.confirm({
+    //     title: 'حذف دوره',
+    //     message: `آیا از حذف این دوره اطمینان دارید؟`,
+    //     cancelText: 'انصرف',
+    //     confirmText: 'بله',
+    //     type: 'is-danger',
+    //     onConfirm: function () {
+    //       // console.log(($vm.currentPage-1)* $vm.itemsPerPage +i)
+    //       const form = new FormData();
+    //       form.append("courseId", id);
+    //       const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+    //       axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
+    //           .then(()=> {
+    //             $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
+    //             this.$buefy.toast.open({
+    //               message: 'دوره مورد نظر با موفقیت حذف شد',
+    //               type: 'is-success',
+    //               position: 'is-top',
+    //             })
+    //           })
+    //       this.$buefy.toast.open({
+    //         message: 'کلاس مورد نظر با موفقیت حذف شد',
+    //         type: 'is-warning',
+    //         position: 'is-bottom',
+    //       })
+    //     }
+    //
+    //   })
+    // },
+
+
+
+
     editCourse(item) {
       // this.$router.push({name: 'editClass',params:{data:i}})
       this.$router.push({name: 'editCourse',params:{data:item}})

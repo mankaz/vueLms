@@ -162,32 +162,9 @@ export default {
 
       })
     },
-    editClass(i) {
-      console.log(i)
-      const form = new FormData();
-      form.append("className", this.className);
-      form.append("course", this.course);
-      form.append("classStartDate", this.classStartDate);
-      form.append("classEndDate", this.classEndDate);
-      form.append("classDescription", this.classDescription);
-      form.append("classImage", this.classImage);
-      const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://localhost/bbb/CI/public/BBBController/createMeeting/0", form, {headers})
-          .then((res) => {
-            this.$buefy.toast.open({
-              message: 'کلاس مورد نظر با موفقیت ویرایش شد',
-              type: 'is-success',
-              position: 'is-top',
-            })
-            console.log(i)
-          })
-          .catch(err => {
-            this.$buefy.toast.open({
-              message: 'خطا در ویرایش کلاس',
-              type: 'is-danger',
-              position: 'is-top',
-            })
-          })
+    editUsers(item) {
+      // this.$router.push({name: 'editClass',params:{data:i}})
+      this.$router.push({name: 'editUser',params:{data:item}})
     },
     setPage: function (pageNumber) {
       this.currentPage = pageNumber

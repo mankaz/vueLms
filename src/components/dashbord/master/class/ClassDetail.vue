@@ -41,7 +41,7 @@
             <h5 class="is-size-7 has-text-weight-semibold is-family-iranSans is-family-iranSans">:توضیحات کلاس</h5>
           </div>
           <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> {{routeData['description']}}</h5>
+            <h5 class="is-size-7 is-family-iranSans"> {{routeData['description']}} <i class='bx bx-detail'></i> </h5>
           </div>
           <div class="columns is-justify-content-flex-end">
               <p class="control">

@@ -100,19 +100,19 @@
                          </span>
                     </label>
                   </div>
-<!--                  <b-field>-->
-<!--                    <b-field class="file is-info" :class="{'has-name': !!file2}" >-->
-<!--                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" :disabled='isDisabled' rounded>-->
-<!--                          <span class="file-cta">-->
-<!--                              <b-icon class="file-icon" icon="upload"></b-icon>-->
-<!--                           <span class="is-size-6">انتخاب فایل اکسل</span>-->
-<!--                          </span>-->
-<!--                        <span class="file-name" v-if="file2">-->
-<!--                            {{ file2.name }}-->
-<!--                </span>-->
-<!--                      </b-upload>-->
-<!--                    </b-field>-->
-<!--                  </b-field>-->
+                  <!--                  <b-field>-->
+                  <!--                    <b-field class="file is-info" :class="{'has-name': !!file2}" >-->
+                  <!--                      <b-upload :name="file2" :id="file2" v-model="file2" class="file-label" :disabled='isDisabled' rounded>-->
+                  <!--                          <span class="file-cta">-->
+                  <!--                              <b-icon class="file-icon" icon="upload"></b-icon>-->
+                  <!--                           <span class="is-size-6">انتخاب فایل اکسل</span>-->
+                  <!--                          </span>-->
+                  <!--                        <span class="file-name" v-if="file2">-->
+                  <!--                            {{ file2.name }}-->
+                  <!--                </span>-->
+                  <!--                      </b-upload>-->
+                  <!--                    </b-field>-->
+                  <!--                  </b-field>-->
                 </div>
               </div>
               <div class="column is-flex is-justify-content-center">
@@ -138,7 +138,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-        // courseId:null,
+      // courseId:null,
       name:'',
       username:'',
       pass:'',
@@ -199,48 +199,89 @@ export default {
       }
     },
     addUsers : function (duration, position = null, icon) {
-      if(this.name === '' && this.isDisabled) {
-        // eslint-disable-next-line no-unused-vars
-        const noti = this.$vs.notification({
-          duration,
-          icon,
-          color: 'warn',
-          position,
-          progress: 'auto',
-          title: 'نام کاربر را وارد نمایید',
+      if(!this.isDisabled){
+        const loading = this.$vs.loading({
+          target: this.$refs.content,
+          scale: '0.6',
+          opacity: 0.1,
         })
+        const form = new FormData();
+        form.append("file2",this.$refs.fileName.files[0]);
+        const headers = { 'content-type': 'application/x-www-form-urlencoded' };
 
-      }else if(this.username === ''  && this.isDisabled){
-        // eslint-disable-next-line no-unused-vars
-        const noti = this.$vs.notification({
-          duration,
-          icon,
-          color: 'warn',
-          position,
-          progress: 'auto',
-          title: 'نام کابری را وارد نمایید',
-        })
-      } else if(this.pass === ''  && this.isDisabled){
-        // eslint-disable-next-line no-unused-vars
-        const noti = this.$vs.notification({
-          duration,
-          icon,
-          color: 'warn',
-          position,
-          progress: 'auto',
-          title: 'رمز عبور کاربر را وارد نمایید',
-        })
-      } else if(this.selectedMeeting === ''  && this.isDisabled){
-        // eslint-disable-next-line no-unused-vars
-        const noti = this.$vs.notification({
-          duration,
-          icon,
-          color: 'warn',
-          position,
-          progress: 'auto',
-          title: 'دوره مورد نظر را انتخاب کنید',
-        })
-      }else {
+        axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUsers",form, {headers, })
+            .then((res)=> {
+              console.log(res)
+              loading.close()
+
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'success',
+                position,
+                progress: 'auto',
+                title: 'کاربر با موفقیت ایجاد شد',
+              })
+              console.log(res)
+            })
+            .catch(err=> {
+              loading.close()
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'danger',
+                position,
+                progress: 'auto',
+                title: 'خطا در ایجاد کاربر',
+              })
+              console.log(err)
+            })
+
+      }
+      else {
+        if(this.name === '') {
+          // eslint-disable-next-line no-unused-vars
+          const noti = this.$vs.notification({
+            duration,
+            icon,
+            color: 'warn',
+            position,
+            progress: 'auto',
+            title: 'نام کاربر را وارد نمایید',
+          })
+
+        }else if(this.username === ''){
+          // eslint-disable-next-line no-unused-vars
+          const noti = this.$vs.notification({
+            duration,
+            icon,
+            color: 'warn',
+            position,
+            progress: 'auto',
+            title: 'نام کابری را وارد نمایید',
+          })
+        } else if(this.pass === ''){
+          // eslint-disable-next-line no-unused-vars
+          const noti = this.$vs.notification({
+            duration,
+            icon,
+            color: 'warn',
+            position,
+            progress: 'auto',
+            title: 'رمز عبور کاربر را وارد نمایید',
+          })
+        } else if(this.selectedMeeting === ''){
+          // eslint-disable-next-line no-unused-vars
+          const noti = this.$vs.notification({
+            duration,
+            icon,
+            color: 'warn',
+            position,
+            progress: 'auto',
+            title: 'دوره مورد نظر را انتخاب کنید',
+          })
+
+        }
         const loading = this.$vs.loading({
           target: this.$refs.content,
           scale: '0.6',
@@ -254,7 +295,6 @@ export default {
         form.append("username", this.username);
         form.append("pass", this.pass);
         form.append("email", this.email);
-        form.append("file2",this.$refs.fileName.files[0]);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
 
         axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser",form, {headers, })
