@@ -8,7 +8,7 @@
       </div>
       <div class="is-flex is-justify-content-flex-end">
         <div class="media-content">
-          <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">کلاس ها  <b-icon icon="google-classroom" size="is-normal"></b-icon></small>
+          <small class="is-size-6 is-family-iranSans is-size-5 dir-ltr">کلاس ها </small>
           <p class="is-family-iranSans is-size-7">.با انتخاب یک دوره، کلاس های زیرمجموعه دوره انتخاب شده نمایش داده می شود</p>
           <br>
         </div>
@@ -199,7 +199,7 @@ export default {
         form.append("courseId", this.courseId);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios
-            .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
+            .post('https://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
             .then((response)=> {
               this.posts = response.data
               this.isData = false
@@ -221,7 +221,7 @@ export default {
           const form = new FormData();
           form.append("meetingId", id);
           const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
+          axios.post("https://gholeydoon.ir/bbb/public/BBBController/deleteMeeting",form, {headers, })
               .then(()=> {
                 this.posts.splice((this.currentPage-1)* this.itemsPerPage +i, 1);
                 loading.close()
@@ -339,7 +339,7 @@ export default {
         }
       })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
-    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+    axios.post("https://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
           loading.close()
           clearInterval(interval)

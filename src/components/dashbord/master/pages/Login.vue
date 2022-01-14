@@ -170,7 +170,7 @@ export default {
       form.append("mobile", localStorage.getItem('mobile'));
 
       const headers = {'content-type': 'application/x-www-form-urlencoded'};
-      axios.post("http://gholeydoon.ir/bbb/public/UserController/verifyCode",form, {headers})
+      axios.post("https://gholeydoon.ir/bbb/public/UserController/verifyCode",form, {headers})
           .then((data) => {
             loading.close()
             // console.log(data)
@@ -244,7 +244,7 @@ export default {
         this.verifyHidden = true
         this.loginHidden = false
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
-        axios.post("http://gholeydoon.ir/bbb/public/UserController/loginOrRegister", form, {headers})
+        axios.post("https://gholeydoon.ir/bbb/public/UserController/loginOrRegister", form, {headers})
             .then(() => {
               this.isLoading = false
               // this.$router.push({name : 'VerifyCode' , params : this.$route.meta.title = this.VerifyCode})
