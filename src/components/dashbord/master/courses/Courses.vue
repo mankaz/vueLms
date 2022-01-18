@@ -288,7 +288,7 @@ export default {
       }
     })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
-    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+    axios.post("https://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
           this.posts = data.data
           loading.close()

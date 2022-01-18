@@ -170,7 +170,7 @@ export default {
         form.append("courseId", this.courses);
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios
-            .post('http://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
+            .post('https://gholeydoon.ir/bbb/public/BBBController/getMeetings',form, {headers})
             .then((response)=> {
               this.posts = response.data
               this.meetings = this.posts
@@ -239,7 +239,7 @@ export default {
 
       }
       else {
-        if(this.name === '') {
+        if (this.name === '') {
           // eslint-disable-next-line no-unused-vars
           const noti = this.$vs.notification({
             duration,
@@ -250,7 +250,7 @@ export default {
             title: 'نام کاربر را وارد نمایید',
           })
 
-        }else if(this.username === ''){
+        } else if (this.username === '') {
           // eslint-disable-next-line no-unused-vars
           const noti = this.$vs.notification({
             duration,
@@ -260,7 +260,7 @@ export default {
             progress: 'auto',
             title: 'نام کابری را وارد نمایید',
           })
-        } else if(this.pass === ''){
+        } else if (this.pass === '') {
           // eslint-disable-next-line no-unused-vars
           const noti = this.$vs.notification({
             duration,
@@ -270,7 +270,7 @@ export default {
             progress: 'auto',
             title: 'رمز عبور کاربر را وارد نمایید',
           })
-        } else if(this.selectedMeeting === ''){
+        } else if (this.selectedMeeting === '') {
           // eslint-disable-next-line no-unused-vars
           const noti = this.$vs.notification({
             duration,
@@ -281,51 +281,51 @@ export default {
             title: 'دوره مورد نظر را انتخاب کنید',
           })
 
+        } else {
+          const loading = this.$vs.loading({
+            target: this.$refs.content,
+            scale: '0.6',
+            opacity: 0.1,
+          })
+          const form = new FormData();
+          form.append("name", this.name);
+          form.append("mobile", this.mobile);
+          form.append("courseId", this.courses);
+          form.append("meetingId", this.selectedMeeting);
+          form.append("username", this.username);
+          form.append("pass", this.pass);
+          form.append("email", this.email);
+          const headers = {'content-type': 'application/x-www-form-urlencoded'};
+
+          axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser", form, {headers,})
+              .then((res) => {
+                console.log(res)
+                loading.close()
+
+                this.$vs.notification({
+                  duration,
+                  icon,
+                  color: 'success',
+                  position,
+                  progress: 'auto',
+                  title: 'کاربر با موفقیت ایجاد شد',
+                })
+                console.log(res)
+              })
+              .catch(err => {
+                loading.close()
+                this.$vs.notification({
+                  duration,
+                  icon,
+                  color: 'danger',
+                  position,
+                  progress: 'auto',
+                  title: 'خطا در ایجاد کاربر',
+                })
+                console.log(err)
+              })
         }
-        const loading = this.$vs.loading({
-          target: this.$refs.content,
-          scale: '0.6',
-          opacity: 0.1,
-        })
-        const form = new FormData();
-        form.append("name", this.name);
-        form.append("mobile", this.mobile);
-        form.append("courseId", this.courses);
-        form.append("meetingId", this.selectedMeeting);
-        form.append("username", this.username);
-        form.append("pass", this.pass);
-        form.append("email", this.email);
-        const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-
-        axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser",form, {headers, })
-            .then((res)=> {
-              console.log(res)
-              loading.close()
-
-              this.$vs.notification({
-                duration,
-                icon,
-                color: 'success',
-                position,
-                progress: 'auto',
-                title: 'کاربر با موفقیت ایجاد شد',
-              })
-              console.log(res)
-            })
-            .catch(err=> {
-              loading.close()
-              this.$vs.notification({
-                duration,
-                icon,
-                color: 'danger',
-                position,
-                progress: 'auto',
-                title: 'خطا در ایجاد کاربر',
-              })
-              console.log(err)
-            })
       }
-
     }
 
   },
@@ -353,7 +353,7 @@ export default {
       }
     })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
-    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+    axios.post("https://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
           this.selectList = data.data
           loading.close()

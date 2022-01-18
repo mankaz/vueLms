@@ -25,7 +25,7 @@
         </vs-input>
       </vs-row>
       <vs-row class="column is-flex is-justify-content-center">
-        <vs-select autocomplete="off" filter placeholder="انتخاب دوره" @input="getMeeting()" v-model="courseId" v-if="selectList">
+        <vs-select ref="dropdown" autocomplete="off" filter placeholder="انتخاب دوره" @input="getMeeting()" v-model="courseId" v-if="selectList">
           <vs-option  v-for="option in selectList" :value="option.id" :key="option.id" :label="option.title">
             {{ option.title}}
           </vs-option>
@@ -155,7 +155,8 @@ import axios from "axios";
 
 import ClassCard from "@/components/dashbord/master/class/ClassCard";
 import upload from "@/components/dashbord/master/extension/upload";
-
+import Vue from "vue";
+Vue.use(require('vue-cookies'))
 
 export default {
 
@@ -207,6 +208,10 @@ export default {
               if(!this.posts){
                 this.isData = true
               }
+
+              this.$cookies.set('dropdown',this.posts[0]['course_id']);
+             // this.courseId=this.$cookies.get('dropdown')
+
               // this.posts = JSON.parse(JSON.stringify(response.data)).match(/[{].*.[}]/)
               // console.log(typeof JSON.parse(JSON.stringify(response.data.replace('<script',''))))
               // console.log(typeof response.data)
@@ -326,7 +331,13 @@ export default {
       return this.posts.slice(index, index + this.itemsPerPage)
     },
   },
+
   mounted() {
+
+     this.courseId=this.$cookies.get('dropdown')
+    // this.$cookies.remove("dropdown");
+    this.getMeeting()
+
       const loading = this.$vs.loading({
         target: this.$refs.content,
         scale: '0.6',
@@ -338,6 +349,7 @@ export default {
           loading.changeProgress(this.progress++)
         }
       })
+
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
     axios.post("https://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
@@ -346,6 +358,11 @@ export default {
           this.progress = 0
           this.contentLoading= true
           this.selectList = data.data
+         //  this.courseId=this.selectList[0]['id']
+         //  this.getMeeting()
+         // if (this.courseId=this.selectList[0]['id'] === '') {
+         //   this.contentLoading=true
+         // }
           // console.log(this.selectList)
         })
   },

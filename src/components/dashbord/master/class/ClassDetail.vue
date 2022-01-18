@@ -5,8 +5,8 @@
       <div class="box">
     <div class="columns">
       <div class="column control services-btn is-flex is-justify-content-left">
-        <vs-button success class="is-size-7" :to="{ path: '/Class' }" exact>
-          بازگشت <i class="bx bx-arrow-back"></i>
+        <vs-button warn class="is-size-7" :to="{ path: '/Class' }" exact>
+           <i class="bx bx-arrow-back"></i><span class="ml-1">بازگشت</span>
         </vs-button>
       </div>
       <div class="is-flex is-justify-content-flex-end">
@@ -25,25 +25,125 @@
         <img :src="routeData['img']" class="box " alt="">
       </div>
 
+      <div class="column is-align-items-center is-justify-content-flex-end">
+        <div class="">
 
-      <div class="column is-flex is-justify-content-flex-end">
-        <div class="add-class-checkbox">
-          <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-4"> <span class="is-size-6 has-text-weight-semibold is-family-iranSans">{{routeData['meeting_name']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:عنوان دوره</span></h5>
+          <div class="columns is is-align-content-center is-align-items-center">
+
+          <div class="column  is is-align-content-center is-justify-content-flex-end">
+          <vs-button
+              @click="active=!active"
+              success
+          >
+            <span>تعریف کاربر برای این کلاس </span> <i class= 'bx bx-user-plus bx-xs ml-1'></i>
+          </vs-button>
+          <vs-dialog v-model="active">
+            <template #header>
+              <h4 class="not-margin">
+                ایجاد کاربر
+              </h4>
+            </template>
+
+
+            <div class="con-form">
+              <form  method="post" @submit.prevent="addUsers()" >
+                <div class="column  is-5-desktop">
+                  <div class="columns is-flex is-justify-content-flex-start">
+                    <div class="column">
+                      <vs-input :disabled='!isDisabled' v-model="email"  icon-after  placeholder="ایمیل" v-if="isDisabled">
+                        <template #icon>
+                          <i class='bx bx-mail-send'></i>
+                        </template>
+                      </vs-input>
+                    </div>
+                    <div class="column">
+                      <vs-input :disabled='!isDisabled' v-model="name"  icon-after  placeholder="نام" v-if="isDisabled">
+                        <template #icon>
+                          <i class='bx bx-text'></i>
+                        </template>
+                      </vs-input>
+                    </div>
+                  </div>
+                  <div justify="center" class="columns is-flex is-justify-content-flex-start">
+                    <div class="column">
+                      <vs-input :disabled='!isDisabled' v-model="pass"  icon-after  placeholder="رمز عبور" v-if="isDisabled">
+                        <template #icon>
+                          <i class='bx bx-shield-alt-2'></i>
+                        </template>
+                      </vs-input>
+                    </div>
+                    <div class="column">
+                      <vs-input :disabled='!isDisabled' v-model="username"  icon-after  placeholder="شناسه کاربری" v-if="isDisabled">
+                        <template #icon>
+                          <i class='bx bx-user'></i>
+                        </template>
+                      </vs-input>
+                    </div>
+
+                  </div>
+                </div>
+                <div justify="center" class="columns is-flex is-justify-content-flex-start">
+                  <div class="column is-flex  is-justify-content-center is-align-content-center is-align-self-center">
+                    <vs-input :disabled='!isDisabled' v-model="mobile"  icon-after  placeholder="شماره همراه" v-if="isDisabled">
+                      <template #icon>
+                        <i class='bx bx-mobile'></i>
+                      </template>
+                    </vs-input>
+                  </div>
+                </div>
+                <div class="excel">
+                  <div class="column is-flex  is-justify-content-center is-align-content-center is-align-self-center">
+                    <span class="is-size-6 is-family-iranSans">ورود کاربران بصورت گروهی از اکسل</span>
+                    <vs-checkbox ref="checkbox" id="excelCheckBox" v-model="disable">
+                    </vs-checkbox>
+                  </div>
+                  <div class="is-flex  is-justify-content-center is-align-content-center is-align-self-center">
+                    <div class="file is-warning has-name" v-if="!isDisabled">
+                      <label class="file-label">
+                        <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label is-size-7">
+                          بارگذاری فایل اکسل
+                          </span>
+                      </span>
+                        <span class="file-name" v-if="fileName">
+                    {{fileName}}
+                         </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <vs-button block >
+
+                  <span class="mr-1">تأیید و ایجاد کاربر</span>     <i class='bx bx-check'></i>
+
+
+                </vs-button>
+              </form>
+            </div>
+          </vs-dialog>
+          </div>
+          <div class="column is-flex is-flex is-justify-content-flex-end">
+            <h5 class="is-size-4"> <span class="is-size-6 has-text-weight-semibold is-family-iranSans">{{routeData['meeting_name']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:عنوان کلاس</span> <i class='bx  bx-text bx-xs'></i></h5>
+          </div>
+          </div>
+          <div class="columns is-justify-content-flex-end mt-2">
+            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-primary">{{routeData['start_time']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:زمان شروع</span> <i class='bx  bx-time-five bx-xs'></i></h5>
+          </div>
+          <div class="columns is-justify-content-flex-end mt-5">
+            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-danger">{{routeData['end_time']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:زمان پایان</span> <i class='bx  bxs-time-five bx-xs' type='solid'></i></h5>
+          </div>
+          <div class="columns is-justify-content-flex-end mt-5">
+            <h5 class="is-size-7 has-text-weight-semibold is-family-iranSans is-family-iranSans"> <span>:توضیحات کلاس</span> <i class='bx bx-detail bx-xs'></i> </h5>
           </div>
           <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-success">{{routeData['start_time']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:زمان شروع<b-icon icon="calendar-clock" size="is-small"></b-icon></span></h5>
+            <h5 class="is-size-7 is-family-iranSans"> {{routeData['description']}} </h5>
           </div>
-          <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> <span class="tag is-warning">{{routeData['end_time']}}</span> <span class="is-size-7 has-text-weight-semibold is-family-iranSans">:زمان پایان<b-icon icon="timer-sand-empty" size="is-small"></b-icon></span></h5>
-          </div>
-          <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 has-text-weight-semibold is-family-iranSans is-family-iranSans">:توضیحات کلاس</h5>
-          </div>
-          <div class="columns is-justify-content-flex-end">
-            <h5 class="is-size-7 is-family-iranSans"> {{routeData['description']}} <i class='bx bx-detail'></i> </h5>
-          </div>
-          <div class="columns is-justify-content-flex-end">
+          <div class="columns is-justify-content-flex-end mt-5">
               <p class="control">
                 <span id="testing-code2" class="button is-static urlCopy">{{routeData['meeting_name']}}</span>
               </p>
@@ -52,12 +152,17 @@
               </vs-button>
           </div>
 
+
         </div>
+
+        </div>
+
       </div>
     </div>
     <div class="columns is-desktop is-multiline ">
     </div>
-      </div>
+
+
     </vs-row>
   </section>
 
@@ -81,6 +186,12 @@ export default {
       classStartDate: '',
       classEndDate: '',
       classDescription: '',
+      disable: false,
+      active: false,
+      email: '',
+      password: '',
+      remember: false,
+      contentLoading:false
     }
   },
 methods : {
@@ -94,7 +205,6 @@ methods : {
     let successful = document.execCommand("Copy");
     textArea.remove();
 
-
       const noti = this.$vs.notification({
         duration,
         icon,
@@ -103,17 +213,165 @@ methods : {
         progress: 'auto',
         title: 'لینک کلاس ذخیره شد',
       })
-
-
     let msg = successful ? 'ذخیره شد' : 'ذخیره نشد';
   },
+  onFileChange(event, duration, position = null, icon) {
+    let fileData = event.target.files[0];
+    this.fileName = fileData.name;
+    let filePath = this.$refs.fileName.value;
+    let allowedExtensions = /(\.csv|\.xls|\.xlsx|\.xlsm|\.)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+      this.$refs.fileName.value = null
+      this.$vs.notification({
+        duration,
+        icon,
+        color: 'primary',
+        position,
+        progress: 'auto',
+        title: 'تنها مجاز به انتخاب فایل اکسل می باشید',
+      })
+      this.fileName = ""
+
+    }
+  },
+  addUsers : function (duration, position = null, icon) {
+    if(!this.isDisabled){
+      const loading = this.$vs.loading({
+        target: this.$refs.content,
+        scale: '0.6',
+        opacity: 0.1,
+      })
+      const form = new FormData();
+      form.append("file2",this.$refs.fileName.files[0]);
+      const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+
+      axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUsers",form, {headers, })
+          .then((res)=> {
+            console.log(res)
+            loading.close()
+
+            this.$vs.notification({
+              duration,
+              icon,
+              color: 'success',
+              position,
+              progress: 'auto',
+              title: 'کاربر با موفقیت ایجاد شد',
+            })
+            console.log(res)
+          })
+          .catch(err=> {
+            loading.close()
+            this.$vs.notification({
+              duration,
+              icon,
+              color: 'danger',
+              position,
+              progress: 'auto',
+              title: 'خطا در ایجاد کاربر',
+            })
+            console.log(err)
+          })
+
+    }
+    else {
+      if(this.name === '') {
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'نام  کاربر را وارد نمایید',
+        })
+
+      }else if(this.username === ''){
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'شناسه کابری را وارد نمایید',
+        })
+      } else if(this.pass === ''){
+        // eslint-disable-next-line no-unused-vars
+        const noti = this.$vs.notification({
+          duration,
+          icon,
+          color: 'warn',
+          position,
+          progress: 'auto',
+          title: 'رمز عبور کاربر را وارد نمایید',
+        })
+      } else {
+        const loading = this.$vs.loading({
+          target: this.$refs.content,
+          scale: '0.6',
+          opacity: 0.1,
+        })
+        const form = new FormData();
+        form.append("name", this.name);
+        form.append("mobile", this.mobile);
+        form.append("courseId", this.$route.params.data['course_id']);
+        form.append("meetingId", this.selectedMeeting);
+        form.append("username", this.username);
+        form.append("pass", this.pass);
+        form.append("email", this.email);
+        const headers = { 'content-type': 'application/x-www-form-urlencoded' };
+
+        axios.post("https://gholeydoon.ir/bbb/public/userController/insertMeetingUser",form, {headers, })
+            .then((res)=> {
+              console.log(res)
+              loading.close()
+
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'success',
+                position,
+                progress: 'auto',
+                title: 'کاربر با موفقیت ایجاد شد',
+              })
+              console.log(res)
+            })
+            .catch(err=> {
+              loading.close()
+              this.$vs.notification({
+                duration,
+                icon,
+                color: 'danger',
+                position,
+                progress: 'auto',
+                title: 'خطا در ایجاد کاربر',
+              })
+              console.log(err)
+            })
+      }
+    }
+
+  }
 },
+  computed : {
+    isDisabled: function(){
+      this.name=''
+      this.username=''
+      this.pass=''
+      this.mobile=''
+      this.email=''
+      this.className= ''
+      return !this.disable;
+    }
+  },
   created() {
-    console.log(this.$route.params.data)
+    console.log(this.$route.params.data['course_id'])
     if (this.$route.params.data){
       this.routeData = this.$route.params.data
     }else
       this.$router.push({name: 'class'})
+
   },
 
 }

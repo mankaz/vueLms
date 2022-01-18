@@ -66,11 +66,10 @@
 <!--  </div>-->
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
-      <vs-tooltip color="#ffca59" bottom>
+      <vs-tooltip color="#ff4757" bottom>
         <vs-button
-            warn
+            danger
             icon
-            color="#ffca59"
             @click="logOut()"
         >
           <i class='bx bx-log-out-circle'></i>

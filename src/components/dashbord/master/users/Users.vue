@@ -144,7 +144,7 @@ export default {
           const form = new FormData();
           form.append("courseId", id);
           const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-          axios.post("http://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
+          axios.post("https://gholeydoon.ir/bbb/public/BBBController/deleteCourse",form, {headers, })
               .then(()=> {
                 $vm.posts.splice(($vm.currentPage-1)* $vm.itemsPerPage +i, 1);
                 this.$buefy.toast.open({
@@ -229,7 +229,7 @@ export default {
       }
     })
     const headers = {'content-type': 'application/x-www-form-urlencoded'};
-    axios.post("http://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
+    axios.post("https://gholeydoon.ir/bbb/public/BBBController/getCourses", {headers, })
         .then((data)=> {
           this.posts = data.data
           loading.close()
