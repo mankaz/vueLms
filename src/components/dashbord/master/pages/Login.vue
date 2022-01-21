@@ -12,21 +12,21 @@
                 </div>
                 <div class="column is-flex is-justify-content-center" v-if="loginHidden">
 
-                  <b-notification ref="element" :closable="false">
-                    <div class="column is-flex is-justify-content-flex-end">
+                  <div ref="element" :closable="false">
+                    <div class="column is-flex is-justify-content-flex-end is-12-desktop">
                       <img class="image is-48x48" src="../../../../../public/img/logo.png">
                     </div>
                     <div class="field  is-family-iranSans is-flex is-justify-content-flex-end">
-                      <label class="label is-size-5">ورود به بی نام</label>
+                      <label class="label is-size-5">ورود / ثبت نام</label>
                     </div>
-                    <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
-                      <label class="label is-size-7">برای استفاده از خدمات بی نام، وارد حساب کاربری خود شوید</label>
+                    <div class="field is-family-iranSans is-flex  is-justify-content-flex-end">
+                      <label class="label is-size-7">لطفاً شماره موبایل خود را وارد نمایید</label>
                     </div>
                     <form method="post" @submit.prevent="submitForm('2000', 'button-right',`<i class='bx bx-info-circle'></i>`)">
-                      <div class="column  is-10-desktop">
-                      <div class="field login-mobileNumber">
+                      <div class="column  is-flex is-justify-content-flex-end is-12-desktop">
+                      <div class="field login-mobileNumber mt-3">
                         <div class="control has-icons-left">
-                          <vs-input id="mobile"  @keyup="mobileNumber" v-model="mobile"  icon-after  placeholder="شماره همراه" maxlength="11">
+                          <vs-input id="mobile"  @keyup="mobileNumber" v-model="mobile"  icon-after  placeholder="شماره موبایل" maxlength="11">
                             <template #icon>
                               <i class='bx bx-mobile'></i>
                             </template>
@@ -40,11 +40,77 @@
                             تأیید و ادامه    <i class="bx bx-check"></i>
                           </vs-button>
                         </div>
+                        <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
+                          <label class="label is-size-7">
+                            <a class="is-family-iranSans is-warning" size="is-small" @click="loginPass">
+                              ورود با پسورد    <i class="bx bx-shield bx-xs"></i>
+                            </a>
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="column is-flex is-justify-content-center" v-if="loginPassword">
+                  <b-notification ref="element" :closable="false">
+                    <div class="column is-flex is-justify-content-flex-end is-12-desktop">
+                      <img class="image is-48x48" src="../../../../../public/img/logo.png">
+                    </div>
+                    <div class="field  is-family-iranSans is-flex is-justify-content-flex-end">
+                      <label class="label is-size-5">ورود به بی نام</label>
+                    </div>
+                    <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
+                      <label class="label is-size-7">لطفا نام کاربری و رمز عبور خود را وارد کنید</label>
+                    </div>
+                    <form method="post" @submit.prevent="submitForm('2000', 'button-right',`<i class='bx bx-info-circle'></i>`)">
+                      <div class="column mt-auto is-flex is-justify-content-flex-end is-12-desktop">
+                        <div class="field login-mobileNumber is-flex  is-justify-content-center is-align-content-center is-align-self-center">
+                          <div class="control has-icons-left">
+                            <div class="center content-inputs">
+                              <vs-input v-model="value1" icon-after placeholder="نام کاربری، شماره موبایل" class="mb-2">
+                                <template #icon>
+                                  <i class='bx bx-user'></i>
+                                </template>
+                              </vs-input>
+                              <vs-input
+                                  icon-after
+                                  type="password"
+                                  v-model="value"
+                                  placeholder="رمز عبور"
+                                  :visiblePassword="hasVisiblePassword"
+                                  icon-before
+                                  @click-icon="hasVisiblePassword = !hasVisiblePassword">
+                                <template #icon>
+                                  <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
+                                  <i v-else class='bx bx-hide'></i>
+                                </template>
+
+                                <template v-if="getProgress >= 100" #message-success>
+                                  Secure password
+                                </template>
+
+                              </vs-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="column is-flex is-justify-content-center">
+                          <vs-button success >
+                            ورود به پنل کاربری   <i class="bx bx-check"></i>
+                          </vs-button>
+                        </div>
+                        <div class="field is-family-iranSans is-flex is-justify-content-flex-end">
+                          <label class="label is-size-7">
+                            <a class="is-family-iranSans is-warning" size="is-small" @click="loginMobile">
+                              ورود با موبایل   <i class="bx bx-mobile bx-xs"></i>
+                            </a>
+                          </label>
+                        </div>
                       </div>
                     </form>
                   </b-notification>
                 </div>
-
 
                 <div class="column is-flex is-justify-content-center" v-if="verifyHidden" >
                   <div class="column  is-10-desktop">
@@ -109,6 +175,7 @@ export default {
       mobile: '',
       verifyHidden: false,
       loginHidden: true,
+      loginPassword:'',
       visibleGetCode: false,
       countDown : null,
       seconds : 10,
@@ -119,6 +186,8 @@ export default {
       threeNumber:'',
       fourNumber:'',
       fiveNumber:'',
+      value: '',
+      hasVisiblePassword: false
     }
 
   },
@@ -129,12 +198,22 @@ export default {
     mobileEdit(){
       this.verifyHidden = false
       this.loginHidden = true
+      this.loginPassword=false
          this.oneNumber=''
          this.twoNumber=''
          this.threeNumber=''
          this.fourNumber=''
          this.fiveNumber= ''
     },
+    loginPass(){
+      this.loginHidden = false
+      this.loginPassword=true
+    },
+    loginMobile(){
+      this.loginHidden = true
+      this.loginPassword=false
+    },
+
     onKeyup(event) {
       event.target.value = event.target.value.replace(/[^0-9]/g, '')
       if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {

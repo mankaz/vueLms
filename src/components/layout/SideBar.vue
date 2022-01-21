@@ -99,7 +99,10 @@
     <template #footer>
       <vs-row justify="space-between">
         <vs-avatar>
-          <img src="@/assets/img/avatar.jpg"/>
+          <router-link  :to="{ path: '/profile' }" exact>
+<!--          <img src="@/assets/img/avatar.jpg"/>-->
+          <i class='bx bx-user'></i>
+          </router-link>
         </vs-avatar>
 
         <vs-avatar badge-color="danger" badge-position="top-right">

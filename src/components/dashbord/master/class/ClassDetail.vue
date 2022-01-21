@@ -43,8 +43,6 @@
                 ایجاد کاربر
               </h4>
             </template>
-
-
             <div class="con-form">
               <form  method="post" @submit.prevent="addUsers()" >
                 <div class="column  is-5-desktop">
@@ -97,7 +95,7 @@
                     <vs-checkbox ref="checkbox" id="excelCheckBox" v-model="disable">
                     </vs-checkbox>
                   </div>
-                  <div class="is-flex  is-justify-content-center is-align-content-center is-align-self-center">
+                  <div class="is-flex mb-6 is-justify-content-center is-align-content-center is-align-self-center">
                     <div class="file is-warning has-name" v-if="!isDisabled">
                       <label class="file-label">
                         <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
@@ -191,7 +189,8 @@ export default {
       email: '',
       password: '',
       remember: false,
-      contentLoading:false
+      contentLoading:false,
+      routeCookie: ''
     }
   },
 methods : {
@@ -366,13 +365,20 @@ methods : {
     }
   },
   created() {
-    console.log(this.$route.params.data['course_id'])
-    if (this.$route.params.data){
-      this.routeData = this.$route.params.data
-    }else
-      this.$router.push({name: 'class'})
+    // console.log(this.$route.params.data['course_id'])
 
-  },
+    // this.routeData = this.$route.params.data
+
+    // this.$cookies.set('routeData', this.$route.params.data,"7d");
+    // this.routeCookie = this.$cookies.get('routeData')
+    // console.log(this.routeCookie)
+
+      if (this.$route.params.data){
+  this.routeData = this.$route.params.data
+}else
+this.$router.push({name: 'class'})
+  }
+
 
 }
 

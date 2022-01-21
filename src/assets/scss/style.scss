@@ -75,7 +75,16 @@ body {
   height: 400px;
 }
 .login-mobileNumber{
-  margin-top: 30px;
+  //margin-top: 30px;
+}
+.vs-input-password{
+  input {
+    direction: ltr !important;
+  }
+}
+.vs-input__message{
+  font-family: $font_IranSAns !important;
+  direction: rtl;
 }
 .column {
   .textarea {

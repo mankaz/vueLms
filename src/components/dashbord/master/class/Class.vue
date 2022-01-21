@@ -333,11 +333,6 @@ export default {
   },
 
   mounted() {
-
-     this.courseId=this.$cookies.get('dropdown')
-    // this.$cookies.remove("dropdown");
-    this.getMeeting()
-
       const loading = this.$vs.loading({
         target: this.$refs.content,
         scale: '0.6',
@@ -358,12 +353,13 @@ export default {
           this.progress = 0
           this.contentLoading= true
           this.selectList = data.data
-         //  this.courseId=this.selectList[0]['id']
-         //  this.getMeeting()
-         // if (this.courseId=this.selectList[0]['id'] === '') {
-         //   this.contentLoading=true
-         // }
-          // console.log(this.selectList)
+          // this.$cookies.remove("dropdown");
+          if (this.$cookies.get('dropdown')) {
+            this.courseId=this.$cookies.get('dropdown')
+            this.getMeeting()
+          }else {
+            this.courseId=this.selectList[0]['id']
+          }
         })
   },
   components: {

@@ -123,6 +123,13 @@ const router = new VueRouter({
           component : require('./components/dashbord/master/users/EditUser.vue').default
         },
         {
+          name:'profile',
+          path : '/profile',
+          meta: { Auth: true },
+          props:true,
+          component : require('./components/dashbord/master/users/profile.vue').default
+        },
+        {
           path : '/Ticketing',
           meta: { Auth: true },
           component : require('./components/dashbord/master/pages/Ticketing.vue').default
