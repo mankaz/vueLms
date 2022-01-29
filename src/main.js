@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import router from "./router";
 import VueApexCharts from 'vue-apexcharts'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
-import Buefy from 'buefy';
+// import Buefy from 'buefy';
 import 'bulma/css/bulma-rtl.css'
 
 Vue.component('date-picker', VuePersianDatetimePicker);
@@ -24,7 +24,7 @@ Vue.use(require('vue-cookies'))
 Vue.use(VueRouter)
 Vue.use(
     Vuesax,
-    Buefy,
+
     vueResource,
     VueStore,
     VuePersianDatetimePicker,

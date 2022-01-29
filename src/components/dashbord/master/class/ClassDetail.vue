@@ -46,7 +46,7 @@
             <div class="con-form">
               <form  method="post" @submit.prevent="addUsers()" >
                 <div class="column  is-5-desktop">
-                  <div class="columns is-flex is-justify-content-flex-start">
+                  <div class="columns">
                     <div class="column">
                       <vs-input :disabled='!isDisabled' v-model="email"  icon-after  placeholder="ایمیل" v-if="isDisabled">
                         <template #icon>
@@ -80,7 +80,16 @@
 
                   </div>
                 </div>
-                <div justify="center" class="columns is-flex is-justify-content-flex-start">
+                <div justify="center">
+                  <div class="columns">
+                    <div class="column" v-if="!isDisabled">
+                      <blockquote class="blockquote is-size-7">
+                        - فایل نمونه را دانلود کرده و لیست شرکت کنندگان را در آن وارد نمایید
+                        <br>
+                        - شماره موبایل می بایست یکتا(غیرتکراری) باشد
+                      </blockquote>
+                    </div>
+                  </div>
                   <div class="column is-flex  is-justify-content-center is-align-content-center is-align-self-center">
                     <vs-input :disabled='!isDisabled' v-model="mobile"  icon-after  placeholder="شماره همراه" v-if="isDisabled">
                       <template #icon>
@@ -89,37 +98,43 @@
                     </vs-input>
                   </div>
                 </div>
-                <div class="excel">
-                  <div class="column is-flex  is-justify-content-center is-align-content-center is-align-self-center">
-                    <span class="is-size-6 is-family-iranSans">ورود کاربران بصورت گروهی از اکسل</span>
+
+                <div justify="center" class="columns is-flex is-justify-content-flex-start">
+                  <div class="column is-flex  is-justify-content-right is-align-content-right is-align-self-right">
+                    <span class="is-size-6 is-family-iranSans">افزودن گروهی شرکت کنندگان</span>
                     <vs-checkbox ref="checkbox" id="excelCheckBox" v-model="disable">
                     </vs-checkbox>
                   </div>
-                  <div class="is-flex mb-6 is-justify-content-center is-align-content-center is-align-self-center">
-                    <div class="file is-warning has-name" v-if="!isDisabled">
-                      <label class="file-label">
-                        <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+                </div>
+                <div class="columns is-flex  is-justify-content-center is-align-content-center is-align-self-center">
 
-                        <span class="file-cta">
-                          <span class="file-icon">
-                            <i class="fas fa-upload"></i>
+                      <div class="is-flex column is-justify-content-center is-align-content-center is-align-self-center">
+                        <div class="file is-warning has-name" v-if="!isDisabled">
+                          <label class="file-label">
+                            <input type="file" ref="fileName" class="file-upload" name="attachment[]" id="fileId" @change="onFileChange"  multiple>
+
+                            <span class="file-cta">
+
+                          <span class="file-label is-size-7 has-text-weight-bold">
+                          بارگذاری فایل
                           </span>
-                          <span class="file-label is-size-7">
-                          بارگذاری فایل اکسل
+                               <span class="file-icon">
+                            <i class="bx bx-upload bx-sm"></i>
                           </span>
                       </span>
-                        <span class="file-name" v-if="fileName">
+                            <span class="file-name" v-if="fileName">
                     {{fileName}}
                          </span>
-                      </label>
-                    </div>
+                          </label>
+                        </div>
+                      </div>
+
+                  <div class="column is-flex  is-justify-content-right is-align-content-center is-align-self-center">
+                    <button class="button is-info has-text-white is-normal" v-if="!isDisabled"> <span class="mr-7" >دانلود قالب اکسل</span>  <i class='fas fa-file-excel'></i></button>
                   </div>
                 </div>
-                <vs-button block >
-
-                  <span class="mr-1">تأیید و ایجاد کاربر</span>     <i class='bx bx-check'></i>
-
-
+                <vs-button block success>
+                  <span class="mr-1 is-size-7">ثبت</span> <i class='bx bx-check'></i>
                 </vs-button>
               </form>
             </div>
@@ -190,7 +205,8 @@ export default {
       password: '',
       remember: false,
       contentLoading:false,
-      routeCookie: ''
+      routeCookie: '',
+      fileName:null
     }
   },
 methods : {
@@ -361,6 +377,7 @@ methods : {
       this.mobile=''
       this.email=''
       this.className= ''
+      this.fileName = null
       return !this.disable;
     }
   },

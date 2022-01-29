@@ -359,6 +359,7 @@ export default {
             this.getMeeting()
           }else {
             this.courseId=this.selectList[0]['id']
+            this.getMeeting()
           }
         })
   },

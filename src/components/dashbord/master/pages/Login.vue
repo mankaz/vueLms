@@ -84,11 +84,6 @@
                                   <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
                                   <i v-else class='bx bx-hide'></i>
                                 </template>
-
-                                <template v-if="getProgress >= 100" #message-success>
-                                  Secure password
-                                </template>
-
                               </vs-input>
                             </div>
                           </div>

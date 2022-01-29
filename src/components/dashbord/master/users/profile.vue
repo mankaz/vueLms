@@ -31,9 +31,15 @@
                   </vs-input>
                 </div>
               </div>
+<div class="columns">
 
+  <div class="column">
+    <blockquote class="blockquote is-size-7">
+ رمز مطمئن حداقل 8 کاراکتر شامل حروف بزرگ و کوچک،اعداد و کاراکترهای خاص
+    </blockquote>
+  </div>
+</div>
               <div justify="center" class="columns is-flex is-justify-content-flex-end">
-
                 <div class="column">
                   <vs-input
                       id="confirmPassword"
@@ -41,7 +47,6 @@
                       type="password"
                       v-model="value2"
                       placeholder="تکرار رمز عبور"
-                      :progress="getProgress2"
                       :visiblePassword="hasVisibleConfirmPassword"
                       icon-after
                       @keyup="getProgress2"
@@ -50,10 +55,6 @@
                     <template #icon>
                       <i v-if="!hasVisibleConfirmPassword" class='bx bx-show-alt'></i>
                       <i v-else class='bx bx-hide'></i>
-                    </template>
-
-                    <template v-if="getProgress2 >= 100" #message-success>
-                      رمز عبور مطمئن
                     </template>
                   </vs-input>
                 </div>
@@ -67,7 +68,7 @@
                       :progress="getProgress"
                       :visiblePassword="hasVisiblePassword"
                       icon-after
-                      @keyup="getProgress2"
+                      @keyup="getProgress"
                       @click-icon="hasVisiblePassword = !hasVisiblePassword">
                     >
                     <template #icon>
@@ -79,7 +80,7 @@
                       رمز عبور مطمئن
                     </template>
                   </vs-input>
-                <span class="is-family-iranSans is-size-7 is-rtl"> {{message}}</span>
+                <span class="is-family-iranSans is-size-7 is-rtl password-message"> {{message}}</span>
                 </div>
               </div>
               <div class="columns">
@@ -159,14 +160,13 @@ export default {
     },
   },
   methods : {
-    getProgress2(){
-      if (this.value === this.value2) {
-       this.message = ''
-      } else {
-      this.message = 'رمز عبورها یکسان نیستند'
+    getProgress2() {
+      if (this.value2 !== this.value) {
+        this.message = 'رمز عبورها یکسان نیستند'
+      }else{
+        this.message = ''
       }
     }
-
   },
     computed: {
       getProgress() {

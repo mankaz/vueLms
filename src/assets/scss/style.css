@@ -4427,6 +4427,13 @@ body {
   direction: rtl;
 }
 
+.column .blockquote {
+  background-color: #f5f5f5;
+  border-right: 5px solid #ffaf37;
+  padding: 1.25em 1.5em;
+  direction: rtl !important;
+  font-family: IRANSans !important;
+}
 .column .textarea {
   font-family: IRANSans !important;
   direction: rtl !important;
@@ -4435,11 +4442,6 @@ body {
 .column span {
   font-family: IRANSans !important;
   margin-right: 3px !important;
-}
-.column .excel {
-  margin-top: 60px !important;
-  margin-bottom: 40px !important;
-  line-height: 3 !important;
 }
 .column h1.devider {
   border-bottom: 1px solid #c7c7c7 !important;
