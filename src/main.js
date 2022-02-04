@@ -5,7 +5,7 @@ import router from "./router";
 import VueApexCharts from 'vue-apexcharts'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 // import Buefy from 'buefy';
-import 'bulma/css/bulma-rtl.css'
+// import 'bulma/css/bulma-rtl.css'
 
 Vue.component('date-picker', VuePersianDatetimePicker);
 import VueStore from '@websanova/vue-store';

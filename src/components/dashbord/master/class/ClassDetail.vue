@@ -130,7 +130,7 @@
                       </div>
 
                   <div class="column is-flex  is-justify-content-right is-align-content-center is-align-self-center">
-                    <button class="button is-info has-text-white is-normal" v-if="!isDisabled"> <span class="mr-7" >دانلود قالب اکسل</span>  <i class='fas fa-file-excel'></i></button>
+                    <button class="button is-info has-text-white is-normal" v-if="!isDisabled"> <span class="mr-7 excel-download" >دانلود قالب اکسل</span>  <i class='fas fa-file-excel'></i></button>
                   </div>
                 </div>
                 <vs-button block success>

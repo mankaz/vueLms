@@ -10,7 +10,7 @@
                   <p class="is-family-iranSans has-text-white is-flex is-align-items-center">به سامانه آموزش مجازی خوش
                     آمدید</p>
                 </div>
-                <div class="column is-flex is-justify-content-center" v-if="loginHidden">
+                <div class="column is-flex is-justify-content-center" v-if="mobileLogin">
 
                   <div ref="element" :closable="false">
                     <div class="column is-flex is-justify-content-flex-end is-12-desktop">
@@ -169,8 +169,8 @@ export default {
       labelPosition: 'on-border',
       mobile: '',
       verifyHidden: false,
-      loginHidden: true,
-      loginPassword:'',
+      mobileLogin: false,
+      loginPassword:true,
       visibleGetCode: false,
       countDown : null,
       seconds : 10,
@@ -182,6 +182,7 @@ export default {
       fourNumber:'',
       fiveNumber:'',
       value: '',
+      value1:'',
       hasVisiblePassword: false
     }
 
@@ -192,7 +193,7 @@ export default {
 
     mobileEdit(){
       this.verifyHidden = false
-      this.loginHidden = true
+      this.mobileLogin = true
       this.loginPassword=false
          this.oneNumber=''
          this.twoNumber=''
@@ -201,11 +202,11 @@ export default {
          this.fiveNumber= ''
     },
     loginPass(){
-      this.loginHidden = false
+      this.mobileLogin = false
       this.loginPassword=true
     },
     loginMobile(){
-      this.loginHidden = true
+      this.mobileLogin = true
       this.loginPassword=false
     },
 
@@ -316,7 +317,7 @@ export default {
       //   })
       }else{
         this.verifyHidden = true
-        this.loginHidden = false
+        this.mobileLogin = false
         const headers = {'content-type': 'application/x-www-form-urlencoded'};
         axios.post("https://gholeydoon.ir/bbb/public/UserController/loginOrRegister", form, {headers})
             .then(() => {
@@ -348,7 +349,10 @@ export default {
   components: {
     ResendCode
   },
+
   mounted() {
+    console.log(window.document.referrer)
+    console.log(this.$route)
     // if (this.$cookies.get('mobile') && this.$cookies.get('token')) {
     //   this.$router.push('/dashboard')
     // }

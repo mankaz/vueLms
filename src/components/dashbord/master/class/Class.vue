@@ -363,6 +363,12 @@ export default {
           }
         })
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.from = from;
+      console.log(vm.from)
+    });
+  },
   components: {
     ClassCard,upload
   }
